@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@blueprintjs/core": "^1.33.0",
+    "normalize.css": "^7.0.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-google-maps": "^9.2.2",

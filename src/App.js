@@ -7,7 +7,6 @@ import {
 import LineGraph from './components/LineGraph'
 import Map from './components/Map'
 import Video from './components/Video'
-import './styles/react-mosaic-component.css'
 import './App.css'
 
 let windowCount = 4
