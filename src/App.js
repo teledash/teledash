@@ -4,9 +4,13 @@ import {
   MosaicWindow,
   MosaicZeroState,
 } from 'react-mosaic-component'
-import LineGraph from './components/LineGraph'
-import Map from './components/Map'
-import Video from './components/Video'
+import {
+  LineGraph,
+  Map,
+  Video,
+  Sidebar
+} from './components'
+
 import './App.css'
 
 let windowCount = 4
@@ -19,7 +23,6 @@ const ELEMENT_MAP = {
 }
 
 export class App extends PureComponent {
-
   state = {
     currentNode: {
       direction: 'row',
@@ -39,25 +42,27 @@ export class App extends PureComponent {
 
   render() {
     return (
-      <div className='dashboard'>
-        <Mosaic
-          renderTile={(count, path) => (
-            <MosaicWindow
-              createNode={this.createNode}
-              path={path}
-            >
-              <div className='window'>
-                {ELEMENT_MAP[count + '']}
-              </div>
-            </MosaicWindow>
-          )}
-          zeroStateView={<MosaicZeroState createNode={this.createNode} />}
-          value={this.state.currentNode}
-          onChange={this.onChange.bind(this)}
-          className="mosaic-blueprint-theme pt-dark"
-        />
-      </div>
-    );
+      <Sidebar>
+        <div className='dashboard'>
+          <Mosaic
+            renderTile={(count, path) => (
+              <MosaicWindow
+                createNode={this.createNode}
+                path={path}
+              >
+                <div className='window'>
+                  {ELEMENT_MAP[count + '']}
+                </div>
+              </MosaicWindow>
+            )}
+            zeroStateView={<MosaicZeroState createNode={this.createNode} />}
+            value={this.state.currentNode}
+            onChange={this.onChange.bind(this)}
+            className="mosaic-blueprint-theme pt-dark"
+          />
+        </div>
+      </Sidebar>
+    )
   }
 
   onChange (currentNode) {
@@ -69,4 +74,4 @@ export class App extends PureComponent {
   }
 }
 
-export default App;
+export default App

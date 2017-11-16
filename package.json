@@ -11,6 +11,7 @@
     "react-mosaic-component": "^1.0.3",
     "react-player": "^0.25.3",
     "react-scripts": "^1.0.17",
+    "react-sidebar": "^2.3.2",
     "react-vis": "^1.7.9"
   },
   "scripts": {
