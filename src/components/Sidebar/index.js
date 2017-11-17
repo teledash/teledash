@@ -1,18 +1,16 @@
 import React from 'react'
-
 import ReactSidebar from 'react-sidebar'
 import Navbar from '../Navbar'
 import SidebarContent from './sidebar-content'
+import './index.css'
 
+// FIXME: pt-dark on navbar overrides to blue
 const styles = {
   contentHeaderMenuLink: {
     textDecoration: 'none',
-    color: 'white',
+    color: '#AAB5C1',
     padding: 8,
-  },
-  content: {
-    padding: '16px',
-  },
+  }
 }
 
 class Sidebar extends React.Component {
@@ -79,13 +77,14 @@ class Sidebar extends React.Component {
       <span>
         {!this.state.docked &&
           <a onClick={this.menuButtonClick} href="#" style={styles.contentHeaderMenuLink}>=</a>}
-        <span> teledash </span>
+        <span className="sidebar-text">teledash </span>
       </span>)
 
     const sidebarProps = {
       sidebar: sidebar,
+      overlayClassName: 'sidebar',
       docked: this.state.docked,
-      sidebarClassName: 'mosaic-blueprint-theme',
+      sidebarClassName: 'sidebar',
       open: this.state.open,
       touch: this.state.touch,
       shadow: this.state.shadow,
@@ -97,7 +96,7 @@ class Sidebar extends React.Component {
     }
 
     return (
-      <ReactSidebar {...sidebarProps}>
+      <ReactSidebar style={{backgroundColor: 'white'}} {...sidebarProps}>
         <Navbar title={contentHeader} />
         {this.props.children}
       </ReactSidebar>

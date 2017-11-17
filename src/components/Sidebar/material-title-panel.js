@@ -8,7 +8,7 @@ const styles = {
   },
   header: {
     backgroundColor: '#03a9f4',
-    color: 'white',
+    color: '#AAB5C1',
     padding: '16px',
     fontSize: '1.5em',
   },
@@ -19,7 +19,7 @@ const MaterialTitlePanel = (props) => {
 
   return (
     <div style={rootStyle}>
-      <div style={styles.header}>{props.title}</div>
+      <div className="sidebar-text"> { props.title }</div>
       {props.children}
     </div>
   )

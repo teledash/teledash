@@ -1,0 +1,16 @@
+.sidebar {
+  background-color: #2C3641;
+  z-index: 90 !important;
+  position:relative;
+}
+
+.sidebar-text {
+
+  color: #AAB5C1;
+}
+
+.content-header-menu-link {
+  text-decoration: none !important;
+  color: #AAB5C1;
+  padding: 8;
+}

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+// import './index.less'
 
 // const styles = {
 //   root: {
@@ -18,7 +19,7 @@ const Navbar = (props) => {
    return (
      <div className='pt-navbar pt-dark'>
        <div>{props.title}</div>
-      <div className='pt-navbar-group'>
+      <div>
         <div className='pt-logo' />
         <div className='pt-navbar-heading'>
         </div>
@@ -26,7 +27,21 @@ const Navbar = (props) => {
       <div className='pt-navbar-group pt-button-group'>
         <label className='pt-label pt-inline theme-selection'>
         </label>
-        <div className='navbar-separator' />
+         <div className='navbar-separator'>
+           {/* <span className='actions-label'>Example Actions:</span>
+           <button
+             className='pt-button pt-icon-grid-view'
+             onClick={this.autoArrange}
+           >
+             Auto Arrange
+          </button>
+           <button
+             className='pt-button pt-icon-arrow-top-right'
+             onClick={this.addToTopRight}
+           >
+             Add Window to Top Right
+          </button> */}
+         </div>
       </div>
     </div>
   )
