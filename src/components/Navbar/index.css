@@ -1,0 +1,5 @@
+.pt-menu-item {
+  /* Without this the menu items are blurry in chrome */
+  /* FIXME: find better way */
+  -webkit-font-smoothing: antialiased;
+}

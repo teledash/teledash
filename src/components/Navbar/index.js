@@ -9,52 +9,47 @@ import {
   MenuDivider
 } from '@blueprintjs/core'
 
-function handleClick(e: React.MouseEvent) {
-        console.log("clicked", e.target)
-    }
+import './index.css'
 
-const AddWidgetMenu = () => (
+const AddWidgetMenu = ({ addWidget }) => (
   <Menu>
       <MenuItem
           iconName="pt-icon-path-search"
-          onClick={handleClick}
+          onClick={() => addWidget('map')}
           text="Map"
       />
-      <MenuDivider />
       <MenuItem
           iconName="pt-icon-th"
-          onClick={handleClick}
+          onClick={() => addWidget('table')}
           text="Table"
       />
-      <MenuDivider />
       <MenuItem
           iconName="pt-icon-timeline-line-chart"
-          onClick={handleClick}
+          onClick={() => addWidget('line_graph')}
           text="Line Graph"
       />
-      <MenuDivider />
       <MenuItem
           iconName="pt-icon-mobile-video"
-          onClick={handleClick}
+          onClick={() => addWidget('video')}
           text="Video"
       />
   </Menu>
 )
 
-const AddWidget = () => (
-  <Popover content={<AddWidgetMenu/>} position={Position.BOTTOM_RIGHT}>
+const AddWidget = ({ addWidget }) => (
+  <Popover content={<AddWidgetMenu addWidget={addWidget} />} position={Position.BOTTOM_RIGHT}>
     <Button iconName="plus" text="Add Widget" />
   </Popover>
 )
 
-const Navbar = (props) => (
-  <nav class="pt-navbar pt-dark modifier">
-    <div class="pt-navbar-group pt-align-left">
-      <div class="pt-navbar-heading">Teledash</div>
+const Navbar = ({ addWindow }) => (
+  <nav className="pt-navbar pt-dark modifier">
+    <div className="pt-navbar-group pt-align-left">
+      <div className="pt-navbar-heading">Teledash</div>
       {/* <input class="pt-input" placeholder="Search..." type="text" /> */}
     </div>
-    <div class="pt-navbar-group pt-align-right">
-      <AddWidget/>
+    <div className="pt-navbar-group pt-align-right">
+      <AddWidget addWidget={addWindow} />
 
       {/* <button class="pt-button pt-minimal pt-icon-user"></button>
       <button class="pt-button pt-minimal pt-icon-notifications"></button>
@@ -62,5 +57,9 @@ const Navbar = (props) => (
     </div>
   </nav>
   )
+
+Navbar.propTypes = {
+  addWindow: PropTypes.func
+}
 
 export default Navbar

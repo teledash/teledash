@@ -3,6 +3,13 @@ import {
   Mosaic,
   MosaicWindow,
   MosaicZeroState,
+  Corner,
+  getNodeAtPath,
+  getOtherDirection,
+  getPathToCorner,
+  MosaicDirection,
+  MosaicNode,
+  updateTree,
 } from 'react-mosaic-component'
 import {
   LineGraph,
@@ -10,17 +17,11 @@ import {
   Video,
   Navbar
 } from './components'
+import _ from 'lodash'
 
 import './App.css'
 
 let windowCount = 4
-
-const ELEMENT_MAP = {
-  '1': <Map />,
-  '2': <LineGraph />,
-  '3': <Video />,
-  '4': <div></div>
-}
 
 export class App extends PureComponent {
   state = {
@@ -38,12 +39,68 @@ export class App extends PureComponent {
       },
     },
     currentTheme: 'Blueprint Dark',
+    widgetMap: {
+      '1': <Map />,
+      '2': <LineGraph />,
+      '3': <Video />,
+      '4': <div></div>
+    }
+  }
+
+  addWindow(componentName) {
+    switch(componentName) {
+      case 'map':
+        this.addToTopRight(<Map />)
+        break
+      case 'line_graph':
+        this.addToTopRight(<LineGraph />)
+        break
+      case 'video':
+        this.addToTopRight(<Video />)
+        break
+      default: this.addToTopRight(<LineGraph />)
+    }
+  }
+
+  addToTopRight(widget) {
+    let { currentNode } = this.state
+    if (currentNode) {
+      const path = getPathToCorner(currentNode, Corner.TOP_RIGHT)
+      const parent = getNodeAtPath(currentNode, _.dropRight(path))
+      const destination = getNodeAtPath(currentNode, path)
+      const direction: MosaicDirection = parent ? getOtherDirection(parent.direction) : 'row'
+      let first: MosaicNode
+      let second: MosaicNode
+      if (direction === 'row') {
+        first = destination
+        second = ++windowCount
+      } else {
+        first = ++windowCount
+        second = destination
+      }
+      currentNode = updateTree(currentNode, [{
+        path,
+        spec: {
+          $set: {
+            direction, first, second,
+          },
+        },
+      }])
+    } else {
+      currentNode = ++windowCount
+    }
+
+    const newWidgetMap = {...this.state.widgetMap, }
+    newWidgetMap[windowCount] = widget
+
+    this.setState({ widgetMap: newWidgetMap })
+    this.setState({ currentNode })
   }
 
   render() {
     return (
         <div className='dashboard'>
-        <Navbar/>
+        <Navbar addWindow={this.addWindow.bind(this)}/>
           <Mosaic
             renderTile={(count, path) => (
               <MosaicWindow
@@ -51,7 +108,7 @@ export class App extends PureComponent {
                 path={path}
               >
                 <div className='window'>
-                  {ELEMENT_MAP[count + '']}
+                  {this.state.widgetMap[count + '']}
                 </div>
               </MosaicWindow>
             )}
