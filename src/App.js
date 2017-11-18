@@ -8,7 +8,7 @@ import {
   LineGraph,
   Map,
   Video,
-  Sidebar
+  Navbar
 } from './components'
 
 import './App.css'
@@ -42,8 +42,8 @@ export class App extends PureComponent {
 
   render() {
     return (
-      <Sidebar>
         <div className='dashboard'>
+        <Navbar/>
           <Mosaic
             renderTile={(count, path) => (
               <MosaicWindow
@@ -61,7 +61,6 @@ export class App extends PureComponent {
             className="mosaic-blueprint-theme pt-dark"
           />
         </div>
-      </Sidebar>
     )
   }
 
