@@ -5,11 +5,11 @@ import {
   Button,
   Position,
   Menu,
-  MenuItem,
-  MenuDivider
+  MenuItem
 } from '@blueprintjs/core'
-
 import './index.css'
+
+// import DataManager from '../DataManager'
 
 const AddWidgetMenu = ({ addWidget }) => (
   <Menu>
@@ -50,6 +50,7 @@ const Navbar = ({ addWindow }) => (
     </div>
     <div className="pt-navbar-group pt-align-right">
       <AddWidget addWidget={addWindow} />
+      {/* <DataManager /> */}
 
       {/* <button class="pt-button pt-minimal pt-icon-user"></button>
       <button class="pt-button pt-minimal pt-icon-notifications"></button>
