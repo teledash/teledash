@@ -1,7 +1,7 @@
 import { createStore, compose } from 'redux'
-import config from './dashboard.config'
+import reducers from './reducers'
 
-export default function configureStore(initialState = { config }) {
+export default function configureStore(initialState = { }) {
 
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
   const composeEnhancers =
@@ -11,7 +11,7 @@ export default function configureStore(initialState = { config }) {
       window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 
   return createStore(
-    function() {},
+    reducers,
     initialState,
     composeEnhancers()
   )

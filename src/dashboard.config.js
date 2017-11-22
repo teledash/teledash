@@ -13,7 +13,7 @@ export default {
       second: 4,
     },
   },
-  currentTheme: 'Blueprint Dark',
+  theme: 'mosaic-blueprint-theme pt-dark',
   widgets: [
     { type: 'map', source: 'iss_location' },
     { type: 'line_graph', source: 'iss_temperature' },

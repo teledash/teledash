@@ -20,16 +20,9 @@ import {
   Video,
 } from '../../components'
 
-import config from '../../dashboard.config'
 import './style.css'
 
-export class Dashboard extends Component {
-  state = {
-    windowCount: config.windowCount,
-    currentNode: config.currentNode,
-    theme: config.theme,
-    widgets: config.widgets.map(widget => this.createWidget(widget.type))
-  }
+class Dashboard extends Component {
 
   createWidget(type) {
     const mapper = {
@@ -46,7 +39,7 @@ export class Dashboard extends Component {
   }
 
   addToTopRight(widget) {
-    let { currentNode } = this.state
+    let { currentNode } = this.props
     if (currentNode) {
       const path = getPathToCorner(currentNode, Corner.TOP_RIGHT)
       const parent = getNodeAtPath(currentNode, _.dropRight(path))
@@ -73,7 +66,7 @@ export class Dashboard extends Component {
       currentNode = this.incWindowCount()
     }
 
-    this.setState({ currentNode, widgets: [...this.state.widgets, widget] })
+    this.setState({ currentNode, widgets: [...this.props.widgets, widget] })
   }
 
   render() {
@@ -85,14 +78,14 @@ export class Dashboard extends Component {
               path={path}
             >
               <div className='window'>
-                {this.state.widgets[count - 1]}
+                {this.props.widgets[count - 1]}
               </div>
             </MosaicWindow>
           )}
           zeroStateView={<div></div>}
-          value={this.state.currentNode}
+          value={this.props.currentNode}
           onChange={this.onChange.bind(this)}
-          className="mosaic-blueprint-theme pt-dark"
+          className={this.props.theme}
         />
     )
   }
@@ -102,7 +95,7 @@ export class Dashboard extends Component {
   }
 
   incWindowCount() {
-    const windowCount = this.state.windowCount + 1
+    const windowCount = this.props.windowCount + 1
     this.setState({windowCount})
     return windowCount
   }
@@ -115,19 +108,32 @@ Dashboard.PropTypes = {
   widgets: PropTypes.array
 }
 
-export const mapStateToProps = state => ({
-  data: state.config.windowCount,  // TODO: convert to redux
-  currentNode: state.config.currentNode, // TODO: convert to redux
-  theme: state.config.theme, // TODO: convert to redux
-  widgets: state.config.widgets.map(widget => this.createWidget(widget.type)) // TODO: convert to redux
-})
+
+function createWidget(type) {
+  const mapper = {
+    map: <Map />,
+    line_graph: <LineGraph />,
+    video: <Video />
+  }
+
+  return mapper[type]
+}
+
+export const mapStateToProps = state => {
+  return {
+    data: state.config.windowCount,
+    currentNode: state.config.currentNode,
+    theme: state.config.theme,
+    widgets: state.config.widgets.map(widget => createWidget(widget.type))
+  }
+}
 
 export const mapDispatchToProps = (dispatch) => ({
-  incrementWindowCount: count => dispatch(() => {}), // TODO: convert to redux
-  onChange: ids => dispatch(() => { }), // TODO: convert to redux
+  incrementWindowCount: () => dispatch(() => {}), // TODO: convert to redux
+  onChange: () => dispatch(() => { }), // TODO: convert to redux
   addWindow: () => dispatch(() => { }), // TODO: convert to redux
   addToTopRight: () => dispatch(() => { }), // TODO: convert to redux
   createWidget: () => dispatch(() => {}) // TODO: convert to redux
 })
 
-export default Dashboard
+export default connect(mapStateToProps)(Dashboard)
