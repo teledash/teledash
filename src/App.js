@@ -28,10 +28,10 @@ export class App extends PureComponent {
     windowCount: config.windowCount,
     currentNode: config.currentNode,
     theme: config.theme,
-    widgets: config.widgets.map(widget => this.getComponentByType(widget.type))
+    widgets: config.widgets.map(widget => this.createWidget(widget.type))
   }
 
-  getComponentByType(type) {
+  createWidget(type) {
     const mapper = {
       map: <Map />,
       line_graph: <LineGraph />,
@@ -42,7 +42,7 @@ export class App extends PureComponent {
   }
 
   addWindow(componentType) {
-    this.addToTopRight(this.getComponentByType(componentType))
+    this.addToTopRight(this.createWidget(componentType))
   }
 
   addToTopRight(widget) {

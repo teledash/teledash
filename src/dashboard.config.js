@@ -21,7 +21,7 @@ export default {
     { type: 'empty', source: null }
   ],
   dataSources: [
-    { id: 'iss_feed', name: 'Iss Feed', type: 'video', url: 'https://www.youtube.com/watch?v=ddFvjfvPnqk', public: true },
+    { id: 'iss_feed', name: 'ISS Feed', type: 'video', url: 'https://www.youtube.com/watch?v=ddFvjfvPnqk', public: true },
     { id: 'iss_temperature', name: 'Temperature', type: 'json', url: 'https://fake-url.data-stream.json', public: true },
     { id: 'iss_location', name: 'Current ISS location', type: 'json', url: 'https://fake-url.data-stream.json', public: true }
   ]
