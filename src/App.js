@@ -19,47 +19,30 @@ import {
 } from './components'
 import _ from 'lodash'
 
-import './App.css'
+import config from './dashboard.config'
 
-let windowCount = 4
+import './App.css'
 
 export class App extends PureComponent {
   state = {
-    currentNode: {
-      direction: 'row',
-      first: {
-        direction: 'column',
-        first: 1,
-        second: 2,
-      },
-      second: {
-        direction: 'column',
-        first: 3,
-        second: 4,
-      },
-    },
-    currentTheme: 'Blueprint Dark',
-    widgetMap: {
-      '1': <Map />,
-      '2': <LineGraph />,
-      '3': <Video />,
-      '4': <div></div>
-    }
+    windowCount: config.windowCount,
+    currentNode: config.currentNode,
+    theme: config.theme,
+    widgets: config.widgets.map(widget => this.getComponentByType(widget.type))
   }
 
-  addWindow(componentName) {
-    switch(componentName) {
-      case 'map':
-        this.addToTopRight(<Map />)
-        break
-      case 'line_graph':
-        this.addToTopRight(<LineGraph />)
-        break
-      case 'video':
-        this.addToTopRight(<Video />)
-        break
-      default: this.addToTopRight(<LineGraph />)
+  getComponentByType(type) {
+    const mapper = {
+      map: <Map />,
+      line_graph: <LineGraph />,
+      video: <Video />
     }
+
+    return mapper[type]
+  }
+
+  addWindow(componentType) {
+    this.addToTopRight(this.getComponentByType(componentType))
   }
 
   addToTopRight(widget) {
@@ -73,9 +56,9 @@ export class App extends PureComponent {
       let second: MosaicNode
       if (direction === 'row') {
         first = destination
-        second = ++windowCount
+        second = this.incWindowCount()
       } else {
-        first = ++windowCount
+        first = this.incWindowCount()
         second = destination
       }
       currentNode = updateTree(currentNode, [{
@@ -87,46 +70,44 @@ export class App extends PureComponent {
         },
       }])
     } else {
-      currentNode = ++windowCount
+      currentNode = this.incWindowCount()
     }
 
-    const newWidgetMap = {...this.state.widgetMap, }
-    newWidgetMap[windowCount] = widget
-
-    this.setState({ widgetMap: newWidgetMap })
-    this.setState({ currentNode })
+    this.setState({ currentNode, widgets: [...this.state.widgets, widget] })
   }
 
   render() {
     return (
-        <div className='dashboard'>
-        <Navbar addWindow={this.addWindow.bind(this)}/>
-          <Mosaic
-            renderTile={(count, path) => (
-              <MosaicWindow
-                createNode={this.createNode}
-                path={path}
-              >
-                <div className='window'>
-                  {this.state.widgetMap[count + '']}
-                </div>
-              </MosaicWindow>
-            )}
-            zeroStateView={<MosaicZeroState createNode={this.createNode} />}
-            value={this.state.currentNode}
-            onChange={this.onChange.bind(this)}
-            className="mosaic-blueprint-theme pt-dark"
-          />
-        </div>
+      <div className='dashboard'>
+        <Navbar addWindow={this.addWindow.bind(this)} />
+        <Mosaic
+          renderTile={(count, path) => (
+            <MosaicWindow
+              createNode={this.incWindowCount.bind(this)}
+              path={path}
+            >
+              <div className='window'>
+                {this.state.widgets[count - 1]}
+              </div>
+            </MosaicWindow>
+          )}
+          zeroStateView={<div></div>}
+          value={this.state.currentNode}
+          onChange={this.onChange.bind(this)}
+          className="mosaic-blueprint-theme pt-dark"
+        />
+      </div>
     )
   }
 
-  onChange (currentNode) {
+  onChange(currentNode) {
     return this.setState({ currentNode })
   }
 
-  createNode() {
-    return ++windowCount
+  incWindowCount() {
+    const windowCount = this.state.windowCount + 1
+    this.setState({windowCount})
+    return windowCount
   }
 }
 

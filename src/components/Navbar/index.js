@@ -18,11 +18,11 @@ const AddWidgetMenu = ({ addWidget }) => (
           onClick={() => addWidget('map')}
           text="Map"
       />
-      <MenuItem
+      {/* <MenuItem
           iconName="pt-icon-th"
           onClick={() => addWidget('table')}
           text="Table"
-      />
+      /> */}
       <MenuItem
           iconName="pt-icon-timeline-line-chart"
           onClick={() => addWidget('line_graph')}
