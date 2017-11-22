@@ -1,8 +1,7 @@
 import { createStore, compose } from 'redux'
+import config from './dashboard.config'
 
-const data = []
-
-export default function configureStore(initialState = { data }) {
+export default function configureStore(initialState = { config }) {
 
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
   const composeEnhancers =
