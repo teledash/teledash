@@ -1,4 +1,4 @@
-html, body, #app, .dashboard {
+html, body, #root, #app {
   margin: 0;
   height: 100%;
   width: 100%;

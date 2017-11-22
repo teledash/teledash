@@ -2,7 +2,7 @@ import React from 'react'
 import ReactSidebar from 'react-sidebar'
 import Navbar from '../Navbar'
 import SidebarContent from './sidebar-content'
-import './index.css'
+import './style.css'
 
 // FIXME: pt-dark on navbar overrides to blue
 const styles = {

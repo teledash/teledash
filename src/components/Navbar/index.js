@@ -7,7 +7,7 @@ import {
   Menu,
   MenuItem
 } from '@blueprintjs/core'
-import './index.css'
+import './style.css'
 
 // import DataManager from '../DataManager'
 
