@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactSidebar from 'react-sidebar'
-import Navbar from '../Navbar'
 import SidebarContent from './sidebar-content'
 import './style.css'
 
@@ -97,7 +96,6 @@ class Sidebar extends React.Component {
 
     return (
       <ReactSidebar style={{backgroundColor: 'white'}} {...sidebarProps}>
-        <Navbar title={contentHeader} />
         {this.props.children}
       </ReactSidebar>
     )

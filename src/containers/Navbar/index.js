@@ -7,9 +7,9 @@ import {
   Menu,
   MenuItem
 } from '@blueprintjs/core'
+import { connect } from 'react-redux'
 import './style.css'
-
-// import DataManager from '../DataManager'
+import { addWidget } from './actions'
 
 const AddWidgetMenu = ({ addWidget }) => (
   <Menu>
@@ -42,14 +42,14 @@ const AddWidget = ({ addWidget }) => (
   </Popover>
 )
 
-const Navbar = ({ addWindow }) => (
+const Navbar = ({ addWidget }) => (
   <nav className="pt-navbar pt-dark modifier">
     <div className="pt-navbar-group pt-align-left">
       <div className="pt-navbar-heading">Teledash</div>
       {/* <input class="pt-input" placeholder="Search..." type="text" /> */}
     </div>
     <div className="pt-navbar-group pt-align-right">
-      <AddWidget addWidget={addWindow} />
+      <AddWidget addWidget={ addWidget } />
       {/* <DataManager /> */}
 
       {/* <button class="pt-button pt-minimal pt-icon-user"></button>
@@ -60,7 +60,11 @@ const Navbar = ({ addWindow }) => (
   )
 
 Navbar.propTypes = {
-  addWindow: PropTypes.func
+  addWidget: PropTypes.func
 }
 
-export default Navbar
+const mapDispatchToProps = dispatch => ({
+  addWidget: () => dispatch(addWidget())
+})
+
+export default connect(null, mapDispatchToProps)(Navbar)
