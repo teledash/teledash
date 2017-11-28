@@ -1,12 +1,73 @@
 import { combineReducers } from 'redux'
+import {
+  Corner,
+  getNodeAtPath,
+  getOtherDirection,
+  getPathToCorner,
+  updateTree,
+} from 'react-mosaic-component'
+import _ from 'lodash'
 import config from '../dashboard.config'
-import { navbarReducer } from '../containers/Navbar/reducer'
+import {
+  ADD_VIDEO,
+  ADD_LINE_GRAPH,
+  ADD_MAP
+} from '../containers/Navbar/constants'
+
 
 const configReducer = (state = config, action = {}) => {
-  return Object.freeze(state)
+  Object.freeze(state)
+
+  switch (action.type) {
+    case ADD_VIDEO: return addNewWidget(state, action.type)
+    case ADD_LINE_GRAPH: return addNewWidget(state, action.type)
+    case ADD_MAP: return addNewWidget(state, action.type)
+    default: return state
+  }
 }
 
+function addNewWidget(currentState, type) {
+  const { widgets, windowCount, currentNode, ...rest } = currentState
+  //FIXME: This should be easier convert to serialized format
+  const widgetType = type.split('_').slice(1).join('_').toLowerCase()
+  console.log(widgetType)
+  return {
+    ...addToTopRight(
+      currentNode, widgetType, widgets, windowCount
+    ), ...rest
+  }
+}
+
+function addToTopRight(currentNode, widgetType, widgets, windowCount) {
+    if (currentNode) {
+      const path = getPathToCorner(currentNode, Corner.TOP_RIGHT)
+      const parent = getNodeAtPath(currentNode, _.dropRight(path))
+      const destination = getNodeAtPath(currentNode, path)
+      const direction = parent ? getOtherDirection(parent.direction) : 'row'
+      let first
+      let second
+      if (direction === 'row') {
+        first = destination
+        second = ++windowCount
+      } else {
+        first = ++windowCount
+        second = destination
+      }
+      currentNode = updateTree(currentNode, [{
+        path,
+        spec: {
+          $set: {
+            direction, first, second,
+          },
+        },
+      }])
+    } else {
+      currentNode = ++windowCount
+    }
+
+  return { currentNode, windowCount, widgets: [...widgets, { type: widgetType }] }
+  }
+
 export default combineReducers({
-  config: configReducer,
-  navbar: navbarReducer
+  config: configReducer
 })

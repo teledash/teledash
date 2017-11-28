@@ -1,60 +1,16 @@
 import React, { Component } from 'react'
 import {
   Mosaic,
-  MosaicWindow,
-  Corner,
-  getNodeAtPath,
-  getOtherDirection,
-  getPathToCorner,
-  MosaicDirection,
-  MosaicNode,
-  updateTree,
+  MosaicWindow
 } from 'react-mosaic-component'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
 import { connect } from 'react-redux'
 import SettingsButton from './SettingsButton'
-
+import { onDashboardChange } from './actions'
 import { selectWidget } from './selectors'
 import './style.css'
 
 class Dashboard extends Component {
-
-  // addWindow(componentType) {
-  //   this.addToTopRight(this.createWidget(componentType))
-  // }
-
-  // addToTopRight(widget) {
-  //   let { currentNode } = this.props
-  //   if (currentNode) {
-  //     const path = getPathToCorner(currentNode, Corner.TOP_RIGHT)
-  //     const parent = getNodeAtPath(currentNode, _.dropRight(path))
-  //     const destination = getNodeAtPath(currentNode, path)
-  //     const direction: MosaicDirection = parent ? getOtherDirection(parent.direction) : 'row'
-  //     let first: MosaicNode
-  //     let second: MosaicNode
-  //     if (direction === 'row') {
-  //       first = destination
-  //       second = this.incWindowCount()
-  //     } else {
-  //       first = this.incWindowCount()
-  //       second = destination
-  //     }
-  //     currentNode = updateTree(currentNode, [{
-  //       path,
-  //       spec: {
-  //         $set: {
-  //           direction, first, second,
-  //         },
-  //       },
-  //     }])
-  //   } else {
-  //     currentNode = this.incWindowCount()
-  //   }
-
-  //   this.setState({ currentNode, widgets: [...this.props.widgets, widget] })
-  // }
-
   render() {
     return (
         <Mosaic
@@ -76,15 +32,8 @@ class Dashboard extends Component {
         />
     )
   }
-
   // onChange(currentNode) {
   //   return this.setState({ currentNode })
-  // }
-
-  // incWindowCount() {
-  //   const windowCount = this.props.windowCount + 1
-  //   this.setState({windowCount})
-  //   return windowCount
   // }
 }
 
@@ -105,10 +54,7 @@ export const mapStateToProps = state => {
 }
 
 export const mapDispatchToProps = (dispatch) => ({
-  // incrementWindowCount: () => dispatch(() => {}), // TODO: convert to redux
-  onChange: () => dispatch(() => { }), // TODO: convert to redux
-  // addWindow: () => dispatch(() => { }), // TODO: convert to redux
-  // addToTopRight: () => dispatch(() => { }), // TODO: convert to redux
+  onChange: currentNode => dispatch(currentNode => dispatch(onDashboardChange(currentNode))),
 })
 
 export default connect(mapStateToProps)(Dashboard)

@@ -64,7 +64,7 @@ Navbar.propTypes = {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addWidget: () => dispatch(addWidget())
+  addWidget: type => dispatch(addWidget(type))
 })
 
 export default connect(null, mapDispatchToProps)(Navbar)
