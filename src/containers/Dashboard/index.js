@@ -13,6 +13,7 @@ import {
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { connect } from 'react-redux'
+import SettingsButton from './SettingsButton'
 
 import { selectWidget } from './selectors'
 import './style.css'
@@ -60,7 +61,8 @@ class Dashboard extends Component {
           renderTile={(count, path) => (
             <MosaicWindow
               // createNode={this.incWindowCount.bind(this)}
-              path={path}
+            path={path}
+            toolbarControls={<SettingsButton />}
             >
               <div className='window'>
                 {this.props.widgets[count - 1]}
