@@ -19,9 +19,10 @@ const configReducer = (state = config, action = {}) => {
   Object.freeze(state)
 
   switch (action.type) {
-    case ADD_VIDEO: return addNewWidget(state, action.type)
-    case ADD_LINE_GRAPH: return addNewWidget(state, action.type)
-    case ADD_MAP: return addNewWidget(state, action.type)
+    case ADD_VIDEO:
+    case ADD_LINE_GRAPH:
+    case ADD_MAP:
+      return addNewWidget(state, action.type)
     default: return state
   }
 }
