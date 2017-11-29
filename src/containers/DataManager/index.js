@@ -9,7 +9,13 @@ class DataManager extends Component {
     const intervalIds = this.props.dataSources.map(dataSource => {
       if (dataSource.type === 'line_graph') {
         return setInterval(() => {
+          // start line graph fetcher
+        })
+      }
 
+      if (dataSource.type === 'line_graph') {
+        return setInterval(() => {
+          // start line graph fetcher
         })
       }
     })
@@ -24,12 +30,14 @@ class DataManager extends Component {
   }
 }
 
-const mapStateToProps = ({ config }) => ({
-  dataSources: config.dataSources,
+const mapStateToProps = ({ config: {dataSources} }) => ({
+  dataSources: Object.keys(dataSources).map(key => (
+    {id: key, ...dataSources[key]}
+  )),
 })
 
 DataManager.PropTypes = {
-  dataSources: PropTypes.object
+  dataSources: PropTypes.array
 }
 
 export default connect(mapStateToProps)(DataManager)
