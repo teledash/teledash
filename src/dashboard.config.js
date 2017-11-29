@@ -20,9 +20,15 @@ export default {
     { type: 'video', source: 'iss_feed', name: 'ISS Feed' },
   ],
   dataSources: {
-    iss_feed: { name: 'ISS Feed', type: 'video', url: 'https://www.youtube.com/watch?v=ddFvjfvPnqk', public: true },
-    iss_temperature: { name: 'Temperature', type: 'json', url: 'https://fake-url.data-stream.json', public: true, refresh: 2000 },
-    iss_location: {name: 'Current ISS location', type: 'json', url: 'https://fake-url.data-stream.json', public: true, refresh: 5000 }
+    iss_feed: {
+      name: 'ISS Feed', type: 'video', url: 'https://www.youtube.com/watch?v=ddFvjfvPnqk', public: true
+    },
+    iss_temperature: {
+      name: 'Temperature', type: 'line_graph', url: 'https://fake-url.data-stream.json', public: true, refresh: 2000
+    },
+    iss_location: {
+      name: 'Current ISS location', type: 'map', url: 'https://fake-url.data-stream.json', public: true, refresh: 5000
+    }
   }
 }
 
