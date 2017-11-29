@@ -16,7 +16,6 @@ class Dashboard extends Component {
         <Mosaic
           renderTile={(count, path) => (
             <MosaicWindow
-              // createNode={this.incWindowCount.bind(this)}
             path={path}
             toolbarControls={<SettingsButton />}
             >
@@ -27,17 +26,15 @@ class Dashboard extends Component {
           )}
           zeroStateView={<div></div>}
           value={this.props.currentNode}
-          // onChange={this.onChange.bind(this)}
+          onChange={this.props.onChange}
           className={this.props.theme}
         />
     )
   }
-  // onChange(currentNode) {
-  //   return this.setState({ currentNode })
-  // }
 }
 
 Dashboard.PropTypes = {
+  onChange: PropTypes.func,
   windowCount: PropTypes.number,
   currentNode: PropTypes.object,
   theme: PropTypes.string,
@@ -54,7 +51,7 @@ export const mapStateToProps = state => {
 }
 
 export const mapDispatchToProps = (dispatch) => ({
-  onChange: currentNode => dispatch(currentNode => dispatch(onDashboardChange(currentNode))),
+  onChange: currentNode => dispatch(onDashboardChange(currentNode)),
 })
 
-export default connect(mapStateToProps)(Dashboard)
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
