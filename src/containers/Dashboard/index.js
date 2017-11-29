@@ -46,7 +46,9 @@ export const mapStateToProps = state => {
     windowCount: state.config.windowCount,
     currentNode: state.config.currentNode,
     theme: state.config.theme,
-    widgets: state.config.widgets.map(widget => selectWidget(widget.type))
+    widgets: state.config.widgets.map(widget =>
+      selectWidget(widget.type, widget.name, state.config.dataSources[widget.source].data)
+    )
   }
 }
 

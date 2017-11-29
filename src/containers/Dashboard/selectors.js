@@ -1,15 +1,18 @@
 import React from 'react'
 
 import {
-  LineGraph,
   Map,
   Video,
 } from '../../components'
 
-export function selectWidget(type) {
+import {
+  LineGraph
+} from '../'
+
+export function selectWidget(type, name, data) {
   const mapper = {
     map: <Map />,
-    line_graph: <LineGraph />,
+    line_graph: <LineGraph title={name} data={data} />,
     video: <Video />
   }
 

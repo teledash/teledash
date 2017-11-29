@@ -6,12 +6,12 @@ import {
   XAxis,
   YAxis
 } from 'react-vis'
-
-import '../../node_modules/react-vis/dist/style.css'
 import React from 'react'
+import PropTypes from 'prop-types'
+import '../../../node_modules/react-vis/dist/style.css'
+
 
 class LineGraph extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -29,7 +29,7 @@ class LineGraph extends React.Component {
       this.setState({
         data: [...this.state.data, coord]
       })
-    }, 1000)
+    }, 5000)
   }
 
   render() {
@@ -43,6 +43,14 @@ class LineGraph extends React.Component {
       </XYPlot>
     )
   }
+}
+
+LineGraph.propTypes = {
+  title: PropTypes.string,
+  data: PropTypes.shape({
+    x: PropTypes.number,
+    y: PropTypes.number,
+  }),
 }
 
 export default LineGraph

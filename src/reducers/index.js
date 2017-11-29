@@ -11,7 +11,9 @@ import config from '../dashboard.config'
 import {
   ADD_VIDEO,
   ADD_LINE_GRAPH,
-  ADD_MAP
+  ADD_MAP,
+  GET_MAP_DATA,
+  GET_LINE_GRAPH_DATA
 } from '../constants'
 
 import { DASHBOARD_CHANGE } from '../containers/Dashboard/actions'
@@ -71,6 +73,20 @@ function addToTopRight(currentNode, widgetType, widgets, windowCount) {
   return { currentNode, windowCount, widgets: [...widgets, { type: widgetType }] }
 }
 
+const dataReducer = (state = {}, action = {}) => {
+  console.log(state)
+  switch(action.type) {
+    case GET_LINE_GRAPH_DATA: return fetchData(action.id)
+    case GET_MAP_DATA: return fetchData(action.id)
+    default: return state
+  }
+}
+
+function fetchData(id) {
+
+}
+
 export default combineReducers({
-  config: configReducer
+  config: configReducer,
+  data: dataReducer
 })
