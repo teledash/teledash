@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import './style.css'
 import {
   Dashboard,
-  Navbar
+  Navbar,
+  DataManager
 } from '../'
 
 export class App extends Component {
@@ -12,6 +13,7 @@ export class App extends Component {
       <div id='app'>
         <Navbar />
         <Dashboard />
+        <DataManager/>
       </div>
     )
   }

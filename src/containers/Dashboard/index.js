@@ -41,13 +41,13 @@ Dashboard.PropTypes = {
   widgets: PropTypes.array
 }
 
-export const mapStateToProps = state => {
+export const mapStateToProps = ({ config }) => {
   return {
-    windowCount: state.config.windowCount,
-    currentNode: state.config.currentNode,
-    theme: state.config.theme,
-    widgets: state.config.widgets.map(widget =>
-      selectWidget(widget.type, widget.name, state.config.dataSources[widget.source].data)
+    windowCount:config.windowCount,
+    currentNode:config.currentNode,
+    theme:config.theme,
+    widgets:config.widgets.map(widget =>
+      selectWidget(widget.type, widget.name, config.dataSources[widget.source].data)
     )
   }
 }

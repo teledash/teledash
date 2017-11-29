@@ -8,7 +8,7 @@ import {
 } from 'react-vis'
 import React from 'react'
 import PropTypes from 'prop-types'
-import '../../../node_modules/react-vis/dist/style.css'
+import '../../node_modules/react-vis/dist/style.css'
 
 
 class LineGraph extends React.Component {

@@ -3,11 +3,8 @@ import React from 'react'
 import {
   Map,
   Video,
-} from '../../components'
-
-import {
   LineGraph
-} from '../'
+} from '../../components'
 
 export function selectWidget(type, name, data) {
   const mapper = {
