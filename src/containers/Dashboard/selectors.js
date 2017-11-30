@@ -9,7 +9,7 @@ import {
 export function selectWidget(type, name, data) {
   const mapper = {
     map: <Map />,
-    line_graph: <LineGraph title={name} data={data} />,
+    line_graph: <LineGraph />,
     video: <Video />
   }
 

@@ -21,7 +21,9 @@ import {
 
 import { DASHBOARD_CHANGE } from '../containers/Dashboard/actions'
 
-const configReducer = (state = config, action = {}) => {
+const {dataSources, ...mainConfig} = config
+
+const configReducer = (state = mainConfig, action = {}) => {
   Object.freeze(state)
 
   switch (action.type) {
@@ -73,10 +75,10 @@ function addToTopRight(currentNode, widgetType, widgets, windowCount) {
     currentNode = ++windowCount
   }
 
-  return { currentNode, windowCount, widgets: [...widgets, { type: widgetType }] }
+  return { currentNode, windowCount, widgets: [...widgets, { type: widgetType, source: 'iss_feed' }] }
 }
 
-const dataReducer = (state = {}, action = {}) => {
+const dataReducer = (state = dataSources, action = {}) => {
   switch(action.type) {
     case GET_LINE_GRAPH_DATA: return fetchData(action.id)
     case GET_MAP_DATA: return fetchData(action.id)
@@ -90,5 +92,5 @@ function fetchData(id) {
 
 export default combineReducers({
   config: configReducer,
-  data: dataReducer
+  dataSources: dataReducer
 })

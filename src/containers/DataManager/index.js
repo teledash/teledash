@@ -33,7 +33,7 @@ class DataManager extends Component {
   }
 }
 
-const mapStateToProps = ({ config: {dataSources} }) => ({
+const mapStateToProps = ({ dataSources }) => ({
   dataSources: Object.keys(dataSources).map(key => (
     {id: key, ...dataSources[key]}
   )),

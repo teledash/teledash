@@ -18,6 +18,7 @@ export default {
     { type: 'map', source: 'iss_location',  name: 'Current ISS location' },
     { type: 'line_graph', source: 'iss_temperature', name: 'Temperature' },
     { type: 'video', source: 'iss_feed', name: 'ISS Feed' },
+    { type: 'line_graph', source: 'iss_temperature', name: 'Temperature' }
   ],
   dataSources: {
     iss_feed: {
