@@ -17,7 +17,7 @@ import {
 import {
   GET_MAP_DATA,
   GET_LINE_GRAPH_DATA
-} from '../containers/DataManager/actions'
+} from '../containers/DataManager/constants'
 
 import { DASHBOARD_CHANGE } from '../containers/Dashboard/actions'
 
