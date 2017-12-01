@@ -25,7 +25,7 @@ export default function configureStore(initialState = {}) {
     reducers,
     initialState,
     composeEnhancers(
-      applyMiddleware(promiseMiddleware)
+      // applyMiddleware(promiseMiddleware)
     )
   )
 }

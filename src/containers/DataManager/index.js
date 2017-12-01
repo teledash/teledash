@@ -1,7 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { GET_LINE_GRAPH_DATA } from './constants'
+import {
+  GET_LINE_GRAPH_DATA,
+  ASSIGN_INTERVAL_ID
+} from './constants'
 import axios from 'axios'
 import { lifecycle, compose } from 'recompose'
 
@@ -14,10 +17,10 @@ DataManager.PropTypes = {
   dispatch: PropTypes.func
 }
 
-const intervalCreator = (type, refresh, promise, dispatch) => {
+const intervalCreator = (type, source, getData) => {
   return setInterval(() => {
-    dispatch({ type, promise })
-  }, refresh)
+    getData({ type })
+  }, source.refresh)
 }
 
 const mapStateToProps = ({ dataSources }) => ({
@@ -27,29 +30,28 @@ const mapStateToProps = ({ dataSources }) => ({
 })
 
 export const mapDispatchToProps = (dispatch) => ({
-  dispatch: action => dispatch(action),
-  // getMapData: action => dispatch(action),
-  // addIntervalIds: ids => dispatch(ids),
-  // addIntervalId: id => dispatch(id),
+  getData: action => dispatch(action),
+  assignIntervalId: (sourceKey, intervalId) => (
+    dispatch({ type: ASSIGN_INTERVAL_ID, sourceKey, intervalId })
+  ),
   // removeIntervalId: id => dispatch(id)
 })
 
 const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
   lifecycle({
-    // 1. Iterate through props.dataSources
-    // 2. make intervalCreators based on dataType
-    // 3. intervalCreators call async actions
-    // 4. intervals can be cancelled with clearInterval externally
-    componentDidMount () {
-      const intervalIds = this.props.dataSources.map(source => {
+    // 1. Iterate through props.dataSources.
+    // 2. Make intervalCreators based on dataSource type.
+    componentDidMount() {
+      const { getData, assignIntervalId, dataSources } = this.props
+      dataSources.forEach(source => {
         if (source.type === 'line_graph') {
-          return intervalCreator(
+          const intervalId = intervalCreator(
             GET_LINE_GRAPH_DATA,
-            source.refresh,
-            axios.get('/api/ '),
-            this.props.dispatch
+            source,
+            getData
           )
+          assignIntervalId(source.id, intervalId)
         }
       })
     }
