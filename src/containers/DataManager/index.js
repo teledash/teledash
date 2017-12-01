@@ -25,7 +25,7 @@ const intervalCreator = (type, source, getData) => {
 
 const mapStateToProps = ({ dataSources }) => ({
   dataSources: Object.keys(dataSources).map(key => (
-    {id: key, ...dataSources[key]}
+    { id: key, ...dataSources[key] }
   )),
 })
 
@@ -55,8 +55,7 @@ const enhance = compose(
         }
       })
     }
-}),
-
+  }),
 )
 
 export default enhance(DataManager)
