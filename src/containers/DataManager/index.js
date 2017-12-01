@@ -2,35 +2,22 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { GET_LINE_GRAPH_DATA } from './constants'
+import axios from 'axios'
+import { lifecycle, compose } from 'recompose'
 
-class DataManager extends Component {
+const DataManager = () => (
+  <div></div>
+)
 
-  componentDidMount() {
-    const {
-      dataSources,
-      // getMapData
-    } = this.props
-    const intervalIds = dataSources.map(source => {
-      if (source.type === 'line_graph') {
-        // return this.intervalCreator(GET_LINE_GRAPH_DATA, source.refresh)
-      }
-    })
-    // 1. Iterate through props.dataSources
-    // 2. make intervalCreators based on dataType
-    // 3. intervalCreators call async actions
-    // 4. intervals can be cancelled with clearInterval externally
+DataManager.PropTypes = {
+  dataSources: PropTypes.array,
+  dispatch: PropTypes.func
+}
 
-  }
-
-  intervalCreator(type, refresh) {
-    return setInterval(() => {
-      this.props.dispatch({ type })
-    }, refresh)
-  }
-
-  render() {
-    return <div></div>
-  }
+const intervalCreator = (type, refresh, promise, dispatch) => {
+  return setInterval(() => {
+    dispatch({ type, promise })
+  }, refresh)
 }
 
 const mapStateToProps = ({ dataSources }) => ({
@@ -47,10 +34,28 @@ export const mapDispatchToProps = (dispatch) => ({
   // removeIntervalId: id => dispatch(id)
 })
 
-DataManager.PropTypes = {
-  dataSources: PropTypes.array,
-  dispatch: PropTypes.func
-}
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  lifecycle({
+    // 1. Iterate through props.dataSources
+    // 2. make intervalCreators based on dataType
+    // 3. intervalCreators call async actions
+    // 4. intervals can be cancelled with clearInterval externally
+    componentDidMount () {
+      const intervalIds = this.props.dataSources.map(source => {
+        if (source.type === 'line_graph') {
+          return intervalCreator(
+            GET_LINE_GRAPH_DATA,
+            source.refresh,
+            axios.get('/api/ '),
+            this.props.dispatch
+          )
+        }
+      })
+    }
+}),
 
-export default connect(mapStateToProps, mapDispatchToProps)(DataManager)
+)
+
+export default enhance(DataManager)
 

@@ -3,10 +3,16 @@ import reducers from './reducers'
 
 export default function configureStore(initialState = {}) {
 
-  // const promiseMiddleware = store => next => action => {
-  //   console.log(action)
-  //   next(action)
-  // }
+  const promiseMiddleware = store => next => action => {
+    if (action.promise) {
+      action.promise
+        .then(response =>
+          store.dispatch({ type: action.type, payload: response })
+        ).catch(console.error)
+    } else {
+      next(action)
+    }
+  }
 
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
   const composeEnhancers =
@@ -19,7 +25,7 @@ export default function configureStore(initialState = {}) {
     reducers,
     initialState,
     composeEnhancers(
-
+      applyMiddleware(promiseMiddleware)
     )
   )
 }

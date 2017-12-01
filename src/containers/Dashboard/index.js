@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   Mosaic,
   MosaicWindow
@@ -10,28 +10,24 @@ import { onDashboardChange } from './actions'
 import { selectWidget } from './selectors'
 import './style.css'
 
-class Dashboard extends Component {
-  render() {
-    return (
-        <Mosaic
-          renderTile={(count, path) => (
-            <MosaicWindow
-            path={path}
-            toolbarControls={<SettingsButton />}
-            >
-              <div className='window'>
-                {this.props.widgets[count - 1]}
-              </div>
-            </MosaicWindow>
-          )}
-          zeroStateView={<div></div>}
-          value={this.props.currentNode}
-          onChange={this.props.onChange}
-          className={this.props.theme}
-        />
-    )
-  }
-}
+const Dashboard = ({ widgets, currentNode, onChange, theme }) => (
+  <Mosaic
+    renderTile={(count, path) => (
+      <MosaicWindow
+        path={path}
+        toolbarControls={<SettingsButton />}
+      >
+        <div className='window'>
+          {widgets[count - 1]}
+        </div>
+      </MosaicWindow>
+    )}
+    zeroStateView={<div></div>}
+    value={currentNode}
+    onChange={onChange}
+    className={theme}
+  />
+)
 
 Dashboard.PropTypes = {
   onChange: PropTypes.func,
@@ -43,10 +39,10 @@ Dashboard.PropTypes = {
 
 export const mapStateToProps = ({ config, dataSources }) => {
   return {
-    windowCount:config.windowCount,
-    currentNode:config.currentNode,
-    theme:config.theme,
-    widgets:config.widgets.map(widget =>
+    windowCount: config.windowCount,
+    currentNode: config.currentNode,
+    theme: config.theme,
+    widgets: config.widgets.map(widget =>
       selectWidget(widget.type, widget.name, dataSources[widget.source].data)
     )
   }
