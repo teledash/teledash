@@ -5,20 +5,15 @@ import {
   GET_LINE_GRAPH_DATA,
   ASSIGN_INTERVAL_ID
 } from './constants'
-import { lifecycle, compose } from 'recompose'
+import { lifecycle, compose, withProps } from 'recompose'
 
 const DataManager = () => (
   <div></div>
 )
 
-DataManager.PropTypes = {
-  dataSources: PropTypes.array,
-  dispatch: PropTypes.func
-}
-
 const intervalCreator = (type, { refresh, url }, getData) => (
   setInterval(() => {
-    getData({ type , url })
+    getData({ type, url })
   }, refresh)
 )
 
@@ -37,6 +32,10 @@ export const mapDispatchToProps = (dispatch) => ({
 })
 
 const enhance = compose(
+  withProps({
+    dataSources: PropTypes.array,
+    dispatch: PropTypes.func
+  }),
   connect(mapStateToProps, mapDispatchToProps),
   lifecycle({
     // 1. Iterate through props.dataSources.
@@ -54,7 +53,7 @@ const enhance = compose(
         }
       })
     }
-  }),
+  })
 )
 
 export default enhance(DataManager)
