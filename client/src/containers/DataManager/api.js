@@ -1,9 +1,5 @@
 import axios from 'axios'
 
-export function fetchData() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve('testString')
-    }, 500)
-  })
+export function fetchData(url) {
+  return axios.get(url).then(({data}) => data)
 }

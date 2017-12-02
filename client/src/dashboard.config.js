@@ -25,7 +25,7 @@ export default {
       name: 'ISS Feed', type: 'video', url: 'https://www.youtube.com/watch?v=ddFvjfvPnqk', public: true
     },
     iss_temperature: {
-      name: 'Temperature', type: 'line_graph', url: 'https://fake-url.data-stream.json', public: true, refresh: 2000
+      name: 'Temperature', type: 'line_graph', url: '/api/linegraph', public: true, refresh: 2000
     },
     iss_location: {
       name: 'Current ISS location', type: 'map', url: 'https://fake-url.data-stream.json', public: true, refresh: 5000

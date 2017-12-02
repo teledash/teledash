@@ -17,4 +17,4 @@ const server = app.listen(PORT, function () {
   console.log(chalk.green('Test server is running on port ' + PORT))
 })
 
-app.use('api/', router)
+app.use('/api/', router)
