@@ -16,10 +16,10 @@ DataManager.PropTypes = {
   dispatch: PropTypes.func
 }
 
-const intervalCreator = (type, source, getData) => (
+const intervalCreator = (type, { refresh, url }, getData) => (
   setInterval(() => {
-    getData({ type })
-  }, source.refresh)
+    getData({ type , url })
+  }, refresh)
 )
 
 const mapStateToProps = ({ dataSources }) => ({

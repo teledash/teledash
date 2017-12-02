@@ -9,10 +9,8 @@ import 'react-mosaic-component/react-mosaic-component.css'
 import '@blueprintjs/core/dist/blueprint.css'
 import 'normalize.css/normalize.css'
 
-registerServiceWorker()
-
 const store = configureStore()
-
+registerServiceWorker()
 ReactDOM.render(
   <Provider store={store}>
     <App />

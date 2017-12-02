@@ -17,7 +17,8 @@
     "react-scripts": "^1.0.17",
     "react-sidebar": "^2.3.2",
     "react-vis": "^1.7.9",
-    "recompose": "^0.26.0"
+    "recompose": "^0.26.0",
+    "redux-saga": "^0.16.0"
   },
   "scripts": {
     "start": "react-scripts start",

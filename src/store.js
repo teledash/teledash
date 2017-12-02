@@ -1,19 +1,10 @@
 import { createStore, compose, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
+import dataManagerSaga from './containers/DataManager/sagas'
 import reducers from './reducers'
 
 export default function configureStore(initialState = {}) {
-
-  const promiseMiddleware = store => next => action => {
-    if (action.promise) {
-      action.promise
-        .then(response =>
-          store.dispatch({ type: action.type, payload: response })
-        ).catch(console.error)
-    } else {
-      next(action)
-    }
-  }
-
+  const sagaMiddleware = createSagaMiddleware()
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
   const composeEnhancers =
     process.env.NODE_ENV !== 'production' &&
@@ -21,11 +12,16 @@ export default function configureStore(initialState = {}) {
       window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
       window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 
-  return createStore(
-    reducers,
-    initialState,
-    composeEnhancers(
-      // applyMiddleware(promiseMiddleware)
-    )
-  )
+  return {
+    ...createStore(
+      reducers,
+      initialState,
+      composeEnhancers(
+        applyMiddleware(sagaMiddleware)
+      )
+    ),
+    runSaga: sagaMiddleware.run(dataManagerSaga)
+  }
 }
+
+
