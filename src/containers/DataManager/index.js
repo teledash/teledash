@@ -5,7 +5,6 @@ import {
   GET_LINE_GRAPH_DATA,
   ASSIGN_INTERVAL_ID
 } from './constants'
-import axios from 'axios'
 import { lifecycle, compose } from 'recompose'
 
 const DataManager = () => (
@@ -17,11 +16,11 @@ DataManager.PropTypes = {
   dispatch: PropTypes.func
 }
 
-const intervalCreator = (type, source, getData) => {
-  return setInterval(() => {
+const intervalCreator = (type, source, getData) => (
+  setInterval(() => {
     getData({ type })
   }, source.refresh)
-}
+)
 
 const mapStateToProps = ({ dataSources }) => ({
   dataSources: Object.keys(dataSources).map(key => (

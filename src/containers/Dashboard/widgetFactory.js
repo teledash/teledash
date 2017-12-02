@@ -6,7 +6,7 @@ import {
   LineGraph
 } from '../../components'
 
-export function selectWidget(type, name, data) {
+export default function widgetFactory(type, name, data) {
   const mapper = {
     map: <Map />,
     line_graph: <LineGraph />,

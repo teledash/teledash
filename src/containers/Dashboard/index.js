@@ -7,27 +7,34 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import SettingsButton from './SettingsButton'
 import { onDashboardChange } from './actions'
-import { selectWidget } from './selectors'
+import widgetFactory from './widgetFactory'
 import './style.css'
 
-const Dashboard = ({ widgets, currentNode, onChange, theme }) => (
-  <Mosaic
-    renderTile={(count, path) => (
-      <MosaicWindow
-        path={path}
-        toolbarControls={<SettingsButton />}
-      >
-        <div className='window'>
-          {widgets[count - 1]}
-        </div>
-      </MosaicWindow>
-    )}
-    zeroStateView={<div></div>}
-    value={currentNode}
-    onChange={onChange}
-    className={theme}
-  />
-)
+const Dashboard = ({ widgets, currentNode, onChange, theme, dataSources }) => {
+
+  const widgetsJSX = widgets.map(widget =>
+    widgetFactory(widget.type, widget.name, dataSources[widget.source].data)
+  )
+
+  return (
+    <Mosaic
+      renderTile={(count, path) => (
+        <MosaicWindow
+          path={path}
+          toolbarControls={<SettingsButton />}
+        >
+          <div className='window'>
+            {widgetsJSX[count - 1]}
+          </div>
+        </MosaicWindow>
+      )}
+      zeroStateView={<div></div>}
+      value={currentNode}
+      onChange={onChange}
+      className={theme}
+    />
+  )
+}
 
 Dashboard.PropTypes = {
   onChange: PropTypes.func,
@@ -42,9 +49,8 @@ export const mapStateToProps = ({ config, dataSources }) => {
     windowCount: config.windowCount,
     currentNode: config.currentNode,
     theme: config.theme,
-    widgets: config.widgets.map(widget =>
-      selectWidget(widget.type, widget.name, dataSources[widget.source].data)
-    )
+    widgets: config.widgets,
+    dataSources
   }
 }
 
