@@ -31,22 +31,19 @@ const Dashboard = ({ widgets, currentNode, onChange, theme, dataSources }) => {
       zeroStateView={<div></div>}
       value={currentNode}
       onChange={onChange}
-      className={theme}
+      className="mosaic-blueprint-theme pt-dark"
     />
   )
 }
 
 Dashboard.PropTypes = {
   onChange: PropTypes.func,
-  windowCount: PropTypes.number,
   currentNode: PropTypes.object,
-  theme: PropTypes.string,
   widgets: PropTypes.array
 }
 
 export const mapStateToProps = ({ config, dataSources }) => {
   return {
-    windowCount: config.windowCount,
     currentNode: config.currentNode,
     theme: config.theme,
     widgets: config.widgets,

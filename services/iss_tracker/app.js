@@ -6,6 +6,11 @@ import chalk from 'chalk'
 
 const app = express()
 
+// TODO: Current location
+// TODO: local time
+// TODO: Orbital speed
+// TODO: What else?
+
 app.use(volleyball)
 // body parsing middleware
 app.use(bodyParser.urlencoded({ extended: true })) // for HTML form submits

@@ -13,7 +13,6 @@ export default {
       second: 4,
     },
   },
-  theme: 'mosaic-blueprint-theme pt-dark',
   widgets: [
     { type: 'map', source: 'iss_location',  name: 'Current ISS location' },
     { type: 'line_graph', source: 'iss_temperature', name: 'Temperature' },

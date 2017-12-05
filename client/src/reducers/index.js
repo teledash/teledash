@@ -84,7 +84,6 @@ const dataReducer = (state = dataSources, action = {}) => {
   switch(action.type) {
     case GET_LINE_GRAPH_DATA: return state
     case RECEIVE_LINE_GRAPH_DATA:
-      console.log(action)
       return state
     case GET_MAP_DATA: return state
     case ASSIGN_INTERVAL_ID: return assignIntervalId(state, action)
