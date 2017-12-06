@@ -3,8 +3,11 @@ import router from './api'
 import bodyParser from 'body-parser'
 import volleyball from 'volleyball'
 import chalk from 'chalk'
+import { db } from './db'
 
 const app = express()
+
+db.sync().then(() => chalk.blue('Database is synced'));
 
 app.use(volleyball)
 // body parsing middleware

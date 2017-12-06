@@ -9,7 +9,8 @@
     "setup": "yarn install & cd server && yarn install & cd client && yarn install",
     "start:server": "babel-watch services/iss_tracker/app.js",
     "start:client": "cd client && yarn start",
-    "start": "concurrently 'yarn start:server' 'yarn start:client'"
+    "start": "concurrently 'yarn start:server' 'yarn start:client'",
+    "start:config:service": "babel-watch services/config_persistence_psql/index.js"
   },
   "devDependencies": {
     "concurrently": "^3.5.1"

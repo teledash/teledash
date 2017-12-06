@@ -13,52 +13,48 @@ export default {
         second: 4
       }
     },
-    windowCount: 4,
+    windowCount: 4
   },
-    widgets: [
-      {
-        type: 'map',
-        source: 'iss_location',
-        name: 'Current ISS location'
-      },
-      {
-        type: 'line_graph',
-        source: 'iss_temperature',
-        name: 'Temperature'
-      },
-      {
-        type: 'video',
-        source: 'iss_feed',
-        name: 'ISS Feed'
-      },
-      {
-        type: 'line_graph',
-        source: 'iss_temperature',
-        name: 'Temperature'
-      }
-    ],
   dataSources: {
     iss_feed: {
       name: 'ISS Feed',
       type: 'video',
       url: 'https://www.youtube.com/watch?v=ddFvjfvPnqk',
-      'public': true
     },
     iss_temperature: {
       name: 'Temperature',
-      type: 'line_graph',
+      type: 'json',
       url: '/api/linegraph',
-      'public': true,
-      refresh: 2000,
-      intervalId: 7
+      refresh: 2000
     },
     iss_location: {
       name: 'Current ISS location',
-      type: 'map',
+      type: 'json',
       url: 'https://fake-url.data-stream.json',
-      'public': true,
       refresh: 5000
     }
-  }
+  },
+  widgets: [
+    {
+      type: 'map',
+      source: 'iss_location',
+      name: 'Current ISS location'
+    },
+    {
+      type: 'line_graph',
+      source: 'iss_temperature',
+      name: 'Temperature'
+    },
+    {
+      type: 'video',
+      source: 'iss_feed',
+      name: 'ISS Feed'
+    },
+    {
+      type: 'line_graph',
+      source: 'iss_temperature',
+      name: 'Temperature'
+    }
+  ]
 }
 
