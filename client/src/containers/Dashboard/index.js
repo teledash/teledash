@@ -10,7 +10,7 @@ import { onDashboardChange } from './actions'
 import widgetFactory from './widgetFactory'
 import './style.css'
 
-const Dashboard = ({ widgets, currentNode, onChange, theme, dataSources }) => {
+const Dashboard = ({ widgets, tree, onChange, dataSources }) => {
 
   const widgetsJSX = widgets.map(widget =>
     widgetFactory(widget.type, widget.name, dataSources[widget.source].data)
@@ -29,7 +29,7 @@ const Dashboard = ({ widgets, currentNode, onChange, theme, dataSources }) => {
         </MosaicWindow>
       )}
       zeroStateView={<div></div>}
-      value={currentNode}
+      value={tree}
       onChange={onChange}
       className="mosaic-blueprint-theme pt-dark"
     />
@@ -38,15 +38,15 @@ const Dashboard = ({ widgets, currentNode, onChange, theme, dataSources }) => {
 
 Dashboard.PropTypes = {
   onChange: PropTypes.func,
-  currentNode: PropTypes.object,
-  widgets: PropTypes.array
+  tree: PropTypes.object,
+  widgets: PropTypes.array,
+  dataSources: PropTypes.object
 }
 
-export const mapStateToProps = ({ config, dataSources }) => {
+export const mapStateToProps = ({ windows, widgets, dataSources }) => {
   return {
-    currentNode: config.currentNode,
-    theme: config.theme,
-    widgets: config.widgets,
+    tree: windows.tree,
+    widgets,
     dataSources
   }
 }

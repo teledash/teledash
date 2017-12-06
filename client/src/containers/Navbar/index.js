@@ -9,7 +9,7 @@ import {
 } from '@blueprintjs/core'
 import { connect } from 'react-redux'
 import './style.css'
-import { addWidget } from './actions'
+import { addWidget, addToTopRight } from './actions'
 
 const AddWidgetMenu = ({ addWidget }) => (
   <Menu>
@@ -63,8 +63,11 @@ Navbar.propTypes = {
   addWidget: PropTypes.func
 }
 
-const mapDispatchToProps = dispatch => ({
-  addWidget: type => dispatch(addWidget(type))
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  addWidget: type => {
+    dispatch(addWidget(type))
+    dispatch(addToTopRight())
+  }
 })
 
 export default connect(null, mapDispatchToProps)(Navbar)
