@@ -43,16 +43,18 @@ Dashboard.PropTypes = {
   dataSources: PropTypes.object
 }
 
-export const mapStateToProps = ({ windows, widgets, dataSources }) => {
-  return {
-    tree: windows.tree,
-    widgets,
+export const mapStateToProps =
+  ({ dashboards, widgets, dataSources }, { match }) => {
+    return ({
+    tree: dashboards[match.params.id].tree,
+    widgets: widgets.filter(widget => widget.dashboard_id === +match.params.id),
     dataSources
+  })
   }
-}
 
-export const mapDispatchToProps = (dispatch) => ({
-  onChange: currentNode => dispatch(onDashboardChange(currentNode)),
+export const mapDispatchToProps = (dispatch, { match }) => ({
+  onChange: currentNode =>
+    dispatch(onDashboardChange(currentNode, match.params.id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)

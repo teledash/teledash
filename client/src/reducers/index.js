@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
 import { dataReducer } from './dataReducer'
 import { widgetReducer } from './widgetReducer'
-import { windowReducer } from './windowReducer'
+import { dashboardReducer } from './dashboardReducer'
+import { routerReducer } from 'react-router-redux'
 
 export default combineReducers({
-  windows: windowReducer,
+  dashboards: dashboardReducer,
   dataSources: dataReducer,
-  widgets: widgetReducer
+  widgets: widgetReducer,
+  router: routerReducer
 })

@@ -11,15 +11,16 @@ export const widgetReducer = (state = config.widgets, action = {}) => {
     case ADD_VIDEO:
     case ADD_LINE_GRAPH:
     case ADD_MAP:
-      return addNewWidget(state, action.type)
+      return addNewWidget(state, action.type, Number(action.id))
     default:
       return state
   }
 }
 
-function addNewWidget(widgets, type) {
+function addNewWidget(widgets, type, dashboard_id) {
   const widgetType = type.split('_').slice(1).join('_').toLowerCase()
   return [...widgets, {
+    dashboard_id,
     type: widgetType,
     source: 'iss_feed'
   }]

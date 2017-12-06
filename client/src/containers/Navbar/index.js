@@ -8,6 +8,7 @@ import {
   MenuDivider
 } from '@blueprintjs/core'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import './style.css'
 import { addWidget, addToTopRight } from './actions'
 
@@ -89,9 +90,10 @@ Navbar.propTypes = {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   addWidget: type => {
-    dispatch(addWidget(type))
-    dispatch(addToTopRight())
+    const id = ownProps.location.pathname.split('/')[2]
+    dispatch(addWidget(type, id))
+    dispatch(addToTopRight(id))
   }
 })
 
-export default connect(null, mapDispatchToProps)(Navbar)
+export default withRouter(connect(null, mapDispatchToProps)(Navbar))

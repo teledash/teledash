@@ -43,7 +43,7 @@ const enhance = compose(
     componentDidMount() {
       const { getData, assignIntervalId, dataSources } = this.props
       dataSources.forEach(source => {
-        if (source.type === 'line_graph') {
+        if (source.type === '') {
           const intervalId = intervalCreator(
             GET_LINE_GRAPH_DATA,
             source,

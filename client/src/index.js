@@ -1,19 +1,25 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
 import { Provider } from 'react-redux'
-import configureStore from './store'
-import App  from './containers/App'
-import registerServiceWorker from './registerServiceWorker'
 import 'react-mosaic-component/react-mosaic-component.css'
 import '@blueprintjs/core/dist/blueprint.css'
 import 'normalize.css/normalize.css'
+import { ConnectedRouter } from 'react-router-redux'
+import createHistory from 'history/createBrowserHistory'
+import registerServiceWorker from './registerServiceWorker'
+import './index.css'
+import configureStore from './store'
+import App from './containers/App'
 
-const store = configureStore()
+const history = createHistory()
+const store = configureStore({}, history)
 registerServiceWorker()
+
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ConnectedRouter history={history}>
+      <App />
+    </ConnectedRouter>
   </Provider>
-  , document.getElementById('root'))
-registerServiceWorker()
+  , document.getElementById('root')
+)

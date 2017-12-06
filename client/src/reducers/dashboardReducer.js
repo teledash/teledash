@@ -13,22 +13,27 @@ import {
 import _ from 'lodash'
 import config from '../dashboard.config'
 
-export const windowReducer = (state = config.windows, action = {}) => {
+export const dashboardReducer = (state = config.dashboards, action = {}) => {
   Object.freeze(state)
   switch (action.type) {
     case ADD_TO_TOP_RIGHT:
-      return addToTopRight(state.tree, state.windowCount)
+      return addToTopRight(
+        state,
+        action.id,
+        state[action.id]
+      )
     case DASHBOARD_CHANGE:
+      const newDashboardConfig = {...state[action.id], tree: action.tree }
       return {
         ...state,
-        tree: action.tree
+        [action.id]: newDashboardConfig
       }
     default:
       return state
   }
 }
 
-function addToTopRight(tree, windowCount) {
+function addToTopRight(state, id, { tree, windowCount }) {
   if (tree) {
     const path = getPathToCorner(tree, Corner.TOP_RIGHT)
     const parent = getNodeAtPath(tree, _.dropRight(path))
@@ -57,5 +62,5 @@ function addToTopRight(tree, windowCount) {
     tree = ++windowCount
   }
 
-  return { tree, windowCount }
+  return { ...state, [id]: { tree, windowCount } }
 }

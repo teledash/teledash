@@ -1,19 +1,37 @@
 export default {
-  windows: {
-    tree: {
-      direction: 'row',
-      first: {
-        direction: 'column',
-        first: 1,
-        second: 2
+  dashboards: {
+    '1': {
+      tree: {
+        direction: 'row',
+        first: {
+          direction: 'column',
+          first: 1,
+          second: 2
+        },
+        second: {
+          direction: 'column',
+          first: 3,
+          second: 4
+        }
       },
-      second: {
-        direction: 'column',
-        first: 3,
-        second: 4
-      }
+      windowCount: 4
     },
-    windowCount: 4
+    '2': {
+      tree: {
+        direction: 'row',
+        first: {
+          direction: 'column',
+          first: 1,
+          second: 2
+        },
+        second: {
+          direction: 'column',
+          first: 3,
+          second: 4
+        }
+      },
+      windowCount: 4
+    }
   },
   dataSources: {
     iss_feed: {
@@ -38,23 +56,59 @@ export default {
     {
       type: 'map',
       source: 'iss_location',
-      name: 'Current ISS location'
+      name: 'Current ISS location',
+      dashboard_id: 1,
+      position: 0
     },
     {
       type: 'line_graph',
       source: 'iss_temperature',
-      name: 'Temperature'
+      name: 'Temperature',
+      dashboard_id: 1,
+      position: 1
     },
     {
       type: 'video',
       source: 'iss_feed',
-      name: 'ISS Feed'
+      name: 'ISS Feed',
+      dashboard_id: 1,
+      position: 2
     },
     {
       type: 'line_graph',
       source: 'iss_temperature',
-      name: 'Temperature'
-    }
+      name: 'Temperature',
+      dashboard_id: 1,
+      position: 3
+    },
+    {
+      type: 'map',
+      source: 'iss_location',
+      name: 'Current ISS location',
+      dashboard_id: 2,
+      position: 0
+    },
+    {
+      type: 'line_graph',
+      source: 'iss_temperature',
+      name: 'Temperature',
+      dashboard_id: 2,
+      position: 1
+    },
+    {
+      type: 'line_graph',
+      source: 'iss_temperature',
+      name: 'Temperature',
+      dashboard_id: 2,
+      position: 2
+    },
+    {
+      type: 'line_graph',
+      source: 'iss_temperature',
+      name: 'Temperature',
+      dashboard_id: 2,
+      position: 3
+    },
   ]
 }
 
