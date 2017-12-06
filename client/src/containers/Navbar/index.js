@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Popover,
-  Button,
   Position,
   Menu,
-  MenuItem
+  MenuItem,
+  MenuDivider
 } from '@blueprintjs/core'
 import { connect } from 'react-redux'
 import './style.css'
@@ -18,11 +18,6 @@ const AddWidgetMenu = ({ addWidget }) => (
           onClick={() => addWidget('map')}
           text="Map"
       />
-      {/* <MenuItem
-          iconName="pt-icon-th"
-          onClick={() => addWidget('table')}
-          text="Table"
-      /> */}
       <MenuItem
           iconName="pt-icon-timeline-line-chart"
           onClick={() => addWidget('line_graph')}
@@ -36,25 +31,54 @@ const AddWidgetMenu = ({ addWidget }) => (
   </Menu>
 )
 
+const EntityMenu = ({ addWidget }) => (
+  <Menu>
+    <MenuItem
+      iconName="pt-icon-plus"
+      onClick={() => {}}
+      text="Create"
+    />
+    <MenuDivider />
+    {/* <MenuItem
+      iconName="pt-icon-timeline-line-chart"
+      onClick={() => addWidget('line_graph')}
+      text="Line Graph"
+    />
+    <MenuItem
+      iconName="pt-icon-mobile-video"
+      onClick={() => addWidget('video')}
+      text="Video"
+    /> */}
+  </Menu>
+)
+
 const AddWidget = ({ addWidget }) => (
   <Popover content={<AddWidgetMenu addWidget={addWidget} />} position={Position.BOTTOM_RIGHT}>
-    <Button iconName="plus" text="Add Widget" />
+    <button class="pt-button pt-minimal pt-icon-plus">Add Widget</button>
+  </Popover>
+)
+
+const Dashboards = ({ addEntity }) => (
+  <Popover content={<EntityMenu addWidget={addEntity} />} position={Position.BOTTOM_RIGHT}>
+    <button class="pt-button pt-minimal pt-icon-dashboard">Dashboards</button>
   </Popover>
 )
 
 const Navbar = ({ addWidget }) => (
   <nav className="pt-navbar pt-dark modifier">
-    <div className="pt-navbar-group pt-align-left">
-      <div className="pt-navbar-heading">Teledash</div>
-      {/* <input class="pt-input" placeholder="Search..." type="text" /> */}
+    <div class="pt-navbar-group pt-align-left">
+      <div class="pt-navbar-heading">Teledash</div>
     </div>
     <div className="pt-navbar-group pt-align-right">
-      <AddWidget addWidget={ addWidget } />
-      {/* <DataManager /> */}
-
-      {/* <button class="pt-button pt-minimal pt-icon-user"></button>
-      <button class="pt-button pt-minimal pt-icon-notifications"></button>
-      <button class="pt-button pt-minimal pt-icon-cog"></button> */}
+      <div class="pt-navbar-group pt-align-right">
+        <AddWidget addWidget={addWidget} />
+        <button class="pt-button pt-minimal pt-icon-database">Datasources</button>
+        <Dashboards addWidget={addWidget} />
+        <span class="pt-navbar-divider"></span>
+        <button class="pt-button pt-minimal pt-icon-user"></button>
+        <button class="pt-button pt-minimal pt-icon-notifications"></button>
+        <button class="pt-button pt-minimal pt-icon-cog"></button>
+      </div>
     </div>
   </nav>
   )
