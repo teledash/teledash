@@ -11,13 +11,13 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { withRouter, Link } from 'react-router-dom'
 import './style.css'
-import { addWidget, addToTopRight } from './actions'
+import { addWidget, addToTopRight, createDashboard } from './actions'
 
 const DashboardMenu = ({ dashboards, createDashboard, goToDashboard }) => (
   <Menu>
     <MenuItem
       iconName="pt-icon-plus"
-      onClick={() => { }}
+      onClick={createDashboard}
       text="Create"
     />
     <MenuDivider />
@@ -39,7 +39,8 @@ const DashboardMenuContainer = connect(({ dashboards }) => ({
   dashboards: Object.keys(dashboards)
     .map(id => ({ id, name: dashboards[id].name }))
 }), dispatch => ({
-  goToDashboard: link => dispatch(push(`/dashboard/${link}`))
+  goToDashboard: link => dispatch(push(`/dashboard/${link}`)),
+  createDashboard: () => dispatch(createDashboard())
 }))(DashboardMenu)
 
 

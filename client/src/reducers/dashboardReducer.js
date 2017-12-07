@@ -1,6 +1,7 @@
 import {
   DASHBOARD_CHANGE,
-  ADD_TO_TOP_RIGHT
+  ADD_TO_TOP_RIGHT,
+  GET_DASHBOARD
 } from '../constants'
 
 import {
@@ -13,25 +14,35 @@ import {
 import _ from 'lodash'
 import config from '../dashboard.config'
 
-export const dashboardReducer = (state = config.dashboards, action = {}) => {
-  Object.freeze(state)
-  switch (action.type) {
-    case ADD_TO_TOP_RIGHT:
-      return addToTopRight(
-        state,
-        action.id,
-        state[action.id]
-      )
-    case DASHBOARD_CHANGE:
-      const newDashboardConfig = {...state[action.id], tree: action.tree }
-      return {
-        ...state,
-        [action.id]: newDashboardConfig
-      }
-    default:
-      return state
+export const dashboardReducer =
+  (state = config.dashboards, action = {}) => {
+    Object.freeze(state)
+    switch (action.type) {
+      case GET_DASHBOARD:
+        return {
+          ...state,
+          [action.id]: {
+            name: action.name,
+            tree: action.tree,
+            windowCount: action.windowCount
+          }
+        }
+      case ADD_TO_TOP_RIGHT:
+        return addToTopRight(
+          state,
+          action.id,
+          state[action.id]
+        )
+      case DASHBOARD_CHANGE:
+        const newDashboardConfig = { ...state[action.id], tree: action.tree }
+        return {
+          ...state,
+          [action.id]: newDashboardConfig
+        }
+      default:
+        return state
+    }
   }
-}
 
 function addToTopRight(state, id, { name, tree, windowCount }) {
   if (tree) {

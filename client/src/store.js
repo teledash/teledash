@@ -1,8 +1,12 @@
 import { createStore, compose, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { routerMiddleware } from 'react-router-redux'
-import dataManagerSaga from './containers/DataManager/sagas'
+import dataManagerSaga from './containers/DataManager/saga'
+import navbarSaga from './containers/Navbar/saga'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import reducers from './reducers'
+import { all, call } from 'redux-saga/effects'
+
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -13,23 +17,17 @@ export default function configureStore(initialState = {}, history) {
     routerMiddleware(history),
   ]
 
-  const enhancers = [
-    applyMiddleware(...middlewares),
-  ]
+  const store = createStore(reducers, composeWithDevTools(
+    applyMiddleware(...middlewares)
+  ))
 
-  // If Redux DevTools Extension is installed use it, otherwise use Redux compose
-  const composeEnhancers =
-    process.env.NODE_ENV !== 'production' &&
-      typeof window === 'object' &&
-      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
-
-  const store = createStore(
-    reducers,
-    composeEnhancers(...enhancers)
+  store.runSaga = sagaMiddleware.run(
+    function* mainSaga() {
+      yield all([
+        call(dataManagerSaga), call(navbarSaga)
+      ])
+    }
   )
-
-  store.runSaga = sagaMiddleware.run(dataManagerSaga)
 
   return store
 }
