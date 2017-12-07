@@ -33,7 +33,7 @@ export const dashboardReducer = (state = config.dashboards, action = {}) => {
   }
 }
 
-function addToTopRight(state, id, { tree, windowCount }) {
+function addToTopRight(state, id, { name, tree, windowCount }) {
   if (tree) {
     const path = getPathToCorner(tree, Corner.TOP_RIGHT)
     const parent = getNodeAtPath(tree, _.dropRight(path))
@@ -62,5 +62,5 @@ function addToTopRight(state, id, { tree, windowCount }) {
     tree = ++windowCount
   }
 
-  return { ...state, [id]: { tree, windowCount } }
+  return { ...state, [id]: { name, tree, windowCount } }
 }

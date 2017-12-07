@@ -3,17 +3,17 @@ export default {
     '1': {
       name: 'Dashboard 1',
       tree: {
-        direction: 'row',
         first: {
-          direction: 'column',
-          first: 1,
-          second: 2
+          first: 2,
+          second: 4,
+          direction: 'row'
         },
         second: {
-          direction: 'column',
-          first: 3,
-          second: 4
-        }
+          first: 1,
+          second: 3,
+          direction: 'row'
+        },
+        direction: 'row'
       },
       windowCount: 4
     },
@@ -39,7 +39,7 @@ export default {
     iss_feed: {
       name: 'ISS Feed',
       type: 'video',
-      url: 'https://www.youtube.com/watch?v=ddFvjfvPnqk',
+      url: 'https://www.youtube.com/watch?v=ddFvjfvPnqk'
     },
     iss_temperature: {
       name: 'Temperature',
@@ -111,6 +111,14 @@ export default {
       dashboard_id: 2,
       position: 3
     }
-  ]
+  ],
+  router: {
+    location: {
+      pathname: '/dashboard/1',
+      search: '',
+      hash: '',
+      key: '33jp4v'
+    }
+  }
 }
 
