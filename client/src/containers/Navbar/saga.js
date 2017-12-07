@@ -3,9 +3,13 @@ import { push } from 'react-router-redux'
 import {
   GET_DASHBOARD,
   CREATE_DASHBOARD,
+  UPDATE_DASHBOARD_NAME
 } from '../../constants'
 
-import { createDashboard } from './api'
+import {
+  createDashboard,
+  updateDashboard
+} from './api'
 
 export function* getNewDashboard() {
   const data = yield call(createDashboard)
@@ -13,8 +17,14 @@ export function* getNewDashboard() {
   yield put(push((`/dashboard/${data.id}`)))
 }
 
+export function* updateDashboardName({ name, id }) {
+  const data = yield call(updateDashboard, { name }, id)
+  yield put({ type: GET_DASHBOARD, ...data })
+}
+
 export default function* navbarSaga() {
   yield all([
     takeLatest(CREATE_DASHBOARD, getNewDashboard),
+    takeLatest(UPDATE_DASHBOARD_NAME, updateDashboardName),
   ])
 }

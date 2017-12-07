@@ -12,7 +12,12 @@ import { push } from 'react-router-redux'
 import { withRouter, Link } from 'react-router-dom'
 import './style.css'
 import { InlineTextField } from '../../components'
-import { addWidget, addToTopRight, createDashboard } from './actions'
+import {
+  addWidget,
+  addToTopRight,
+  createDashboard,
+  updateDashboardName
+} from './actions'
 
 const DashboardMenu = ({ dashboards, createDashboard, goToDashboard }) => (
   <Menu>
@@ -90,11 +95,21 @@ const AddWidgetButtonContainer = withRouter(connect(null, (dispatch, ownProps) =
   }
 }))(AddWidgetButton))
 
+const InlineTextFieldContainer = withRouter(connect(({ dashboards, router }) => {
+  const id = router.location.pathname.slice(-1)
+  return ({
+    value: dashboards[id] ? dashboards[id].name : null
+  })
+}, (dispatch, ownProps ) => ({
+  submit: name => dispatch(
+    updateDashboardName(name, ownProps.location.pathname.slice(-1)))
+}))(InlineTextField))
+
 const Navbar = ({ dashboardName }) => (
   <nav className="pt-navbar pt-dark modifier">
     <div className="pt-navbar-group pt-align-left">
       <div className="pt-navbar-heading">
-        <InlineTextField value={dashboardName} />
+        <InlineTextFieldContainer />
       </div>
     </div>
     <div className="pt-navbar-group pt-align-right">
@@ -111,9 +126,4 @@ const Navbar = ({ dashboardName }) => (
   </nav>
 )
 
-export default connect(({ dashboards, router }) => {
-  const id = router.location.pathname.slice(-1)
-  return ({
-    dashboardName: dashboards[id] ? dashboards[id].name : null
-  })
-})(Navbar)
+export default Navbar

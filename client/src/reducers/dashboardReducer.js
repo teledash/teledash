@@ -19,12 +19,12 @@ export const dashboardReducer =
     Object.freeze(state)
     switch (action.type) {
       case GET_DASHBOARD:
+        const {id, ...rest} = action
         return {
           ...state,
-          [action.id]: {
-            name: action.name,
-            tree: action.tree,
-            windowCount: action.windowCount
+          [id]: {
+            ...state[id],
+            ...rest
           }
         }
       case ADD_TO_TOP_RIGHT:
