@@ -2,7 +2,6 @@ import React from 'react'
 import {
   Mosaic,
   MosaicWindow,
-  updateTree
 } from 'react-mosaic-component'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'

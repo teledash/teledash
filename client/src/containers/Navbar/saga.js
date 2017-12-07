@@ -1,15 +1,16 @@
 import { put, takeLatest, all, call } from 'redux-saga/effects'
-import { delay } from 'redux-saga'
+import { push } from 'react-router-redux'
 import {
   GET_DASHBOARD,
-  CREATE_DASHBOARD
+  CREATE_DASHBOARD,
 } from '../../constants'
-// import { createDashboard } from './api'
+
+import { createDashboard } from './api'
 
 export function* getNewDashboard() {
-  console.log('hello')
-  const data = yield call(delay, 500)
-  yield put({ type: GET_DASHBOARD, id: 3, tree: [], name: 'Fake name', windowCount: 0 })
+  const data = yield call(createDashboard)
+  yield put({ type: GET_DASHBOARD, ...data })
+  yield put(push((`/dashboard/${data.id}`)))
 }
 
 export default function* navbarSaga() {
