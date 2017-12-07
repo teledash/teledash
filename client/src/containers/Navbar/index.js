@@ -8,39 +8,56 @@ import {
   MenuDivider
 } from '@blueprintjs/core'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { push } from 'react-router-redux'
+import { withRouter, Link } from 'react-router-dom'
 import './style.css'
 import { addWidget, addToTopRight } from './actions'
 
-const AddWidgetMenu = ({ addWidget }) => (
-  <Menu>
-      <MenuItem
-          iconName="pt-icon-path-search"
-          onClick={() => addWidget('map')}
-          text="Map"
-      />
-      <MenuItem
-          iconName="pt-icon-timeline-line-chart"
-          onClick={() => addWidget('line_graph')}
-          text="Line Graph"
-      />
-      <MenuItem
-          iconName="pt-icon-mobile-video"
-          onClick={() => addWidget('video')}
-          text="Video"
-      />
-  </Menu>
-)
-
-const EntityMenu = ({ addWidget }) => (
+const DashboardMenu = ({ dashboards, createDashboard, goToDashboard }) => (
   <Menu>
     <MenuItem
       iconName="pt-icon-plus"
-      onClick={() => {}}
+      onClick={() => { }}
       text="Create"
     />
     <MenuDivider />
-    {/* <MenuItem
+    {
+      dashboards.map(db => (
+        <li key={db.id}>
+          <Link
+            to={`/dashboard/${db.id}`}
+            className="pt-menu-item pt-popover-dismiss">
+            {db.name}
+          </Link>
+        </li>
+      ))
+    }
+  </Menu>
+)
+
+const DashboardMenuContainer = connect(({ dashboards }) => ({
+  dashboards: Object.keys(dashboards)
+    .map(id => ({ id, name: dashboards[id].name }))
+}), dispatch => ({
+  goToDashboard: link => dispatch(push(`/dashboard/${link}`))
+}))(DashboardMenu)
+
+
+const DashboardsButton = () => (
+  <Popover content={<DashboardMenuContainer />} position={Position.BOTTOM_RIGHT}>
+    <button className="pt-button pt-minimal pt-icon-dashboard">Dashboards</button>
+  </Popover>
+)
+
+
+const AddWidgetMenu = ({ addWidget }) => (
+  <Menu>
+    <MenuItem
+      iconName="pt-icon-path-search"
+      onClick={() => addWidget('map')}
+      text="Map"
+    />
+    <MenuItem
       iconName="pt-icon-timeline-line-chart"
       onClick={() => addWidget('line_graph')}
       text="Line Graph"
@@ -49,51 +66,45 @@ const EntityMenu = ({ addWidget }) => (
       iconName="pt-icon-mobile-video"
       onClick={() => addWidget('video')}
       text="Video"
-    /> */}
+    />
   </Menu>
 )
 
-const AddWidget = ({ addWidget }) => (
+const AddWidgetButton = ({ addWidget }) => (
   <Popover content={<AddWidgetMenu addWidget={addWidget} />} position={Position.BOTTOM_RIGHT}>
-    <button class="pt-button pt-minimal pt-icon-plus">Add Widget</button>
+    <button className="pt-button pt-minimal pt-icon-plus">Add Widget</button>
   </Popover>
 )
 
-const Dashboards = ({ addEntity }) => (
-  <Popover content={<EntityMenu addWidget={addEntity} />} position={Position.BOTTOM_RIGHT}>
-    <button class="pt-button pt-minimal pt-icon-dashboard">Dashboards</button>
-  </Popover>
-)
-
-const Navbar = ({ addWidget }) => (
-  <nav className="pt-navbar pt-dark modifier">
-    <div class="pt-navbar-group pt-align-left">
-      <div class="pt-navbar-heading">Teledash</div>
-    </div>
-    <div className="pt-navbar-group pt-align-right">
-      <div class="pt-navbar-group pt-align-right">
-        <AddWidget addWidget={addWidget} />
-        <button class="pt-button pt-minimal pt-icon-database">Datasources</button>
-        <Dashboards addWidget={addWidget} />
-        <span class="pt-navbar-divider"></span>
-        <button class="pt-button pt-minimal pt-icon-user"></button>
-        <button class="pt-button pt-minimal pt-icon-notifications"></button>
-        <button class="pt-button pt-minimal pt-icon-cog"></button>
-      </div>
-    </div>
-  </nav>
-  )
-
-Navbar.propTypes = {
+AddWidgetButton.propTypes = {
   addWidget: PropTypes.func
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const AddWidgetButtonContainer = withRouter(connect(null, (dispatch, ownProps) => ({
   addWidget: type => {
     const id = ownProps.location.pathname.split('/')[2]
     dispatch(addWidget(type, id))
     dispatch(addToTopRight(id))
   }
-})
+}))(AddWidgetButton))
 
-export default withRouter(connect(null, mapDispatchToProps)(Navbar))
+const Navbar = () => (
+  <nav className="pt-navbar pt-dark modifier">
+    <div className="pt-navbar-group pt-align-left">
+      <div className="pt-navbar-heading">Teledash</div>
+    </div>
+    <div className="pt-navbar-group pt-align-right">
+      <div className="pt-navbar-group pt-align-right">
+        <AddWidgetButtonContainer />
+        <button className="pt-button pt-minimal pt-icon-database">Datasources</button>
+        <DashboardsButton />
+        <span className="pt-navbar-divider"></span>
+        <button className="pt-button pt-minimal pt-icon-user"></button>
+        <button className="pt-button pt-minimal pt-icon-notifications"></button>
+        <button className="pt-button pt-minimal pt-icon-cog"></button>
+      </div>
+    </div>
+  </nav>
+)
+
+export default Navbar

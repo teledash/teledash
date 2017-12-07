@@ -44,13 +44,11 @@ Dashboard.PropTypes = {
 }
 
 export const mapStateToProps =
-  ({ dashboards, widgets, dataSources }, { match }) => {
-    return ({
+  ({ dashboards, widgets, dataSources }, { match }) => ({
     tree: dashboards[match.params.id].tree,
     widgets: widgets.filter(widget => widget.dashboard_id === +match.params.id),
     dataSources
   })
-  }
 
 export const mapDispatchToProps = (dispatch, { match }) => ({
   onChange: currentNode =>

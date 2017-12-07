@@ -1,6 +1,7 @@
 export default {
   dashboards: {
     '1': {
+      name: 'Dashboard 1',
       tree: {
         direction: 'row',
         first: {
@@ -17,6 +18,7 @@ export default {
       windowCount: 4
     },
     '2': {
+      name: 'Dashboard 2',
       tree: {
         direction: 'row',
         first: {
@@ -41,13 +43,13 @@ export default {
     },
     iss_temperature: {
       name: 'Temperature',
-      type: 'json',
+      type: 'rest',
       url: '/api/linegraph',
       refresh: 2000
     },
     iss_location: {
       name: 'Current ISS location',
-      type: 'json',
+      type: 'rest',
       url: 'https://fake-url.data-stream.json',
       refresh: 5000
     }
@@ -68,8 +70,8 @@ export default {
       position: 1
     },
     {
-      type: 'video',
-      source: 'iss_feed',
+      type: 'map',
+      source: 'iss_location',
       name: 'ISS Feed',
       dashboard_id: 1,
       position: 2
@@ -91,7 +93,7 @@ export default {
     {
       type: 'line_graph',
       source: 'iss_temperature',
-      name: 'Temperature',
+      name: 'Map',
       dashboard_id: 2,
       position: 1
     },

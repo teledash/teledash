@@ -20,16 +20,16 @@ class LineGraph extends React.Component {
   }
 
   componentDidMount() {
-    setInterval(() => {
-      const randomY = Math.random() > 0.4 ? Math.random() : -Math.random()
-      const coord = {
-        x: this.state.data[this.state.data.length - 1].x + 1,
-        y: this.state.data[this.state.data.length - 1].y + randomY
-      }
-      this.setState({
-        data: [...this.state.data, coord]
-      })
-    }, 5000)
+    // setInterval(() => {
+    //   const randomY = Math.random() > 0.4 ? Math.random() : -Math.random()
+    //   const coord = {
+    //     x: this.state.data[this.state.data.length - 1].x + 1,
+    //     y: this.state.data[this.state.data.length - 1].y + randomY
+    //   }
+    //   this.setState({
+    //     data: [...this.state.data, coord]
+    //   })
+    // }, 5000)
   }
 
   render() {

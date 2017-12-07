@@ -31,13 +31,13 @@ export default class Map extends React.Component {
   }
 
   componentDidMount() {
-    setInterval(() => {
-      const lat = this.state.coord.lat + 0.01
-      const lng = this.state.coord.lng + 0.01
-      this.setState({
-        coord: { lat, lng }
-      })
-    }, 1000)
+    // setInterval(() => {
+    //   const lat = this.state.coord.lat + 0.01
+    //   const lng = this.state.coord.lng + 0.01
+    //   this.setState({
+    //     coord: { lat, lng }
+    //   })
+    // }, 1000)
   }
 
   render() {
