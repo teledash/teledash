@@ -28,6 +28,7 @@ const Dashboard = ({ widgets, tree, onChange, dataSources }) => {
           </div>
         </MosaicWindow>
       )}
+
       zeroStateView={<div></div>}
       value={tree}
       onChange={onChange}
@@ -51,8 +52,8 @@ export const mapStateToProps =
   })
 
 export const mapDispatchToProps = (dispatch, { match }) => ({
-  onChange: currentNode =>
-    dispatch(onDashboardChange(currentNode, match.params.id)),
+  onChange: tree =>
+    dispatch(onDashboardChange(tree, match.params.id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)

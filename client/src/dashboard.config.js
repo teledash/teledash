@@ -63,7 +63,7 @@ export default {
       position: 0
     },
     {
-      type: 'line_graph',
+      type: 'map',
       source: 'iss_temperature',
       name: 'Temperature',
       dashboard_id: 1,
@@ -77,14 +77,14 @@ export default {
       position: 2
     },
     {
-      type: 'line_graph',
+      type: 'map',
       source: 'iss_temperature',
       name: 'Temperature',
       dashboard_id: 1,
       position: 3
     },
     {
-      type: 'map',
+      type: 'line_graph',
       source: 'iss_location',
       name: 'Current ISS location',
       dashboard_id: 2,
@@ -110,7 +110,7 @@ export default {
       name: 'Temperature',
       dashboard_id: 2,
       position: 3
-    },
+    }
   ]
 }
 

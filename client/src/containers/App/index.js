@@ -9,18 +9,14 @@ import {
   DataManager
 } from '../'
 
-const ConnectedSwitch = connect(state => ({
-  location: state.location
-}))(Switch)
-
 const App = () => (
   <div id='app'>
     <Navbar />
     <DataManager/>
-    <ConnectedSwitch>
-      <Route path="/dashboard/:id" component={Dashboard} />
+    <Switch>
+      <Route exact path="/dashboard/:id" component={Dashboard} />
       <Redirect to="/dashboard/1" component={Dashboard} />
-    </ConnectedSwitch>
+    </Switch>
   </div>
 )
 
