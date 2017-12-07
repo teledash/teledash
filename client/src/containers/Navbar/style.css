@@ -3,3 +3,12 @@
   /* FIXME: find better way */
   -webkit-font-smoothing: antialiased;
 }
+
+#dashboard-name:hover + .inline-text-icon {
+  display: inline;
+}
+
+.inline-text-icon {
+  margin-left: 0.5em;
+  display: none;
+}

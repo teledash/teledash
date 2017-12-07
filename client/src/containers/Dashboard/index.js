@@ -46,7 +46,7 @@ Dashboard.PropTypes = {
 
 export const mapStateToProps =
   ({ dashboards, widgets, dataSources }, { match }) => ({
-    tree: dashboards[match.params.id].tree,
+    tree: dashboards[match.params.id] ? dashboards[match.params.id].tree: null,
     widgets: widgets.filter(widget => widget.dashboard_id === +match.params.id),
     dataSources
   })

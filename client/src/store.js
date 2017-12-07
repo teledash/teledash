@@ -24,7 +24,8 @@ export default function configureStore(initialState = {}, history) {
   store.runSaga = sagaMiddleware.run(
     function* mainSaga() {
       yield all([
-        call(dataManagerSaga), call(navbarSaga)
+        call(dataManagerSaga),
+        call(navbarSaga)
       ])
     }
   )
