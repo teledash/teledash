@@ -6,8 +6,6 @@ import navbarSaga from './containers/Navbar/saga'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import reducers from './reducers'
 import { all, call } from 'redux-saga/effects'
-
-
 const sagaMiddleware = createSagaMiddleware()
 
 export default function configureStore(initialState = {}, history) {

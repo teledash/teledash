@@ -6,4 +6,4 @@ export default db.define('datasource', {
   type: Sequelize.ENUM('json', 'video'),
   url: Sequelize.STRING,
   refresh: Sequelize.INTEGER
-});
+})
