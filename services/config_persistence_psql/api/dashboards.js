@@ -1,13 +1,20 @@
 import express from 'express'
-const router = express.Router();
+import { Dashboard } from '../db/models'
+import chalk from 'chalk'
+const router = express.Router()
 
 // GET api/dashboards
-router.get('/', function (req, res, next) {
-  res.send('TODO')
+router.get('/',  function (req, res, next) {
+  Dashboard.findAll().then(dashboards => res.json(dashboards))
 })
 
 // POST api/dashboards
 router.post('/', function (req, res, next) {
+  Dashboard.create(req.body).then(dashboard => res.json(dashboard))
+})
+
+// PUT api/dashboards
+router.put('/:id', function (req, res, next) {
   res.send('TODO')
 })
 

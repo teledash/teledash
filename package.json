@@ -10,16 +10,15 @@
     "start:server": "babel-watch services/iss_tracker/app.js",
     "start:client": "cd client && yarn start",
     "start": "concurrently 'yarn start:server' 'yarn start:client'",
-    "start:config:service": "babel-watch services/config_persistence_psql/index.js",
+    "service:config": "babel-watch services/config_persistence_psql/index.js",
     "seed": "babel-node services/config_persistence_psql/seed.js"
   },
   "devDependencies": {
-    "concurrently": "^3.5.1"
-  },
-  "dependencies": {
     "babel-core": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "babel-watch": "^2.0.7"
-  }
+    "babel-watch": "^2.0.7",
+    "concurrently": "^3.5.1"
+  },
+  "dependencies": {}
 }

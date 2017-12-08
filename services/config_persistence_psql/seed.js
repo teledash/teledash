@@ -40,6 +40,11 @@ const dashboards = [
       }
     },
     windowCount: 4
+  },
+  {
+    name: '',
+    tree: {},
+    windowCount: 0
   }
 ]
 
@@ -123,19 +128,16 @@ const widgets = [
 ]
 
 const seed = () =>
-  Promise.all([
-    Promise.all(
-      dashboards.map(dashboard => Dashboard.create(dashboard))),
-    Promise.all(
-      datasources.map(datasource => Datasource.create(datasource))),
-    Promise.all(
-      widgets.map(widget => Widget.create(widget)))
-  ])
-
+  Promise.all(
+    dashboards.map(dashboard => Dashboard.create(dashboard))).then(() => (
+      Promise.all(
+        datasources.map(datasource => Datasource.create(datasource)))
+    )).then(() => Promise.all(
+      widgets.map(widget => Widget.create(widget))))
 
 const main = () => {
   console.log(chalk.blue('Syncing db...'))
-  db.sync({force: true})
+  db.sync({ force: true })
     .then(() => {
       console.log(chalk.blue('Seeding databse...'))
       return seed()
