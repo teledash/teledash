@@ -1,8 +1,12 @@
 import {
-  DASHBOARD_CHANGE,
   ADD_TO_TOP_RIGHT,
-  GET_DASHBOARD
-} from '../constants'
+  RECEIVE_DASHBOARD
+} from '../containers/Navbar/actions'
+
+import {
+  DASHBOARD_CHANGE,
+  RECEIVE_DASHBOARDS
+} from '../containers/Dashboard/actions'
 
 import {
   Corner,
@@ -14,12 +18,12 @@ import {
 import _ from 'lodash'
 import config from '../dashboard.config'
 
-export const dashboardReducer =
-  (state = config.dashboards, action = {}) => {
+export const dashboardReducer = (state = [], action = {}) => {
     Object.freeze(state)
     switch (action.type) {
-      case GET_DASHBOARD:
-        const {id, ...rest} = action
+      case RECEIVE_DASHBOARDS: return action.dashboards
+      case RECEIVE_DASHBOARD:
+        const { id, ...rest } = action
         return {
           ...state,
           [id]: {

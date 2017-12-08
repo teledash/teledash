@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga'
 import { routerMiddleware } from 'react-router-redux'
 import dataManagerSaga from './containers/DataManager/saga'
 import navbarSaga from './containers/Navbar/saga'
+import dashboardSaga from './containers/Dashboard/saga'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import reducers from './reducers'
 import { all, call } from 'redux-saga/effects'
@@ -23,7 +24,8 @@ export default function configureStore(initialState = {}, history) {
     function* mainSaga() {
       yield all([
         call(dataManagerSaga),
-        call(navbarSaga)
+        call(navbarSaga),
+        call(dashboardSaga)
       ])
     }
   )

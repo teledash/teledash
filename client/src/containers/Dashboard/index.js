@@ -6,8 +6,9 @@ import {
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import SettingsButton from './SettingsButton'
-import { onDashboardChange } from './actions'
+import { dashboardChange, getDashboards } from './actions'
 import widgetFactory from './widgetFactory'
+import { compose, lifecycle, withProps as props } from 'recompose'
 import './style.css'
 
 const Dashboard = ({ widgets, tree, onChange, datasources }) => {
@@ -37,12 +38,6 @@ const Dashboard = ({ widgets, tree, onChange, datasources }) => {
   )
 }
 
-Dashboard.PropTypes = {
-  onChange: PropTypes.func,
-  tree: PropTypes.object,
-  widgets: PropTypes.array,
-  datasources: PropTypes.object
-}
 
 export const mapStateToProps =
   ({ dashboards, widgets, datasources }, { match }) => ({
@@ -53,7 +48,27 @@ export const mapStateToProps =
 
 export const mapDispatchToProps = (dispatch, { match }) => ({
   onChange: tree =>
-    dispatch(onDashboardChange(tree, match.params.id)),
+    dispatch(dashboardChange(tree, match.params.id)),
+    getDashboards: () => dispatch(getDashboards())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+const withLifeCycle = lifecycle({
+  componentDidMount() {
+    this.props.getDashboards()
+  }
+})
+
+const withPropTypes = props({
+  onChange: PropTypes.func,
+  tree: PropTypes.object,
+  widgets: PropTypes.array,
+  datasources: PropTypes.object
+})
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps)
+
+export default compose(
+  withPropTypes,
+  withConnect,
+  withLifeCycle
+)(Dashboard)

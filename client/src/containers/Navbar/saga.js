@@ -1,10 +1,10 @@
 import { put, takeLatest, all, call } from 'redux-saga/effects'
 import { push } from 'react-router-redux'
 import {
-  GET_DASHBOARD,
+  RECEIVE_DASHBOARD,
   CREATE_DASHBOARD,
   UPDATE_DASHBOARD_NAME
-} from '../../constants'
+} from './actions'
 
 import {
   createDashboard,
@@ -13,13 +13,13 @@ import {
 
 export function* getNewDashboard() {
   const data = yield call(createDashboard)
-  yield put({ type: GET_DASHBOARD, ...data })
+  yield put({ type: RECEIVE_DASHBOARD, ...data })
   yield put(push((`/dashboard/${data.id}`)))
 }
 
 export function* updateDashboardName({ name, id }) {
   const data = yield call(updateDashboard, { name }, id)
-  yield put({ type: GET_DASHBOARD, ...data })
+  yield put({ type: RECEIVE_DASHBOARD, ...data })
 }
 
 export default function* navbarSaga() {
