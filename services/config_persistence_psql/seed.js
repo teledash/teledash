@@ -1,11 +1,10 @@
-import db from './db'
 import chalk from 'chalk'
-
 import {
+  db,
   Dashboard,
   Datasource,
   Widget
-} from './db/models'
+} from './db'
 
 const dashboards = [
   {
@@ -123,30 +122,33 @@ const widgets = [
   }
 ]
 
-const seed = () => (
-  Promise.all(dashboards.map(dashboard => Dashboard.create(dashboard)))
-    .then(() =>
-      Promise.all(datasources.map(datasource => Datasource.create(datasource))
-      ))
-    .then(() =>
-      Promise.all(widgets.map(widget => Widget.create(widget))
-      ))
-)
+const seed = () =>
+  Promise.all([
+    Promise.all(
+      dashboards.map(dashboard => Dashboard.create(dashboard))),
+    Promise.all(
+      datasources.map(datasource => Datasource.create(datasource))),
+    Promise.all(
+      widgets.map(widget => Widget.create(widget)))
+  ])
+
 
 const main = () => {
-  chalk.yellow('Syncing db...')
-  db.sync({ force: true })
+  console.log(chalk.blue('Syncing db...'))
+  db.sync({force: true})
     .then(() => {
-      chalk.blue('Seeding databse...')
+      console.log(chalk.blue('Seeding databse...'))
       return seed()
     })
-    .catch(err => {
-      chalk.red('Error while seeding')
-      chalk.red(err.stack)
-    })
     .then(() => {
+      console.log(chalk.green('Seeding succeeded'))
+    })
+    .catch(err => {
+      console.log(chalk.red('Error while seeding'))
+      console.log(chalk.red(err.stack))
+    })
+    .finally(() => {
       db.close()
-      chalk.green('Seeding succeeded')
       return null
     })
 }

@@ -7,7 +7,7 @@ import { db } from './db'
 
 const app = express()
 
-db.sync().then(() => chalk.blue('Database is synced'));
+db.sync().then(() => console.log(chalk.blue('Database is synced')))
 
 app.use(volleyball)
 // body parsing middleware
