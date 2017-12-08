@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "setup": "yarn install & cd server && yarn install & cd client && yarn install",
-    "start:server": "babel-watch services/iss_tracker/app.js",
+    "start:server": "babel-watch services/config_persistence_psql/index.js",
     "start:client": "cd client && yarn start",
     "start": "concurrently 'yarn start:server' 'yarn start:client'",
     "service:config": "babel-watch services/config_persistence_psql/index.js",

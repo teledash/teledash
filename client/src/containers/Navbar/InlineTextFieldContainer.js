@@ -6,8 +6,9 @@ import {
   updateDashboardName
 } from './actions'
 
-const mapStateToProps = ({ dashboards, router }) => {
-  const id = router.location.pathname.slice(-1)
+const mapStateToProps = ({ dashboards, router }, ownProps) => {
+  const splitPath = ownProps.location.pathname.split('/')
+  const id = splitPath[splitPath.length - 1]
   return ({ value: dashboards[id] ? dashboards[id].name : null })
 }
 

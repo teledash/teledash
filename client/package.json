@@ -41,7 +41,7 @@
   },
   "proxy": {
     "/api": {
-      "target": "http://localhost:2000",
+      "target": "http://localhost:2001",
       "ws": true
     }
   }
