@@ -17,8 +17,8 @@ export default db.define('dashboard', {
 }, {
     hooks: {
       beforeCreate(instance) {
-        if (!instance.name || instance.name === '')
-          instance.name = generateName()
+        if (!instance.name)
+          instance.name = generateName() + ' Dashboard'
         return instance
       }
     }
