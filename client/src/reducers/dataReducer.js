@@ -7,7 +7,7 @@ import {
 
 import config from '../dashboard.config'
 
-export const dataReducer = (state = config.dataSources, action = {}) => {
+export const dataReducer = (state = config.datasources, action = {}) => {
   Object.freeze(state)
   switch (action.type) {
     case GET_LINE_GRAPH_DATA:

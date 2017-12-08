@@ -35,7 +35,7 @@ export default {
       windowCount: 4
     }
   },
-  dataSources: {
+  datasources: {
     iss_feed: {
       name: 'ISS Feed',
       type: 'video',

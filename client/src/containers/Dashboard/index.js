@@ -10,10 +10,10 @@ import { onDashboardChange } from './actions'
 import widgetFactory from './widgetFactory'
 import './style.css'
 
-const Dashboard = ({ widgets, tree, onChange, dataSources }) => {
+const Dashboard = ({ widgets, tree, onChange, datasources }) => {
 
   const widgetsJSX = widgets.map(widget =>
-    widgetFactory(widget.type, widget.name, dataSources[widget.source].data)
+    widgetFactory(widget.type, widget.name, datasources[widget.source].data)
   )
 
   return (
@@ -41,14 +41,14 @@ Dashboard.PropTypes = {
   onChange: PropTypes.func,
   tree: PropTypes.object,
   widgets: PropTypes.array,
-  dataSources: PropTypes.object
+  datasources: PropTypes.object
 }
 
 export const mapStateToProps =
-  ({ dashboards, widgets, dataSources }, { match }) => ({
+  ({ dashboards, widgets, datasources }, { match }) => ({
     tree: dashboards[match.params.id] ? dashboards[match.params.id].tree: null,
     widgets: widgets.filter(widget => widget.dashboard_id === +match.params.id),
-    dataSources
+    datasources
   })
 
 export const mapDispatchToProps = (dispatch, { match }) => ({

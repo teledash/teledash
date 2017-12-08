@@ -17,9 +17,9 @@ const intervalCreator = (type, { refresh, url }, getData) => (
   }, refresh)
 )
 
-const mapStateToProps = ({ dataSources }) => ({
-  dataSources: Object.keys(dataSources).map(key => (
-    { id: key, ...dataSources[key] }
+const mapStateToProps = ({ datasources }) => ({
+  datasources: Object.keys(datasources).map(key => (
+    { id: key, ...datasources[key] }
   )),
 })
 
@@ -33,16 +33,16 @@ export const mapDispatchToProps = (dispatch) => ({
 
 const enhance = compose(
   withProps({
-    dataSources: PropTypes.array,
+    datasources: PropTypes.array,
     dispatch: PropTypes.func
   }),
   connect(mapStateToProps, mapDispatchToProps),
   lifecycle({
-    // 1. Iterate through props.dataSources.
+    // 1. Iterate through props.datasources.
     // 2. Make intervalCreators based on dataSource type.
     componentDidMount() {
-      const { getData, assignIntervalId, dataSources } = this.props
-      dataSources.forEach(source => {
+      const { getData, assignIntervalId, datasources } = this.props
+      datasources.forEach(source => {
         if (source.type === '') {
           const intervalId = intervalCreator(
             GET_LINE_GRAPH_DATA,

@@ -6,7 +6,7 @@ import { routerReducer } from 'react-router-redux'
 
 export default combineReducers({
   dashboards: dashboardReducer,
-  dataSources: dataReducer,
+  datasources: dataReducer,
   widgets: widgetReducer,
   router: routerReducer
 })
