@@ -1,6 +1,5 @@
 import { put, takeLatest, all, call } from 'redux-saga/effects'
 import {
-  DASHBOARD_CHANGE,
   GET_DASHBOARDS,
   RECEIVE_DASHBOARDS
 } from './actions'
@@ -8,7 +7,7 @@ import {
 import api from './api'
 
 function * getDashboards() {
-  const dashboards = yield api.getDashboards()
+  const dashboards = yield call(api.getDashboards)
   yield put({ type: RECEIVE_DASHBOARDS, dashboards })
 }
 

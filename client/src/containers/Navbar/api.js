@@ -5,10 +5,6 @@ export function createDashboard() {
 }
 
 export function updateDashboard(fields, id) {
-  return new Promise((resolve, reject) => {
-    setTimeout(
-      () => resolve({ ...fields, id }), 100)
-  })
+  return axios.put(`/api/dashboards/${id}`, fields).then(res => res.data)
 }
-  // return axios.get(url).then(({data}) => data)
 

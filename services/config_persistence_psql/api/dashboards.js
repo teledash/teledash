@@ -6,7 +6,15 @@ const router = express.Router()
 // GET api/dashboards
 router.get('/',  (req, res, next) => {
   Dashboard.findAll()
-    .then(dashboards => res.json(dashboards))
+    .then(dashboards => {
+      const dashboardsAsObject = dashboards.reduce((acc, val) => {
+        acc[val.id] = val
+        delete val.id
+        return acc
+      }, {})
+
+      res.json(dashboardsAsObject)
+    })
     .catch(next)
 })
 

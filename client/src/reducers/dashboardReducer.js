@@ -15,8 +15,8 @@ import {
   getPathToCorner,
   updateTree,
 } from 'react-mosaic-component'
+
 import _ from 'lodash'
-import config from '../dashboard.config'
 
 export const dashboardReducer = (state = [], action = {}) => {
     Object.freeze(state)
@@ -38,7 +38,10 @@ export const dashboardReducer = (state = [], action = {}) => {
           state[action.id]
         )
       case DASHBOARD_CHANGE:
-        const newDashboardConfig = { ...state[action.id], tree: action.tree }
+        const newDashboardConfig = {
+          ...state[action.id],
+          tree: action.tree
+        }
         return {
           ...state,
           [action.id]: newDashboardConfig
