@@ -1,12 +1,12 @@
 import {
   ADD_TO_TOP_RIGHT,
   RECEIVE_DASHBOARD
-} from '../containers/Navbar/actions'
+} from '../constants'
 
 import {
   DASHBOARD_CHANGE,
   RECEIVE_DASHBOARDS
-} from '../containers/Dashboard/actions'
+} from '../constants'
 
 import {
   Corner,
@@ -37,6 +37,7 @@ export const dashboardReducer = (state = [], action = {}) => {
           action.id,
           state[action.id]
         )
+      // Optimistic Rendering this is also triggered with Dashboard/saga
       case DASHBOARD_CHANGE:
         const newDashboardConfig = {
           ...state[action.id],
@@ -59,6 +60,7 @@ function addToTopRight(state, id, { name, tree, windowCount }) {
     const direction = parent ? getOtherDirection(parent.direction) : 'row'
     let first
     let second
+
     if (direction === 'row') {
       first = destination
       second = ++windowCount
@@ -66,6 +68,7 @@ function addToTopRight(state, id, { name, tree, windowCount }) {
       first = ++windowCount
       second = destination
     }
+
     tree = updateTree(tree, [{
       path,
       spec: {

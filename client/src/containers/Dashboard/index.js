@@ -37,8 +37,6 @@ const Dashboard = ({ widgets, tree, onChange, datasources }) => {
     />
   )
 }
-
-
 export const mapStateToProps =
   ({ dashboards, widgets, datasources }, { match }) => ({
     tree: dashboards[match.params.id] ? dashboards[match.params.id].tree: null,
@@ -47,9 +45,8 @@ export const mapStateToProps =
   })
 
 export const mapDispatchToProps = (dispatch, { match }) => ({
-  onChange: tree =>
-    dispatch(dashboardChange(tree, match.params.id)),
-    getDashboards: () => dispatch(getDashboards())
+  onChange: tree => dispatch(dashboardChange(tree, match.params.id)),
+  getDashboards: () => dispatch(getDashboards())
 })
 
 const withLifeCycle = lifecycle({

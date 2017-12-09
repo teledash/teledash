@@ -4,21 +4,17 @@ import {
   RECEIVE_DASHBOARD,
   CREATE_DASHBOARD,
   UPDATE_DASHBOARD_NAME
-} from './actions'
+} from '../../constants'
 
-import {
-  createDashboard,
-  updateDashboard
-} from './api'
-
+import api from '../../api/dashboards'
 export function* getNewDashboard() {
-  const data = yield call(createDashboard)
+  const data = yield call(api.createDashboard)
   yield put({ type: RECEIVE_DASHBOARD, ...data })
   yield put(push((`/dashboard/${data.id}`)))
 }
 
 export function* updateDashboardName({ name, id }) {
-  const data = yield call(updateDashboard, { name }, id)
+  const data = yield call(api.updateDashboard, { name }, id)
   yield put({ type: RECEIVE_DASHBOARD, ...data })
 }
 
