@@ -3,9 +3,10 @@ import { withRouter } from 'react-router-dom'
 import './style.css'
 import { InlineTextField } from '../../components'
 import { updateDashboardName } from './actions'
+import { getDashboardId } from './selectors'
 
-const mapStateToProps = ({ selectedDashboard, dashboards }, ownProps) => {
-  return ({ value: dashboards[selectedDashboard] ? dashboards[selectedDashboard].name : null })
+const mapStateToProps = (state, ownProps) => {
+  return ({ value: getDashboardId(state, ownProps) })
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

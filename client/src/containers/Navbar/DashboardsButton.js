@@ -24,9 +24,9 @@ const DashboardMenu = ({ dashboards, createDashboard, selectDashboard }) => (
     <MenuDivider />
     {
       dashboards.map(db => (
-        <li key={db.id}>
+      <li key={db.id}>
           <Link
-            onClick={selectDashboard}
+            onClick={() => selectDashboard(db.id)}
             to={`/dashboard/${db.id}`}
             className="pt-menu-item pt-popover-dismiss">
             {db.name}
