@@ -1,25 +1,21 @@
 import {
-  ADD_VIDEO,
-  ADD_LINE_GRAPH,
-  ADD_MAP
+  GET_WIDGET
 } from '../constants'
 import config from '../dashboard.config'
 
 export const widgetReducer = (state = config.widgets, action = {}) => {
   switch (action.type) {
-    case ADD_VIDEO:
-    case ADD_LINE_GRAPH:
-    case ADD_MAP:
-      return addNewWidget(state, action.type, Number(action.id))
+    case GET_WIDGET:
+      return addWidget(state, action.type, Number(action.id))
     default:
       return state
   }
 }
 
-function addNewWidget(widgets, type, dashboard_id) {
+function addWidget(widgets, type, dashboardId) {
   const widgetType = type.split('_').slice(1).join('_').toLowerCase()
   return [...widgets, {
-    dashboard_id,
+    dashboardId,
     type: widgetType,
     source: 'iss_feed'
   }]

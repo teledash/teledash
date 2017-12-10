@@ -6,7 +6,7 @@ import { Modal } from '../../components'
 import Form from './Form'
 import { clearWidgetForm } from './actions'
 
-const NewWidgetFormModal = ({ goToPreviousPath }) => (
+const WidgetFormModal = ({ goToPreviousPath }) => (
   <Modal
     title="New Widget"
     toggleDialog={goToPreviousPath}
@@ -22,8 +22,8 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-NewWidgetFormModal.propTypes = {
+WidgetFormModal.propTypes = {
   goToPreviousPath: PropTypes.func.isRequired
 }
 
-export default connect(null, mapDispatchToProps)(NewWidgetFormModal)
+export default connect(null, mapDispatchToProps)(WidgetFormModal)

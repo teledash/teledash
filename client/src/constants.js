@@ -1,7 +1,6 @@
 // Add Widgets
-export const ADD_VIDEO = 'ADD_VIDEO'
-export const ADD_LINE_GRAPH = 'ADD_LINE_GRAPH'
-export const ADD_MAP = 'ADD_MAP'
+export const GET_WIDGET = 'GET_WIDGET'
+export const ADD_WIDGET = 'ADD_WIDGET'
 export const WRITE_WIDGET_FORM = 'WRITE_WIDGET_FORM'
 export const CLEAR_WIDGET_FORM = 'CLEAR_WIDGET_FORM'
 export const ADD_DASHBOARD_ID_TO_WIDGET_FORM = 'ADD_DASHBOARD_ID_TO_WIDGET_FORM'

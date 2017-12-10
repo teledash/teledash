@@ -6,27 +6,33 @@ import {
   Button,
   Intent
 } from '@blueprintjs/core'
-
 import { connect } from 'react-redux'
+import {
+  addWidget,
+  writeWidgetForm,
+} from './actions'
 
 const Form = ({
   types,
   submit,
-  onNameFieldChange,
-  onTypeFieldChange,
-  type,
-  name
+  onFormChange,
+  widgetForm
 }) => (
-    < div className={`${Classes.DIALOG_BODY} ${Classes.DARK}`}>
-      <form onSubmit={submit}>
+    <div className={`${Classes.DIALOG_BODY} ${Classes.DARK}`}>
+      <form onSubmit={(event) => {
+        event.preventDefault()
+        submit({ ...widgetForm })
+      }}
+      >
         <FormGroup
           className={`${Classes.DARK}`}
           label="Name"
           labelFor="name"
-          required={true}
+          required
         >
           <InputGroup
             className={`${Classes.DARK}`}
+            onChange={onFormChange}
             id="name"
             name="name"
             placeholder="Enter name..."
@@ -36,10 +42,14 @@ const Form = ({
           className={`${Classes.DARK}`}
           label="Type"
           labelFor="type"
-          required={true}
+          required
         >
           <div className={`${Classes.DARK} ${Classes.FILL} ${Classes.SELECT}`}>
-            <select defaultValue="" name="type">
+            <select
+              onChange={onFormChange}
+              defaultValue=""
+              name="type"
+            >
               <option defaultValue>Choose type...</option>
               <option value="video">Video</option>
               <option value="line_graph">Line Graph</option>
@@ -50,7 +60,8 @@ const Form = ({
         <div className={`${Classes.DIALOG_FOOTER} ${Classes.DARK}`}>
           <div className={`${Classes.DIALOG_FOOTER_ACTIONS} ${Classes.DARK}`}>
             <Button
-              text="Cancel" />
+              text="Cancel"
+            />
             <Button
               type="submit"
               intent={Intent.PRIMARY}
@@ -60,19 +71,18 @@ const Form = ({
         </div>
       </form>
     </div >
-  )
+)
 
 const mapDispatchToProps = dispatch => ({
-  submit: (event) => {
-    event.preventDefault()
-    dispatch()
+  submit: formData => dispatch(addWidget(formData)),
+  onFormChange: ({ target }) => {
+    const { name, value } = target
+    dispatch(writeWidgetForm({ [name]: value }))
   }
 })
 
-const mapStateToProps = ({ addWidgetForm }) => ({
-
+const mapStateToProps = ({ widgetForm }) => ({
+  widgetForm
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form)
-
-

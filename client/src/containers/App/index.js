@@ -5,11 +5,10 @@ import {
   Dashboard,
   Navbar,
   DataManager,
-  NewWidgetFormModalContainer
+  WidgetFormModal
 } from '../'
 
 class App extends Component {
-
   constructor() {
     super()
     this.state = {
@@ -38,7 +37,8 @@ class App extends Component {
         </Switch>
         {isModal ? <Route
           path="/widget/new"
-          component={NewWidgetFormModalContainer} /> : null
+          component={WidgetFormModal}
+        /> : null
         }
       </div>
     )
