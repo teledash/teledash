@@ -37,7 +37,7 @@ const DashboardMenu = ({ dashboards }) => (
 )
 
 DashboardMenu.propTypes = {
-  dashboards: PropTypes.object.isRequired
+  dashboards: PropTypes.array.isRequired
 }
 
 const mapStateToProps = ({ dashboards }) => ({

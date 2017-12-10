@@ -1,7 +1,7 @@
 import {
   CREATE_DASHBOARD,
   UPDATE_DASHBOARD_NAME,
-  SELECT_DASHBOARD
+  ADD_DASHBOARD_ID_TO_WIDGET_FORM
 } from '../../constants'
 
 export const createDashboard = () => ({
@@ -15,6 +15,6 @@ export const updateDashboardName = (name, id) => ({
 })
 
 export const selectDashboard = id => ({
-  type: SELECT_DASHBOARD,
+  type: ADD_DASHBOARD_ID_TO_WIDGET_FORM,
   id
 })
