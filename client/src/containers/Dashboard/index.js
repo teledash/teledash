@@ -5,16 +5,16 @@ import {
 } from 'react-mosaic-component'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import SettingsButton from './SettingsButton'
-import { dashboardChange, getDashboards } from './actions'
-import widgetFactory from './widgetFactory'
 import { compose, lifecycle, withProps as props } from 'recompose'
+import SettingsButton from './SettingsButton'
+import { dashboardChange, getDashboards, getWidgets } from './actions'
+import widgetFactory from './widgetFactory'
 import './style.css'
 
 const Dashboard = ({ widgets, tree, onChange, datasources }) => {
 
   const widgetsJSX = widgets.map(widget =>
-    widgetFactory(widget.type, widget.name, datasources[widget.source].data)
+    widgetFactory(widget.type, widget.name, {})
   )
 
   return (
@@ -46,11 +46,13 @@ export const mapStateToProps =
 
 export const mapDispatchToProps = (dispatch, { match }) => ({
   onChange: tree => dispatch(dashboardChange(tree, match.params.id)),
-  getDashboards: () => dispatch(getDashboards())
+  getDashboards: () => dispatch(getDashboards()),
+  getWidgets: () => dispatch(getWidgets())
 })
 
 const withLifeCycle = lifecycle({
   componentDidMount() {
+    this.props.getWidgets()
     this.props.getDashboards()
   }
 })

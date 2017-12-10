@@ -3,24 +3,33 @@ import {
   GET_DASHBOARDS,
   RECEIVE_DASHBOARDS,
   DASHBOARD_CHANGE,
-  RECEIVE_DASHBOARD
+  RECEIVE_DASHBOARD,
+  GET_WIDGETS,
+  RECEIVE_WIDGETS
 } from '../../constants'
 
-import api from '../../api/dashboards'
+import dashboardAPI from '../../api/dashboards'
+import widgetAPI from '../../api/widgets'
 
 function* getDashboards() {
-  const dashboards = yield call(api.getDashboards)
+  const dashboards = yield call(dashboardAPI.getDashboards)
   yield put({ type: RECEIVE_DASHBOARDS, dashboards })
 }
 
 function* updateDashboardTree({ tree, id }) {
-  const dashboard = yield call(api.updateDashboard, { tree }, id)
+  const dashboard = yield call(widgetAPI.updateDashboard, { tree }, id)
   yield put({ type: RECEIVE_DASHBOARD, dashboard })
+}
+
+function* getWidgets() {
+  const widgets = yield call(widgetAPI.getWidgets)
+  yield put({ type: RECEIVE_WIDGETS, widgets })
 }
 
 export default function* dashboardSaga() {
   yield all([
     takeLatest(GET_DASHBOARDS, getDashboards),
+    takeLatest(GET_WIDGETS, getWidgets),
     takeLatest(DASHBOARD_CHANGE, updateDashboardTree)
   ])
 }

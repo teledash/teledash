@@ -5,7 +5,7 @@ const router = express.Router();
 
 // GET api/widgets
 router.get('/', (req, res, next) => {
-  res.send('TODO')
+  Widget.findAll().then( widgets => res.json(widgets))
 })
 
 // POST api/widgets
