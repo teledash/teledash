@@ -1,7 +1,7 @@
 import React from 'react'
 import './style.css'
 import DashboardsButton from './DashboardsButton'
-import AddWidgetButtonContainer from './AddWidgetButtonContainer'
+import AddWidgetButton from './AddWidgetButton'
 import InlineTextFieldContainer from './InlineTextFieldContainer'
 
 const Navbar = ({ dashboardName }) => (
@@ -13,7 +13,7 @@ const Navbar = ({ dashboardName }) => (
     </div>
     <div className="pt-navbar-group pt-align-right">
       <div className="pt-navbar-group pt-align-right">
-        <AddWidgetButtonContainer />
+        <AddWidgetButton />
         <button className="pt-button pt-minimal pt-icon-database">Datasources</button>
         <DashboardsButton />
         <span className="pt-navbar-divider"></span>
