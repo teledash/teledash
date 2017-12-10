@@ -2,9 +2,14 @@ import React from 'react'
 import { Modal } from '../../components'
 import { connect } from 'react-redux'
 import { goBack } from 'react-router-redux'
+import Form from './Form'
 
 const NewWidgetFormModal = ({ goToPreviousPath }) => (
-  <Modal toggleDialog={goToPreviousPath} >This is a test</Modal>
+  <Modal
+    title="New Widget"
+    toggleDialog={goToPreviousPath} >
+    <Form/>
+  </Modal>
 )
 
 const mapDispatchToProps = dispatch => ({

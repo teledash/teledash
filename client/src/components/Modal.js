@@ -6,28 +6,16 @@ import {
   Classes
 } from '@blueprintjs/core'
 
-const Modal = ({ isOpen, toggleDialog, children }) => (
+const Modal = ({ isOpen, toggleDialog, title, iconName, children }) => (
   <div>
     <Dialog
       className={`${Classes.DARK}`}
-      iconName="inbox"
+      iconName={iconName}
       isOpen
       onClose={toggleDialog}
-      title="Dialog header"
+      title={title}
     >
-      <div className={`${Classes.DIALOG_BODY} ${Classes.DARK}`}>
-        { children }
-      </div>
-      <div className={`${Classes.DIALOG_FOOTER} ${Classes.DARK}`}>
-        <div className={`${Classes.DIALOG_FOOTER_ACTIONS} ${Classes.DARK}`}>
-          <Button text="Secondary" />
-          <Button
-            intent={Intent.PRIMARY}
-            onClick={toggleDialog}
-            text="Primary"
-          />
-        </div>
-      </div>
+      {children}
     </Dialog>
   </div>
 )

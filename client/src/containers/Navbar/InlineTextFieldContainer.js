@@ -2,14 +2,10 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import './style.css'
 import { InlineTextField } from '../../components'
-import {
-  updateDashboardName
-} from './actions'
+import { updateDashboardName } from './actions'
 
-const mapStateToProps = ({ dashboards, router }, ownProps) => {
-  const splitPath = ownProps.location.pathname.split('/')
-  const id = splitPath[splitPath.length - 1]
-  return ({ value: dashboards[id] ? dashboards[id].name : null })
+const mapStateToProps = ({ selectedDashboard, dashboards }, ownProps) => {
+  return ({ value: dashboards[selectedDashboard] ? dashboards[selectedDashboard].name : null })
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

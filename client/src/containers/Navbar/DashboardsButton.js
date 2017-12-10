@@ -9,9 +9,12 @@ import {
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { Link } from 'react-router-dom'
-import { createDashboard } from './actions'
+import {
+  createDashboard,
+  selectDashboard
+} from './actions'
 
-const DashboardMenu = ({ dashboards, createDashboard, goToDashboard }) => (
+const DashboardMenu = ({ dashboards, createDashboard, selectDashboard }) => (
   <Menu>
     <MenuItem
       iconName="pt-icon-plus"
@@ -23,6 +26,7 @@ const DashboardMenu = ({ dashboards, createDashboard, goToDashboard }) => (
       dashboards.map(db => (
         <li key={db.id}>
           <Link
+            onClick={selectDashboard}
             to={`/dashboard/${db.id}`}
             className="pt-menu-item pt-popover-dismiss">
             {db.name}
@@ -39,7 +43,7 @@ const mapStateToProps = ({ dashboards }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  goToDashboard: link => dispatch(push(`/dashboard/${link}`)),
+  selectDashboard: id =>  dispatch(selectDashboard(id)),
   createDashboard: () => dispatch(createDashboard())
 })
 
