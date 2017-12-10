@@ -4,19 +4,19 @@ import {
 import config from '../dashboard.config'
 
 export const widgetReducer = (state = config.widgets, action = {}) => {
+  const { widget } = action
   switch (action.type) {
     case GET_WIDGET:
-      return addWidget(state, action.type, Number(action.id))
+      return addWidget(state, widget.type, Number(widget.dashboardId))
     default:
       return state
   }
 }
 
 function addWidget(widgets, type, dashboardId) {
-  const widgetType = type.split('_').slice(1).join('_').toLowerCase()
   return [...widgets, {
     dashboardId,
-    type: widgetType,
+    type,
     source: 'iss_feed'
   }]
 }

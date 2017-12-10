@@ -59,56 +59,56 @@ export default {
       type: 'map',
       source: 'iss_location',
       name: 'Current ISS location',
-      dashboard_id: 1,
+      dashboardId: 1,
       position: 0
     },
     {
       type: 'map',
       source: 'iss_temperature',
       name: 'Temperature',
-      dashboard_id: 1,
+      dashboardId: 1,
       position: 1
     },
     {
       type: 'map',
       source: 'iss_location',
       name: 'ISS Feed',
-      dashboard_id: 1,
+      dashboardId: 1,
       position: 2
     },
     {
       type: 'map',
       source: 'iss_temperature',
       name: 'Temperature',
-      dashboard_id: 1,
+      dashboardId: 1,
       position: 3
     },
     {
       type: 'line_graph',
       source: 'iss_location',
       name: 'Current ISS location',
-      dashboard_id: 2,
+      dashboardId: 2,
       position: 0
     },
     {
       type: 'line_graph',
       source: 'iss_temperature',
       name: 'Map',
-      dashboard_id: 2,
+      dashboardId: 2,
       position: 1
     },
     {
       type: 'line_graph',
       source: 'iss_temperature',
       name: 'Temperature',
-      dashboard_id: 2,
+      dashboardId: 2,
       position: 2
     },
     {
       type: 'line_graph',
       source: 'iss_temperature',
       name: 'Temperature',
-      dashboard_id: 2,
+      dashboardId: 2,
       position: 3
     }
   ],

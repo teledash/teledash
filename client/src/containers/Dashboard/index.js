@@ -40,7 +40,7 @@ const Dashboard = ({ widgets, tree, onChange, datasources }) => {
 export const mapStateToProps =
   ({ dashboards, widgets, datasources }, { match }) => ({
     tree: dashboards[match.params.id] ? dashboards[match.params.id].tree: null,
-    widgets: widgets.filter(widget => widget.dashboard_id === +match.params.id),
+    widgets: widgets.filter(widget => widget.dashboardId === +match.params.id),
     datasources
   })
 

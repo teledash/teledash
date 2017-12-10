@@ -1,5 +1,5 @@
 import {
-  ADD_TO_TOP_RIGHT,
+  ADD_NEW_WINDOW_TO_TOP_RIGHT,
   CLEAR_WIDGET_FORM,
   WRITE_WIDGET_FORM,
   ADD_WIDGET
@@ -21,6 +21,6 @@ export const writeWidgetForm = payload => ({
 })
 
 export const addToTopRight = id => ({
-  type: ADD_TO_TOP_RIGHT,
+  type: ADD_NEW_WINDOW_TO_TOP_RIGHT,
   id
 })

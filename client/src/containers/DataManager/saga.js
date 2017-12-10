@@ -7,7 +7,7 @@ import { fetchData } from './api'
 
 export function* getLineGraphData({ url }) {
   const data = yield call(fetchData, url)
-  yield put({ type: RECEIVE_LINE_GRAPH_DATA , data })
+  yield put({ type: RECEIVE_LINE_GRAPH_DATA, data })
 }
 
 export default function* dataManagerSaga() {

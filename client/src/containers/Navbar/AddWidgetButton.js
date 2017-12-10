@@ -6,7 +6,7 @@ import {
 } from '@blueprintjs/core'
 
 import {
-  selectDashboard
+  addDashboardIdToWidgetForm
 } from './actions'
 
 import './style.css'
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch, { location }) => {
   const id = splitPath[splitPath.length - 1]
 
   return {
-    onClick: () => dispatch(selectDashboard(id))
+    onClick: () => dispatch(addDashboardIdToWidgetForm(id))
   }
 }
 

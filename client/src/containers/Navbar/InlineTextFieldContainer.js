@@ -8,10 +8,14 @@ import { getDashboardName } from './selectors'
 const mapStateToProps = (state, ownProps) =>
   ({ value: getDashboardName(state, ownProps) })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  submit: name =>
-    dispatch(updateDashboardName(name, ownProps.location.pathname.slice(-1)))
-})
+const mapDispatchToProps = (dispatch, { location }) => {
+  const splitPath = location.pathname.split('/')
+  const id = splitPath[splitPath.length - 1]
+  return {
+    submit: name =>
+      dispatch(updateDashboardName(name, id))
+  }
+}
 
 const InlineTextFieldContainer =
   withRouter(connect(mapStateToProps, mapDispatchToProps)(InlineTextField))

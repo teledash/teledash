@@ -5,8 +5,8 @@ import {
   CREATE_DASHBOARD,
   UPDATE_DASHBOARD_NAME
 } from '../../constants'
-
 import api from '../../api/dashboards'
+
 export function* getNewDashboard() {
   const data = yield call(api.createDashboard)
   yield put({ type: RECEIVE_DASHBOARD, ...data })

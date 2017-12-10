@@ -14,7 +14,7 @@ export const updateDashboardName = (name, id) => ({
   id
 })
 
-export const selectDashboard = id => ({
+export const addDashboardIdToWidgetForm = id => ({
   type: ADD_DASHBOARD_ID_TO_WIDGET_FORM,
   id
 })

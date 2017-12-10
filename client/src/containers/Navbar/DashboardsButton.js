@@ -13,7 +13,7 @@ import {
   createDashboard,
 } from './actions'
 
-const DashboardMenu = ({ dashboards }) => (
+const DashboardMenu = ({ dashboards, createDashboard }) => (
   <Menu>
     <MenuItem
       iconName="pt-icon-plus"

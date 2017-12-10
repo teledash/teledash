@@ -1,5 +1,5 @@
 import {
-  ADD_TO_TOP_RIGHT,
+  ADD_NEW_WINDOW_TO_TOP_RIGHT,
   RECEIVE_DASHBOARD,
   DASHBOARD_CHANGE,
   RECEIVE_DASHBOARDS
@@ -12,7 +12,7 @@ export const dashboardReducer = (state = {}, action = {}) => {
     case RECEIVE_DASHBOARDS:
       return action.dashboards
     case RECEIVE_DASHBOARD:
-      const { id, ...rest } = action
+      const { id, ...rest } = action.dashboard
       return {
         ...state,
         [id]: {
@@ -20,13 +20,14 @@ export const dashboardReducer = (state = {}, action = {}) => {
           ...rest
         }
       }
-    case ADD_TO_TOP_RIGHT:
+    case ADD_NEW_WINDOW_TO_TOP_RIGHT:
       return addToTopRight(
         state,
         action.id,
         state[action.id]
       )
-    // Optimistic Rendering this is also triggered with Dashboard/saga
+    // This must be done locally at the same time it is done asynchronously
+    // or it won't work.
     case DASHBOARD_CHANGE:
       const newDashboardConfig = {
         ...state[action.id],
