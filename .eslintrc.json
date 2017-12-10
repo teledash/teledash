@@ -16,6 +16,8 @@
     "jsx-a11y/anchor-is-valid": "off",
     "react/jsx-filename-extension": "off",
     "react/forbid-prop-types": "off",
-    "no-restricted-globals": "off"
+    "no-restricted-globals": "off",
+    "no-case-declarations": "off"
+    // "import/extensions": "off"
   }
 }
