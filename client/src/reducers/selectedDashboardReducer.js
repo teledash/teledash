@@ -5,6 +5,8 @@ import {
 
 const initialState = ''
 
+// This reducer is a bit awkward. It is used in cases when the route params
+// do not reflect the currently active dashboard.
 export const selectedDashboardReducer = (state = initialState, action) => {
   switch (action.type) {
     case SELECT_DASHBOARD:

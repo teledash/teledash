@@ -40,7 +40,7 @@ const Form = ({
         >
           <div className={`${Classes.DARK} ${Classes.FILL} ${Classes.SELECT}`}>
             <select defaultValue="" name="type">
-              <option selected>Choose type...</option>
+              <option defaultValue>Choose type...</option>
               <option value="video">Video</option>
               <option value="line_graph">Line Graph</option>
               <option value="map">Map</option>

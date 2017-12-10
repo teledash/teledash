@@ -1,12 +1,10 @@
 import React from 'react'
 import {
-  Button,
   Dialog,
-  Intent,
   Classes
 } from '@blueprintjs/core'
 
-const Modal = ({ isOpen, toggleDialog, title, iconName, children }) => (
+const Modal = ({ toggleDialog, title, iconName, children }) => (
   <div>
     <Dialog
       className={`${Classes.DARK}`}

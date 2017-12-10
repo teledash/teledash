@@ -7,14 +7,13 @@ import {
   Position
 } from '@blueprintjs/core'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
 import { Link } from 'react-router-dom'
 import {
   createDashboard,
   selectDashboard
 } from './actions'
 
-const DashboardMenu = ({ dashboards, createDashboard, selectDashboard }) => (
+const DashboardMenu = ({ dashboards }) => (
   <Menu>
     <MenuItem
       iconName="pt-icon-plus"

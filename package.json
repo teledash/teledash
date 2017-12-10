@@ -18,7 +18,8 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-watch": "^2.0.7",
-    "concurrently": "^3.5.1"
+    "concurrently": "^3.5.1",
+    "eslint-config-fullstack": "^3.0.0"
   },
   "dependencies": {}
 }

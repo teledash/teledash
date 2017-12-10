@@ -3,17 +3,21 @@ import { Modal } from '../../components'
 import { connect } from 'react-redux'
 import { goBack } from 'react-router-redux'
 import Form from './Form'
+import { unselectDashboard } from './actions'
 
 const NewWidgetFormModal = ({ goToPreviousPath }) => (
   <Modal
     title="New Widget"
     toggleDialog={goToPreviousPath} >
-    <Form/>
+    <Form />
   </Modal>
 )
 
 const mapDispatchToProps = dispatch => ({
-  goToPreviousPath: () => dispatch(goBack())
+  goToPreviousPath: () => {
+    dispatch(unselectDashboard())
+    dispatch(goBack())
+  }
 })
 
 export default connect(null, mapDispatchToProps)(NewWidgetFormModal)
