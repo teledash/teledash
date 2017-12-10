@@ -1,15 +1,15 @@
 import {
   ADD_TO_TOP_RIGHT,
-  UNSELECT_DASHBOARD
+  CLEAR_WIDGET_FORM
 } from '../../constants'
 
 export const addWidget = (type, id) => ({
-  type: 'ADD_' + type.toUpperCase(),
+  type: `ADD_${type.toUpperCase()}`,
   id
 })
 
-export const unselectDashboard = id => ({
-  type: UNSELECT_DASHBOARD,
+export const clearWidgetForm = id => ({
+  type: CLEAR_WIDGET_FORM,
   id
 })
 

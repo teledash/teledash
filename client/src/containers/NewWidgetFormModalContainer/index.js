@@ -1,23 +1,29 @@
 import React from 'react'
-import { Modal } from '../../components'
 import { connect } from 'react-redux'
 import { goBack } from 'react-router-redux'
+import PropTypes from 'prop-types'
+import { Modal } from '../../components'
 import Form from './Form'
-import { unselectDashboard } from './actions'
+import { clearWidgetForm } from './actions'
 
 const NewWidgetFormModal = ({ goToPreviousPath }) => (
   <Modal
     title="New Widget"
-    toggleDialog={goToPreviousPath} >
+    toggleDialog={goToPreviousPath}
+  >
     <Form />
   </Modal>
 )
 
 const mapDispatchToProps = dispatch => ({
   goToPreviousPath: () => {
-    dispatch(unselectDashboard())
+    dispatch(clearWidgetForm())
     dispatch(goBack())
   }
 })
+
+NewWidgetFormModal.propTypes = {
+  goToPreviousPath: PropTypes.func.isRequired
+}
 
 export default connect(null, mapDispatchToProps)(NewWidgetFormModal)

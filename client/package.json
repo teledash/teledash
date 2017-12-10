@@ -22,6 +22,7 @@
     "react-vis": "^1.7.9",
     "recompose": "^0.26.0",
     "redux-devtools-extension": "^2.13.2",
+    "redux-freeze": "^0.1.5",
     "redux-saga": "^0.16.0"
   },
   "scripts": {

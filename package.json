@@ -19,7 +19,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-watch": "^2.0.7",
     "concurrently": "^3.5.1",
-    "eslint-config-fullstack": "^3.0.0"
+    "eslint-config-airbnb": "^16.1.0"
   },
   "dependencies": {}
 }

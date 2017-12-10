@@ -19,7 +19,6 @@ import {
 import _ from 'lodash'
 
 export const dashboardReducer = (state = [], action = {}) => {
-    Object.freeze(state)
     switch (action.type) {
       case RECEIVE_DASHBOARDS: return action.dashboards
       case RECEIVE_DASHBOARD:

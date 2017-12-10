@@ -6,7 +6,6 @@ import {
 import config from '../dashboard.config'
 
 export const widgetReducer = (state = config.widgets, action = {}) => {
-  Object.freeze(state)
   switch (action.type) {
     case ADD_VIDEO:
     case ADD_LINE_GRAPH:
