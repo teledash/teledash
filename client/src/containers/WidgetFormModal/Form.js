@@ -7,14 +7,17 @@ import {
   Intent
 } from '@blueprintjs/core'
 import { connect } from 'react-redux'
+import { goBack } from 'react-router-redux'
 import {
   addWidget,
+  clearWidgetForm,
   writeWidgetForm,
 } from './actions'
 
 const Form = ({
   types,
   submit,
+  cancel,
   onFormChange,
   widgetForm
 }) => (
@@ -33,6 +36,7 @@ const Form = ({
           <InputGroup
             className={`${Classes.DARK}`}
             onChange={onFormChange}
+            value={widgetForm.name}
             id="name"
             name="name"
             placeholder="Enter name..."
@@ -47,7 +51,7 @@ const Form = ({
           <div className={`${Classes.DARK} ${Classes.FILL} ${Classes.SELECT}`}>
             <select
               onChange={onFormChange}
-              defaultValue=""
+              value={widgetForm.type}
               name="type"
             >
               <option defaultValue>Choose type...</option>
@@ -61,6 +65,7 @@ const Form = ({
           <div className={`${Classes.DIALOG_FOOTER_ACTIONS} ${Classes.DARK}`}>
             <Button
               text="Cancel"
+              onClick={cancel}
             />
             <Button
               type="submit"
@@ -78,6 +83,10 @@ const mapDispatchToProps = dispatch => ({
   onFormChange: ({ target }) => {
     const { name, value } = target
     dispatch(writeWidgetForm({ [name]: value }))
+  },
+  cancel: () => {
+    dispatch(goBack())
+    dispatch(clearWidgetForm())
   }
 })
 
