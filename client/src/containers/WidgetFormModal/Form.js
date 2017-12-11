@@ -7,7 +7,8 @@ import {
   Intent
 } from '@blueprintjs/core'
 import { connect } from 'react-redux'
-import { goBack } from 'react-router-redux'
+import { push } from 'react-router-redux'
+import { withRouter } from 'react-router-dom'
 import {
   addWidget,
   clearWidgetForm,
@@ -34,6 +35,7 @@ const Form = ({
           required
         >
           <InputGroup
+            required
             className={`${Classes.DARK}`}
             onChange={onFormChange}
             value={widgetForm.name}
@@ -50,6 +52,7 @@ const Form = ({
         >
           <div className={`${Classes.DARK} ${Classes.FILL} ${Classes.SELECT}`}>
             <select
+              required
               onChange={onFormChange}
               value={widgetForm.type}
               name="type"
@@ -68,6 +71,7 @@ const Form = ({
               onClick={cancel}
             />
             <Button
+              disabled={widgetForm.canSubmit}
               type="submit"
               intent={Intent.PRIMARY}
               text="Save"
@@ -76,22 +80,26 @@ const Form = ({
         </div>
       </form>
     </div >
-)
+  )
 
-const mapDispatchToProps = dispatch => ({
-  submit: formData => dispatch(addWidget(formData)),
-  onFormChange: ({ target }) => {
-    const { name, value } = target
-    dispatch(writeWidgetForm({ [name]: value }))
-  },
-  cancel: () => {
-    dispatch(goBack())
-    dispatch(clearWidgetForm())
+const mapDispatchToProps = (dispatch, { location }) => {
+  const dashboardId = location.pathname.split('/')[2]
+  return {
+    submit:
+      formData => dispatch(addWidget({ formData, dashboardId })),
+    onFormChange: ({ target }) => {
+      const { name, value } = target
+      dispatch(writeWidgetForm({ [name]: value }))
+    },
+    cancel: () => {
+      dispatch(push(`/dashboard/${dashboardId}`))
+      dispatch(clearWidgetForm())
+    }
   }
-})
+}
 
 const mapStateToProps = ({ widgetForm }) => ({
   widgetForm
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Form))

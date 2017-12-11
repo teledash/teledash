@@ -4,28 +4,18 @@ import { connect } from 'react-redux'
 import {
   Classes
 } from '@blueprintjs/core'
-
-import {
-  addDashboardIdToWidgetForm
-} from './actions'
-
 import './style.css'
 
-const AddWidgetButton = ({ onClick }) => (
+const AddWidgetButton = ({ dashboardId }) => (
   <Link
-    onClick={onClick}
-    to="/widget/new"
+    to={`/dashboard/${dashboardId}/widget/new`}
     className={`${Classes.BUTTON} ${Classes.MINIMAL} pt-icon-plus`}
-  >Add Widget</Link>
+  >Add Widget
+  </Link>
 )
 
-const mapDispatchToProps = (dispatch, { location }) => {
-  const splitPath = location.pathname.split('/')
-  const id = splitPath[splitPath.length - 1]
+const mapStateToProps = (state, { location }) => ({
+  dashboardId: location.pathname.split('/')[2]
+})
 
-  return {
-    onClick: () => dispatch(addDashboardIdToWidgetForm(id))
-  }
-}
-
-export default withRouter(connect(null, mapDispatchToProps)(AddWidgetButton))
+export default withRouter(connect(mapStateToProps)(AddWidgetButton))

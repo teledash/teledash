@@ -3,14 +3,16 @@ import { withRouter } from 'react-router-dom'
 import './style.css'
 import { InlineTextField } from '../../components'
 import { updateDashboardName } from './actions'
-import { getDashboardName } from './selectors'
 
-const mapStateToProps = (state, ownProps) =>
-  ({ value: getDashboardName(state, ownProps) })
+const mapStateToProps = ({ dashboards }, { location }) => {
+  const param = location.pathname.split('/')[2]
+  return {
+    value: dashboards[param] ? dashboards[param].name : null
+  }
+}
 
 const mapDispatchToProps = (dispatch, { location }) => {
-  const splitPath = location.pathname.split('/')
-  const id = splitPath[splitPath.length - 1]
+  const id = location.pathname.split('/')[2]
   return {
     submit: name =>
       dispatch(updateDashboardName(name, id))

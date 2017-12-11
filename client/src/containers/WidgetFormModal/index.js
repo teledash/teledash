@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { goBack } from 'react-router-redux'
+import { push } from 'react-router-redux'
+import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Modal } from '../../components'
 import Form from './Form'
@@ -15,15 +16,18 @@ const WidgetFormModal = ({ goToPreviousPath }) => (
   </Modal>
 )
 
-const mapDispatchToProps = dispatch => ({
-  goToPreviousPath: () => {
-    dispatch(clearWidgetForm())
-    dispatch(goBack())
+const mapDispatchToProps = (dispatch, { location }) => {
+  const id = location.pathname.split('/')[2]
+  return {
+    goToPreviousPath: () => {
+      dispatch(clearWidgetForm())
+      dispatch(push(`/dashboard/${id}`))
+    }
   }
-})
+}
 
 WidgetFormModal.propTypes = {
   goToPreviousPath: PropTypes.func.isRequired
 }
 
-export default connect(null, mapDispatchToProps)(WidgetFormModal)
+export default withRouter(connect(null, mapDispatchToProps)(WidgetFormModal))
