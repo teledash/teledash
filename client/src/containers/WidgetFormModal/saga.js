@@ -11,7 +11,8 @@ import dashboardAPI from '../../api/dashboards'
 
 export function* addWidget(action) {
   const { dashboardId } = action.payload
-  yield put({ type: ADD_NEW_WINDOW_TO_TOP_RIGHT, dashboardId })
+  yield put({ type: ADD_NEW_WINDOW_TO_TOP_RIGHT, id: dashboardId })
+  console.log('ADDED WINDOW')
   const { tree, windowCount } =
     yield select(({ dashboards }) => dashboards[dashboardId])
   const dashboard =
