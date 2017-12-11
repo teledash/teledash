@@ -17,7 +17,7 @@ function* getDashboards() {
 }
 
 function* updateDashboardTree({ tree, id }) {
-  const dashboard = yield call(widgetAPI.updateDashboard, { tree }, id)
+  const dashboard = yield call(dashboardAPI.updateDashboard, { tree }, id)
   yield put({ type: RECEIVE_DASHBOARD, dashboard })
 }
 

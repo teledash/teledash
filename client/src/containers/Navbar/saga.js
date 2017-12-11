@@ -5,17 +5,18 @@ import {
   CREATE_DASHBOARD,
   UPDATE_DASHBOARD_NAME
 } from '../../constants'
+
 import api from '../../api/dashboards'
 
 export function* getNewDashboard() {
-  const data = yield call(api.createDashboard)
-  yield put({ type: RECEIVE_DASHBOARD, ...data })
-  yield put(push((`/dashboard/${data.id}`)))
+  const dashboard = yield call(api.createDashboard)
+  yield put({ type: RECEIVE_DASHBOARD, dashboard })
+  yield put(push((`/dashboard/${dashboard.id}`)))
 }
 
 export function* updateDashboardName({ name, id }) {
-  const data = yield call(api.updateDashboard, { name }, id)
-  yield put({ type: RECEIVE_DASHBOARD, ...data })
+  const dashboard = yield call(api.updateDashboard, { name }, id)
+  yield put({ type: RECEIVE_DASHBOARD, dashboard })
 }
 
 export default function* navbarSaga() {
