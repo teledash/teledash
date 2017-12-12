@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Modal } from '../../components'
 import Form from './Form'
-import { clearWidgetForm } from './actions'
 
 const WidgetFormModal = ({ goToPreviousPath }) => (
   <Modal
@@ -18,7 +17,6 @@ const WidgetFormModal = ({ goToPreviousPath }) => (
 
 const mapDispatchToProps = (dispatch, { match }) => ({
   goToPreviousPath: () => {
-    dispatch(clearWidgetForm())
     dispatch(push(`/dashboard/${match.params.id}`))
   }
 })

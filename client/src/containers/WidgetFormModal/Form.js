@@ -14,24 +14,17 @@ import { compose } from 'recompose'
 
 import {
   addWidget,
-  clearWidgetForm,
-  writeWidgetForm,
 } from './actions'
 
 const Form = ({
   types,
-  submit,
+  handleSubmit,
   cancel,
-  onFormChange,
-  name,
-  type
+  handleChange,
+  values,
 }) => (
     <div className={`${Classes.DIALOG_BODY} ${Classes.DARK}`}>
-      <form onSubmit={(event) => {
-        event.preventDefault()
-        submit({ name, type })
-      }}
-      >
+      <form onSubmit={handleSubmit}>
         <FormGroup
           className={`${Classes.DARK}`}
           label="Name"
@@ -41,8 +34,8 @@ const Form = ({
           <InputGroup
             required
             className={`${Classes.DARK}`}
-            onChange={onFormChange}
-            value={name}
+            onChange={handleChange}
+            value={values.name}
             id="name"
             name="name"
             placeholder="Enter name..."
@@ -57,8 +50,8 @@ const Form = ({
           <div className={`${Classes.DARK} ${Classes.FILL} ${Classes.SELECT}`}>
             <select
               required
-              onChange={onFormChange}
-              value={type}
+              onChange={handleChange}
+              value={values.type}
               name="type"
             >
               <option defaultValue>Choose type...</option>
@@ -86,11 +79,9 @@ const Form = ({
   )
 
 const withFormState = formik({
-  // Transform outer props into form values
-  mapPropsToValues: props => ({ email: '', password: '' }),
-  // Add a custom validation function (this can be async too!)
+  mapPropsToValues: props => ({ name: '', type: '' }),
   validate: (values, props) => {
-    const errors = {};
+    const errors = {}
     // if (!values.email) {
     //   errors.email = 'Required';
     // } else if (
@@ -100,31 +91,24 @@ const withFormState = formik({
     // }
     // return errors;
   },
-  // // Submission handler
-  // handleSubmit: (
-  //   values,
-  //   {
-  //     props,
-  //     setSubmitting,
-  //     setErrors /* setValues, setStatus, and other goodies */,
-  //   }
-  // ) => {
-
-  // },
+  handleSubmit: (
+    values,
+    {
+      props,
+      setErrors,
+    }
+  ) => {
+    props.submit(values)
+  },
 })
 
-const mapDispatchToProps = (dispatch, {match}) => {
+const mapDispatchToProps = (dispatch, { match }) => {
   const dashboardId = match.params.id
   return {
     submit:
       formData => dispatch(addWidget({ formData, dashboardId })),
-    onFormChange: ({ target }) => {
-      const { name, value } = target
-      dispatch(writeWidgetForm({ [name]: value }))
-    },
     cancel: () => {
       dispatch(push(`/dashboard/${dashboardId}`))
-      dispatch(clearWidgetForm())
     }
   }
 }
