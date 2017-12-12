@@ -11,7 +11,7 @@ import {
 const App = () => (
   <div id="app">
     <DataManager />
-    <Navbar />
+    <Route path="*/:id" component={Navbar} />
     <Switch>
       <Route path="/dashboard/:id" component={Dashboard} />
       <Redirect from="/" to="/dashboard/1" component={Dashboard} />

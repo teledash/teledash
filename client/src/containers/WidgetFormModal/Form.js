@@ -9,6 +9,9 @@ import {
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { withRouter } from 'react-router-dom'
+import { withFormik as formik } from 'formik'
+import { compose } from 'recompose'
+
 import {
   addWidget,
   clearWidgetForm,
@@ -20,12 +23,13 @@ const Form = ({
   submit,
   cancel,
   onFormChange,
-  widgetForm
+  name,
+  type
 }) => (
     <div className={`${Classes.DIALOG_BODY} ${Classes.DARK}`}>
       <form onSubmit={(event) => {
         event.preventDefault()
-        submit({ ...widgetForm })
+        submit({ name, type })
       }}
       >
         <FormGroup
@@ -38,7 +42,7 @@ const Form = ({
             required
             className={`${Classes.DARK}`}
             onChange={onFormChange}
-            value={widgetForm.name}
+            value={name}
             id="name"
             name="name"
             placeholder="Enter name..."
@@ -54,7 +58,7 @@ const Form = ({
             <select
               required
               onChange={onFormChange}
-              value={widgetForm.type}
+              value={type}
               name="type"
             >
               <option defaultValue>Choose type...</option>
@@ -71,7 +75,6 @@ const Form = ({
               onClick={cancel}
             />
             <Button
-              disabled={widgetForm.canSubmit}
               type="submit"
               intent={Intent.PRIMARY}
               text="Save"
@@ -82,8 +85,36 @@ const Form = ({
     </div >
   )
 
-const mapDispatchToProps = (dispatch, { location }) => {
-  const dashboardId = location.pathname.split('/')[2]
+const withFormState = formik({
+  // Transform outer props into form values
+  mapPropsToValues: props => ({ email: '', password: '' }),
+  // Add a custom validation function (this can be async too!)
+  validate: (values, props) => {
+    const errors = {};
+    // if (!values.email) {
+    //   errors.email = 'Required';
+    // } else if (
+    //   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    // ) {
+    //   errors.email = 'Invalid email address';
+    // }
+    // return errors;
+  },
+  // // Submission handler
+  // handleSubmit: (
+  //   values,
+  //   {
+  //     props,
+  //     setSubmitting,
+  //     setErrors /* setValues, setStatus, and other goodies */,
+  //   }
+  // ) => {
+
+  // },
+})
+
+const mapDispatchToProps = (dispatch, {match}) => {
+  const dashboardId = match.params.id
   return {
     submit:
       formData => dispatch(addWidget({ formData, dashboardId })),
@@ -98,8 +129,10 @@ const mapDispatchToProps = (dispatch, { location }) => {
   }
 }
 
-const mapStateToProps = ({ widgetForm }) => ({
-  widgetForm
-})
+const withConnect = connect(null, mapDispatchToProps)
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Form))
+export default compose(
+  withRouter,
+  withConnect,
+  withFormState
+)(Form)

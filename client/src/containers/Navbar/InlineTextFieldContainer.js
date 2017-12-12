@@ -5,19 +5,16 @@ import { InlineTextField } from '../../components'
 import { updateDashboardName } from './actions'
 
 const mapStateToProps = ({ dashboards }, { location }) => {
-  const param = location.pathname.split('/')[2]
+  const id = location.pathname.split('/')[2]
   return {
-    value: dashboards[param] ? dashboards[param].name : null
+    value: dashboards[id] ? dashboards[id].name : null
   }
 }
 
-const mapDispatchToProps = (dispatch, { location }) => {
-  const id = location.pathname.split('/')[2]
-  return {
-    submit: name =>
-      dispatch(updateDashboardName(name, id))
-  }
-}
+const mapDispatchToProps = (dispatch, { match }) => ({
+  submit: name =>
+    dispatch(updateDashboardName(name, match.params.id))
+})
 
 const InlineTextFieldContainer =
   withRouter(connect(mapStateToProps, mapDispatchToProps)(InlineTextField))

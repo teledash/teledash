@@ -16,15 +16,13 @@ const WidgetFormModal = ({ goToPreviousPath }) => (
   </Modal>
 )
 
-const mapDispatchToProps = (dispatch, { location }) => {
-  const id = location.pathname.split('/')[2]
-  return {
-    goToPreviousPath: () => {
-      dispatch(clearWidgetForm())
-      dispatch(push(`/dashboard/${id}`))
-    }
+const mapDispatchToProps = (dispatch, { match }) => ({
+  goToPreviousPath: () => {
+    dispatch(clearWidgetForm())
+    dispatch(push(`/dashboard/${match.params.id}`))
   }
-}
+})
+
 
 WidgetFormModal.propTypes = {
   goToPreviousPath: PropTypes.func.isRequired
