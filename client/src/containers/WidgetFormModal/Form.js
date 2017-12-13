@@ -11,6 +11,7 @@ import { push } from 'react-router-redux'
 import { withRouter } from 'react-router-dom'
 import { withFormik as formik } from 'formik'
 import { compose } from 'recompose'
+import config from '../../dashboard.config'
 
 import {
   addWidget,
@@ -64,9 +65,11 @@ const Form = ({
               name="type"
             >
               <option value="">Choose type...</option>
-              <option value="video">Video</option>
-              <option value="line_graph">Line Graph</option>
-              <option value="map">Map</option>
+              {
+                config.widgetTypes.map(({ id, name }) =>
+                  <option key={id} value={id}>{name}</option>
+                )
+              }
             </select>
           </div>
           {errors.type &&
