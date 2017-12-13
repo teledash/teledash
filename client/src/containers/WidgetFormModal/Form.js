@@ -16,50 +16,61 @@ import {
   addWidget,
 } from './actions'
 
+import './style.css'
+
 const Form = ({
   types,
   handleSubmit,
-  cancel,
   handleChange,
+  handleBlur,
+  cancel,
   values,
+  touched,
+  errors,
+  dirty,
 }) => (
-    <div className={`${Classes.DIALOG_BODY} ${Classes.DARK}`}>
+    <div className={`${Classes.DIALOG_BODY}`}>
       <form onSubmit={handleSubmit}>
         <FormGroup
-          className={`${Classes.DARK}`}
+          className={touched.name && errors.name ? Classes.INTENT_DANGER : ''}
           label="Name"
           labelFor="name"
           required
         >
           <InputGroup
-            required
-            className={`${Classes.DARK}`}
+            className={touched.name && errors.name ? Classes.INTENT_DANGER : ''}
             onChange={handleChange}
             value={values.name}
             id="name"
             name="name"
+            onBlur={handleBlur}
             placeholder="Enter name..."
           />
+          {touched.name && errors.name ? <div className={Classes.FORM_HELPER_TEXT}>{errors.name}</div> : ''}
         </FormGroup>
         <FormGroup
-          className={`${Classes.DARK}`}
+          className={touched.type && errors.type ? Classes.INTENT_DANGER : ''}
           label="Type"
           labelFor="type"
           required
         >
-          <div className={`${Classes.DARK} ${Classes.FILL} ${Classes.SELECT}`}>
+          <div
+            className={`${Classes.FILL} ${Classes.SELECT} ${touched.type && errors.type ? Classes.INTENT_DANGER : ''}`}
+          >
             <select
-              required
               onChange={handleChange}
+              onBlur={handleBlur}
               value={values.type}
               name="type"
             >
-              <option defaultValue>Choose type...</option>
+              <option value="">Choose type...</option>
               <option value="video">Video</option>
               <option value="line_graph">Line Graph</option>
               <option value="map">Map</option>
             </select>
           </div>
+          {errors.type &&
+            touched.type && <div className={Classes.FORM_HELPER_TEXT}>{errors.type}</div>}
         </FormGroup>
         <div className={`${Classes.DIALOG_FOOTER} ${Classes.DARK}`}>
           <div className={`${Classes.DIALOG_FOOTER_ACTIONS} ${Classes.DARK}`}>
@@ -79,27 +90,22 @@ const Form = ({
   )
 
 const withFormState = formik({
-  mapPropsToValues: props => ({ name: '', type: '' }),
-  validate: (values, props) => {
+  mapPropsToValues: () => ({ name: '', type: '' }),
+  validate: (values) => {
     const errors = {}
-    // if (!values.email) {
-    //   errors.email = 'Required';
-    // } else if (
-    //   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-    // ) {
-    //   errors.email = 'Invalid email address';
-    // }
-    // return errors;
+    if (!values.name) errors.name = 'Please enter a name'
+    if (!values.type) errors.type = 'Please enter a type'
+    return errors
   },
   handleSubmit: (
     values,
     {
       props,
-      setErrors,
     }
   ) => {
     props.submit(values)
   },
+  displayName: 'WidgetForm'
 })
 
 const mapDispatchToProps = (dispatch, { match }) => {

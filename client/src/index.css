@@ -1,7 +1,19 @@
-html, body, #root, #app {
+html,
+body,
+#root,
+#app {
   margin: 0;
   height: 100%;
   width: 100%;
   overflow: hidden;
 }
 
+/* Remove blue outline on blueprintJS select elements in focus */
+.pt-select select {
+  outline: none;
+}
+
+/* Add an error border to errored select elements */
+.pt-intent-danger select {
+  border: 1px solid #db3737;
+}
