@@ -17,6 +17,10 @@ import {
   addWidget,
 } from './actions'
 
+import {
+  Select
+} from '../../components'
+
 import './style.css'
 
 const Form = ({
@@ -29,6 +33,7 @@ const Form = ({
   touched,
   errors,
   dirty,
+  datasources
 }) => (
     <div className={`${Classes.DIALOG_BODY}`}>
       <form onSubmit={handleSubmit}>
@@ -49,32 +54,32 @@ const Form = ({
           />
           {touched.name && errors.name ? <div className={Classes.FORM_HELPER_TEXT}>{errors.name}</div> : ''}
         </FormGroup>
-        <FormGroup
-          className={touched.type && errors.type ? Classes.INTENT_DANGER : ''}
+        <Select
+          touched={touched.type}
+          error={errors.type}
+          value={values.type}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          options={config.widgetTypes}
           label="Type"
           labelFor="type"
-          required
-        >
-          <div
-            className={`${Classes.FILL} ${Classes.SELECT} ${touched.type && errors.type ? Classes.INTENT_DANGER : ''}`}
-          >
-            <select
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.type}
-              name="type"
-            >
-              <option value="">Choose type...</option>
-              {
-                config.widgetTypes.map(({ id, name }) =>
-                  <option key={id} value={id}>{name}</option>
-                )
-              }
-            </select>
-          </div>
-          {errors.type &&
-            touched.type && <div className={Classes.FORM_HELPER_TEXT}>{errors.type}</div>}
-        </FormGroup>
+          name="type"
+          placeholder="Enter a type..."
+        />
+
+        <Select
+          touched={touched.datasource}
+          error={errors.datasource}
+          value={values.datasource}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          options={datasources}
+          label="Datasource"
+          labelFor="datasource"
+          name="datasource"
+          placeholder="Enter a datasource..."
+        />
+
         <div className={`${Classes.DIALOG_FOOTER} ${Classes.DARK}`}>
           <div className={`${Classes.DIALOG_FOOTER_ACTIONS} ${Classes.DARK}`}>
             <Button
@@ -93,11 +98,12 @@ const Form = ({
   )
 
 const withFormState = formik({
-  mapPropsToValues: () => ({ name: '', type: '' }),
+  mapPropsToValues: () => ({ name: '', type: '', datasource: '' }),
   validate: (values) => {
     const errors = {}
     if (!values.name) errors.name = 'Please enter a name'
     if (!values.type) errors.type = 'Please enter a type'
+    if (!values.datasource) errors.datasource = 'Please enter a datasource'
     return errors
   },
   handleSubmit: (
@@ -122,7 +128,12 @@ const mapDispatchToProps = (dispatch, { match }) => {
   }
 }
 
-const withConnect = connect(null, mapDispatchToProps)
+const mapStateToProps = ({ datasources }) => ({
+  datasources: Object.keys(datasources)
+    .map(key => ({ value: key, name: datasources[key].name }))
+})
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps)
 
 export default compose(
   withRouter,

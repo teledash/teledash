@@ -19,9 +19,9 @@ export default {
     }
   },
   widgetTypes: [
-    { id: 'video', name: 'Video' },
-    { id: 'line_graph', name: 'Line Graph' },
-    { id: 'map', name: 'Map' }
+    { value: 'video', name: 'Video' },
+    { value: 'line_graph', name: 'Line Graph' },
+    { value: 'map', name: 'Map' },
   ]
 }
 
