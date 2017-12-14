@@ -1,8 +1,6 @@
 // Widgets
 export const GET_WIDGET = 'GET_WIDGET'
 export const ADD_WIDGET = 'ADD_WIDGET'
-export const WRITE_WIDGET_FORM = 'WRITE_WIDGET_FORM'
-export const CLEAR_WIDGET_FORM = 'CLEAR_WIDGET_FORM'
 export const GET_WIDGETS = 'GET_WIDGETS'
 export const RECEIVE_WIDGETS = 'RECEIVE_WIDGETS'
 

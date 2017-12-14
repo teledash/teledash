@@ -5,7 +5,6 @@ import {
   GET_WIDGET,
   ADD_NEW_WINDOW_TO_TOP_RIGHT,
   RECEIVE_DASHBOARD,
-  CLEAR_WIDGET_FORM
 } from '../../constants'
 
 import widgetAPI from '../../api/widgets'
@@ -23,7 +22,6 @@ export function* addWidget(action) {
   const widget =
     yield call(widgetAPI.createWidget, { ...formData, dashboardId })
   yield put({ type: GET_WIDGET, widget })
-  yield put({ type: CLEAR_WIDGET_FORM })
 }
 
 export default function* widgetFormSaga() {
