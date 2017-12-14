@@ -1,6 +1,5 @@
 import express from 'express'
 import { Dashboard } from '../db/models'
-import chalk from 'chalk'
 const router = express.Router()
 
 // GET api/dashboards
@@ -9,7 +8,6 @@ router.get('/',  (req, res, next) => {
     .then(dashboards => {
       const dashboardsAsObject = dashboards.reduce((acc, val) => {
         acc[val.id] = val
-        delete val.id
         return acc
       }, {})
 

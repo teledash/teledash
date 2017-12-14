@@ -5,10 +5,12 @@ import {
   RECEIVE_LINE_GRAPH_DATA
 } from '../containers/DataManager/constants'
 
-import config from '../dashboard.config'
+import { RECEIVE_DATASOURCES } from '../constants'
 
-export const dataReducer = (state = config.datasources, action = {}) => {
+export const dataReducer = (state = {}, action = {}) => {
   switch (action.type) {
+    case RECEIVE_DATASOURCES:
+      return { ...state, ...action.datasources }
     case GET_LINE_GRAPH_DATA:
       return state
     case RECEIVE_LINE_GRAPH_DATA:

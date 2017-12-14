@@ -8,6 +8,7 @@ import dataManagerSaga from './containers/DataManager/saga'
 import navbarSaga from './containers/Navbar/saga'
 import dashboardSaga from './containers/Dashboard/saga'
 import widgetFormSaga from './containers/WidgetFormModal/saga'
+import appSaga from './containers/App/saga'
 import reducers from './reducers'
 const sagaMiddleware = createSagaMiddleware()
 
@@ -26,6 +27,7 @@ export default function configureStore(initialState, history) {
   store.runSaga = sagaMiddleware.run(
     function* mainSaga() {
       yield all([
+        call(appSaga),
         call(dataManagerSaga),
         call(navbarSaga),
         call(dashboardSaga),

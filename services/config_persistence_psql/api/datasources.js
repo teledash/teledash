@@ -1,9 +1,19 @@
 import express from 'express'
 const router = express.Router();
+import { Datasource } from '../db'
 
 // GET api/datasources
 router.get('/', (req, res, next) => {
-  res.send('TODO')
+  Datasource.findAll()
+    .then(datasources => {
+      const datasourcesAsObject = datasources.reduce((acc, val) => {
+        acc[val.id] = val
+        return acc
+      }, {})
+
+      res.json(datasourcesAsObject)
+    })
+    .catch(next)
 })
 
 // POST api/datasources

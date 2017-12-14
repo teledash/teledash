@@ -1,12 +1,16 @@
 import React from 'react'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import './style.css'
+import { compose, lifecycle } from 'recompose'
 import {
   Dashboard,
   Navbar,
   DataManager,
   WidgetFormModal
 } from '../'
+
+import { getDatasources } from './actions'
 
 const App = () => (
   <div id="app">
@@ -23,4 +27,20 @@ const App = () => (
   </div>
 )
 
-export default withRouter(App)
+const withLifeCycle = lifecycle({
+  componentDidMount() {
+    this.props.getDatasources()
+  }
+})
+
+const mapDispatchToProps = dispatch => ({
+  getDatasources: () => dispatch(getDatasources())
+})
+
+const withConnect = connect(null, mapDispatchToProps)
+
+export default compose(
+  withRouter,
+  withConnect,
+  withLifeCycle
+)(App)
