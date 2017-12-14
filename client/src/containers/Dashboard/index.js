@@ -17,19 +17,27 @@ const Dashboard = ({ widgets, tree, onChange, datasources }) => {
     widgetFactory(widget.type, widget.name, {})
   )
 
+  const Window = ({ count, path }) => (
+    <MosaicWindow
+      path={path}
+      toolbarControls={
+        <SettingsButton widgetId={
+            widgets[count - 1] && widgets[count - 1].id
+          }
+        />
+      }
+    >
+      <div className='window'>
+        {widgetsJSX[count - 1]}
+      </div>
+    </MosaicWindow>
+  )
+
   return (
     <Mosaic
       renderTile={(count, path) => (
-        <MosaicWindow
-          path={path}
-          toolbarControls={<SettingsButton />}
-        >
-          <div className='window'>
-            {widgetsJSX[count - 1]}
-          </div>
-        </MosaicWindow>
+          widgets.length > 0 ? <Window count={count} path={path} /> : null
       )}
-
       zeroStateView={<div></div>}
       value={tree}
       onChange={onChange}
@@ -37,15 +45,17 @@ const Dashboard = ({ widgets, tree, onChange, datasources }) => {
     />
   )
 }
+
 export const mapStateToProps =
   ({ dashboards, widgets, datasources }, { match }) => ({
-    tree: dashboards[match.params.id] ? dashboards[match.params.id].tree : null,
-    widgets: widgets.filter(widget => widget.dashboardId === +match.params.id),
+    tree: dashboards[match.params.dashboardId] ?
+      dashboards[match.params.dashboardId].tree : null,
+    widgets: widgets.filter(widget => widget.dashboardId === +match.params.dashboardId),
     datasources
   })
 
 export const mapDispatchToProps = (dispatch, { match }) => ({
-  onChange: tree => dispatch(dashboardChange(tree, match.params.id)),
+  onChange: tree => dispatch(dashboardChange(tree, match.params.dashboardId)),
   getDashboards: () => dispatch(getDashboards()),
   getWidgets: () => dispatch(getWidgets())
 })

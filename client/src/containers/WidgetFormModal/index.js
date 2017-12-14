@@ -17,7 +17,7 @@ const WidgetFormModal = ({ goToPreviousPath }) => (
 
 const mapDispatchToProps = (dispatch, { match }) => ({
   goToPreviousPath: () => {
-    dispatch(push(`/dashboard/${match.params.id}`))
+    dispatch(push(`/dashboard/${match.params.dashboardId}`))
   }
 })
 

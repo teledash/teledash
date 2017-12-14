@@ -9,17 +9,28 @@ import {
 } from '@blueprintjs/core'
 
 import {
+  Link,
+  withRouter
+} from 'react-router-dom'
+
+import {
   MenuHeader
 } from '../../components'
 
-const SettingsMenu = ({ edit, duplicate, remove }) => (
+const EditWidgetMenuItem = withRouter(({ widgetId, match }) => (
+  <li>
+    <Link
+      to={`/dashboard/${match.params.dashboardId}/widget/${widgetId}`}
+      className="pt-icon-edit pt-menu-item pt-popover-dismiss"
+    >Edit
+    </Link>
+  </li >
+))
+
+const SettingsMenu = ({ widgetId, edit, duplicate, remove }) => (
   <Menu>
     <MenuHeader text="Settings" />
-    <MenuItem
-      iconName="pt-icon-edit"
-      onClick={edit}
-      text="Edit"
-    />
+    <EditWidgetMenuItem widgetId={widgetId} displayname="EditWidgetMenuItem" />
     <MenuItem
       iconName="pt-icon-duplicate"
       onClick={duplicate}
@@ -35,10 +46,10 @@ const SettingsMenu = ({ edit, duplicate, remove }) => (
   </Menu>
 )
 
-const SettingsButton = ({ onClick }) => (
+const SettingsButton = ({ onClick, widgetId }) => (
 
   <Popover
-    content={<SettingsMenu />}
+    content={<SettingsMenu widgetId={widgetId} />}
     position={Position.BOTTOM_RIGHT}
   >
     <button

@@ -15,15 +15,23 @@ import { getDatasources } from './actions'
 const App = () => (
   <div id="app">
     <DataManager />
-    <Route path="*/:id" component={Navbar} />
+    <Route path="*/:dashboardId" component={Navbar} />
     <Switch>
-      <Route path="/dashboard/:id" component={Dashboard} />
+      <Route path="/dashboard/:dashboardId" component={Dashboard} />
       <Redirect from="/" to="/dashboard/1" component={Dashboard} />
     </Switch>
-    <Route
-      path="/dashboard/:id/widget/new"
-      component={WidgetFormModal}
-    />
+    <Switch>
+      <Route
+        exact
+        path="/dashboard/:dashboardId/widget/new"
+        component={WidgetFormModal}
+      />
+      <Route
+        path="/dashboard/:dashboardId/widget/:widgetId"
+        component={WidgetFormModal}
+      />
+    </Switch>
+
   </div>
 )
 

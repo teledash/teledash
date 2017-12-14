@@ -15,7 +15,7 @@ const AddWidgetButton = ({ dashboardId }) => (
 )
 
 const mapStateToProps = (state, { match }) => ({
-  dashboardId: match.params.id
+  dashboardId: match.params.dashboardId
 })
 
 export default withRouter(connect(mapStateToProps)(AddWidgetButton))

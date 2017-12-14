@@ -118,7 +118,7 @@ const withFormState = formik({
 })
 
 const mapDispatchToProps = (dispatch, { match }) => {
-  const dashboardId = match.params.id
+  const { dashboardId } = match.params
   return {
     submit:
       formData => dispatch(addWidget({ formData, dashboardId })),

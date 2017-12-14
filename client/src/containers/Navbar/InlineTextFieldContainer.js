@@ -13,7 +13,7 @@ const mapStateToProps = ({ dashboards }, { location }) => {
 
 const mapDispatchToProps = (dispatch, { match }) => ({
   submit: name =>
-    dispatch(updateDashboardName(name, match.params.id))
+    dispatch(updateDashboardName(name, match.params.dashboardId))
 })
 
 const InlineTextFieldContainer =
