@@ -5,15 +5,15 @@ import { googleKey } from '../api-keys'
 const googleEndpoint =
   `https://maps.googleapis.com/maps/api/js?key=${googleKey}&v=3.exp&libraries=geometry,drawing,places`
 
-const MapWithAMarker = withScriptjs(withGoogleMap((props) => {
+const MapWithAMarker = withScriptjs(withGoogleMap(({ data }) => {
   return (
     <GoogleMap
       defaultZoom={8}
-      defaultCenter={{ lat: props.coord.lat, lng: props.coord.lng }}
-      center={{ lat: props.coord.lat, lng: props.coord.lng }}
+      defaultCenter={{ lat: data.iss_position.latitude, lng: data.iss_position.longitude }}
+      center={{ lat: data.iss_position.latitude, lng: data.iss_position.longitude }}
     >
       <Marker
-        position={{ lat: props.coord.lat, lng: props.coord.lng }}
+        position={{ lat: data.iss_position.latitude, lng: data.iss_position.longitude }}
       />
     </GoogleMap>
   )

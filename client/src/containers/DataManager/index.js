@@ -1,19 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {
-  GET_LINE_GRAPH_DATA,
-  ASSIGN_INTERVAL_ID
-} from './constants'
 import { lifecycle, compose, withProps } from 'recompose'
+
+import {
+  GET_REST_DATA,
+} from '../../constants'
+import {
+  assignIntervalId,
+} from './actions'
+
 
 const DataManager = () => (
   <div></div>
 )
 
-const intervalCreator = (type, { refresh, url }, getData) => (
+const intervalCreator = (type, { refresh, url, id }, getData) => (
   setInterval(() => {
-    getData({ type, url })
+    getData({ type, url, id })
   }, refresh)
 )
 
@@ -23,12 +27,11 @@ const mapStateToProps = ({ datasources }) => ({
   )),
 })
 
-export const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = dispatch => ({
   getData: action => dispatch(action),
-  assignIntervalId: (sourceKey, intervalId) => (
-    dispatch({ type: ASSIGN_INTERVAL_ID, sourceKey, intervalId })
-  ),
-  // removeIntervalId: id => dispatch(id)
+  setIntervalId: (datasourceId, intervalId) => (
+    dispatch(assignIntervalId(datasourceId, intervalId))
+  )
 })
 
 const enhance = compose(
@@ -40,18 +43,25 @@ const enhance = compose(
   lifecycle({
     // 1. Iterate through props.datasources.
     // 2. Make intervalCreators based on dataSource type.
-    componentDidMount() {
-      const { getData, assignIntervalId, datasources } = this.props
-      datasources.forEach(source => {
-        if (source.type === '') {
-          const intervalId = intervalCreator(
-            GET_LINE_GRAPH_DATA,
-            source,
-            getData
-          )
-          assignIntervalId(source.id, intervalId)
-        }
-      })
+    componentWillReceiveProps(nextProps) {
+      const { getData, setIntervalId } = this.props
+      if (this.props.datasources.length !== nextProps.datasources.length) {
+        // Clear old intervalIds
+        this.props.datasources.forEach(({ intervalId }) => {
+          clearInterval(intervalId)
+        })
+        // Assign new intervalIds
+        nextProps.datasources.forEach((source) => {
+          if (source.type === 'rest' && source.name !== 'Temperature') {
+            const intervalId = intervalCreator(
+              GET_REST_DATA,
+              source,
+              getData
+            )
+            setIntervalId(source.id, intervalId)
+          }
+        })
+      }
     }
   })
 )

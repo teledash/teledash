@@ -8,8 +8,8 @@ import {
 
 export default function widgetFactory(type, name, data) {
   const mapper = {
-    map: <Map />,
-    line_graph: <LineGraph />,
+    map: <Map data={data} />,
+    line_graph: <LineGraph data={data} />,
     video: <Video />
   }
 

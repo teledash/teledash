@@ -58,12 +58,12 @@ const datasources = [
     name: 'Temperature',
     type: 'rest',
     url: '/api/linegraph',
-    refresh: 2000
+    refresh: 5000
   },
   {
     name: 'Current ISS location',
     type: 'rest',
-    url: 'https://fake-url.data-stream.json',
+    url: 'http://api.open-notify.org/iss-now.json',
     refresh: 5000
   }
 ]
