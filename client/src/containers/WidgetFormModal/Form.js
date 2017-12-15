@@ -6,16 +6,8 @@ import {
   Button,
   Intent
 } from '@blueprintjs/core'
-import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
-import { withRouter } from 'react-router-dom'
-import { withFormik as formik } from 'formik'
-import { compose } from 'recompose'
 import config from '../../dashboard.config'
-
-import {
-  addWidget,
-} from './actions'
+import { lifecycle } from 'recompose'
 
 import {
   Select
@@ -97,46 +89,4 @@ const Form = ({
     </div >
   )
 
-const withFormState = formik({
-  mapPropsToValues: () => ({ name: '', type: '', datasource: '' }),
-  validate: (values) => {
-    const errors = {}
-    if (!values.name) errors.name = 'Please enter a name'
-    if (!values.type) errors.type = 'Please enter a type'
-    if (!values.datasource) errors.datasource = 'Please enter a datasource'
-    return errors
-  },
-  handleSubmit: (
-    values,
-    {
-      props,
-    }
-  ) => {
-    props.submit(values)
-  },
-  displayName: 'WidgetForm'
-})
-
-const mapDispatchToProps = (dispatch, { match }) => {
-  const { dashboardId } = match.params
-  return {
-    submit:
-      formData => dispatch(addWidget({ formData, dashboardId })),
-    cancel: () => {
-      dispatch(push(`/dashboard/${dashboardId}`))
-    }
-  }
-}
-
-const mapStateToProps = ({ datasources }) => ({
-  datasources: Object.keys(datasources)
-    .map(key => ({ value: key, name: datasources[key].name }))
-})
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps)
-
-export default compose(
-  withRouter,
-  withConnect,
-  withFormState
-)(Form)
+export default Form

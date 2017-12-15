@@ -4,14 +4,14 @@ import { push } from 'react-router-redux'
 import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Modal } from '../../components'
-import Form from './Form'
+import FormContainer from './FormContainer'
 
-const WidgetFormModal = ({ goToPreviousPath }) => (
+const WidgetFormModal = ({ goToPreviousPath, match }) => (
   <Modal
-    title="New Widget"
+    title={match.params.widgetId ? 'Edit Widget' : 'New Widget'}
     toggleDialog={goToPreviousPath}
   >
-    <Form />
+    <FormContainer />
   </Modal>
 )
 
