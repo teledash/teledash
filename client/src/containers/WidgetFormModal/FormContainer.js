@@ -4,11 +4,18 @@ import { push } from 'react-router-redux'
 import { withRouter } from 'react-router-dom'
 import { Formik } from 'formik'
 import { compose } from 'recompose'
-import { addWidget } from './actions'
+import { addWidget, editWidget } from './actions'
 import Form from './Form'
 import { mapValuesToProps } from './selectors'
 
-const EnhancedForm = ({ datasources, values, submit, cancel }) => (<Formik
+const EnhancedForm = ({
+  datasources,
+  values,
+  createWidget,
+  updateWidget,
+  cancel,
+  editMode
+}) => (<Formik
   enableReinitialize
   initialValues={values}
   validate={(values) => {
@@ -25,7 +32,8 @@ const EnhancedForm = ({ datasources, values, submit, cancel }) => (<Formik
       setErrors
     }
   ) => {
-    submit(values)
+    if (editMode) updateWidget(values)
+    else createWidget(values)
   }}
   render={({
     values,
@@ -51,10 +59,12 @@ const EnhancedForm = ({ datasources, values, submit, cancel }) => (<Formik
 )
 
 const mapDispatchToProps = (dispatch, { match }) => {
-  const { dashboardId } = match.params
+  const { dashboardId, widgetId } = match.params
   return {
-    submit:
+    createWidget:
       formData => dispatch(addWidget({ formData, dashboardId })),
+    updateWidget:
+      formData => dispatch(editWidget({ formData, dashboardId, widgetId })),
     cancel: () => {
       dispatch(push(`/dashboard/${dashboardId}`))
     }
@@ -63,6 +73,7 @@ const mapDispatchToProps = (dispatch, { match }) => {
 
 const mapStateToProps = ({ datasources, widgets }, { match }) => ({
   values: mapValuesToProps(widgets, match.params.widgetId),
+  editMode: !!match.params.widgetId,
   datasources: Object.keys(datasources)
     .map(key => ({ value: key, name: datasources[key].name }))
 })

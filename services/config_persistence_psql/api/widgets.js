@@ -25,8 +25,14 @@ router.post('/', (req, res, next) => {
 })
 
 // PUT api/widgets
-router.put('/:id', (req, res, next) => {
-  res.send('TODO')
+router.put('/:id', ({ body, params }, res, next) => {
+  Widget.update(body, {
+    where: { id: params.id },
+    returning: true, // needed for affectedRows to be populated
+    plain: true // makes sure that the returned instances are just plain objects
+  })
+    .spread((numberOfAffectedRows, affectedRows) => res.send(affectedRows))
+    .catch(next)
 })
 
 // DELETE api/widgets

@@ -2,7 +2,9 @@ import { put, takeLatest, all, call, select } from 'redux-saga/effects'
 import { push } from 'react-router-redux'
 import {
   ADD_WIDGET,
+  EDIT_WIDGET,
   GET_WIDGET,
+  GET_UPDATED_WIDGET,
   ADD_NEW_WINDOW_TO_TOP_RIGHT,
   RECEIVE_DASHBOARD,
 } from '../../constants'
@@ -24,8 +26,17 @@ export function* addWidget(action) {
   yield put({ type: GET_WIDGET, widget })
 }
 
+export function* editWidget(action) {
+  const { dashboardId, widgetId, formData } = action.payload
+  yield put(push(`/dashboard/${dashboardId}`))
+  const widget =
+    yield call(widgetAPI.updateWidget, formData, widgetId)
+  yield put({ type: GET_UPDATED_WIDGET, widget })
+}
+
 export default function* widgetFormSaga() {
   yield all([
     takeLatest(ADD_WIDGET, addWidget),
+    takeLatest(EDIT_WIDGET, editWidget),
   ])
 }

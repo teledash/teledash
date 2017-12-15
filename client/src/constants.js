@@ -1,8 +1,10 @@
 // Widgets
 export const GET_WIDGET = 'GET_WIDGET'
 export const ADD_WIDGET = 'ADD_WIDGET'
+export const EDIT_WIDGET = 'EDIT_WIDGET'
 export const GET_WIDGETS = 'GET_WIDGETS'
 export const RECEIVE_WIDGETS = 'RECEIVE_WIDGETS'
+export const GET_UPDATED_WIDGET = 'GET_UPDATED_WIDGET'
 
 // Dashboards
 export const ADD_NEW_WINDOW_TO_TOP_RIGHT = 'ADD_NEW_WINDOW_TO_TOP_RIGHT'
