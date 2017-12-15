@@ -9,7 +9,7 @@ import {
 import _ from 'lodash'
 
 export function addToTopRight(state, id, { name, tree, windowCount }) {
-  if (tree) {
+  if (windowCount > 0) {
     const path = getPathToCorner(tree, Corner.TOP_RIGHT)
     const parent = getNodeAtPath(tree, _.dropRight(path))
     const destination = getNodeAtPath(tree, path)
