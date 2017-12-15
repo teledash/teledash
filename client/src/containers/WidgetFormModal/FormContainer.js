@@ -1,31 +1,54 @@
+import React from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { withRouter } from 'react-router-dom'
-import { withFormik as formik } from 'formik'
+import { Formik } from 'formik'
 import { compose } from 'recompose'
 import { addWidget } from './actions'
 import Form from './Form'
 import { mapValuesToProps } from './selectors'
 
-const withFormState = formik({
-  mapPropsToValues: ({ values }) => values,
-  validate: (values) => {
+const EnhancedForm = ({ datasources, values, submit, cancel }) => (<Formik
+  enableReinitialize
+  initialValues={values}
+  validate={(values) => {
     const errors = {}
     if (!values.name) errors.name = 'Please enter a name'
     if (!values.type) errors.type = 'Please enter a type'
     if (!values.datasource) errors.datasource = 'Please enter a datasource'
     return errors
-  },
-  handleSubmit: (
+  }}
+  onSubmit={(
     values,
     {
-      props,
+      setSubmitting,
+      setErrors
     }
   ) => {
-    props.submit(values)
-  },
-  displayName: 'WidgetForm'
-})
+    submit(values)
+  }}
+  render={({
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    isSubmitting,
+  }) => (
+    <Form
+      handleBlur={handleBlur}
+      handleSubmit={handleSubmit}
+      values={values}
+      errors={errors}
+      touched={touched}
+      datasources={datasources}
+      handleChange={handleChange}
+      cancel={cancel}
+    />)
+  }
+/>
+)
 
 const mapDispatchToProps = (dispatch, { match }) => {
   const { dashboardId } = match.params
@@ -49,5 +72,4 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps)
 export default compose(
   withRouter,
   withConnect,
-  withFormState,
-)(Form)
+)(EnhancedForm)

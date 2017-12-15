@@ -7,7 +7,6 @@ import {
   Intent
 } from '@blueprintjs/core'
 import config from '../../dashboard.config'
-import { lifecycle } from 'recompose'
 
 import {
   Select
