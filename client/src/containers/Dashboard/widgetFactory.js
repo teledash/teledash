@@ -1,16 +1,18 @@
 import React from 'react'
 
+import { Map } from '../../widgets'
 import {
-  Map,
   Video,
   LineGraph
 } from '../../components'
 
-export default function widgetFactory(type, name, data) {
+import { DatasourceMapper } from '../../containers'
+
+export default function widgetFactory(type, name, datasourceId) {
   const mapper = {
-    map: <Map data={data} />,
-    line_graph: <LineGraph data={data} />,
-    video: <Video />
+    map: <DatasourceMapper widget={Map} datasourceId={datasourceId} />,
+    line_graph: <DatasourceMapper widget={LineGraph} />,
+    video: <DatasourceMapper widget={Video} />
   }
 
   return mapper[type]

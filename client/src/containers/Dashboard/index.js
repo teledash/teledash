@@ -3,6 +3,7 @@ import {
   Mosaic,
   MosaicWindow,
 } from 'react-mosaic-component'
+import isEqual from 'lodash/isEqual'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose, lifecycle, withProps as props } from 'recompose'
@@ -14,7 +15,7 @@ import './style.css'
 const Dashboard = ({ widgets, tree, onChange, datasources }) => {
 
   const widgetsJSX = widgets.map(widget =>
-    widgetFactory(widget.type, widget.name, {})
+    widgetFactory(widget.type, widget.name, widget.datasourceId)
   )
 
   const Window = ({ count, path }) => (
@@ -22,8 +23,8 @@ const Dashboard = ({ widgets, tree, onChange, datasources }) => {
       path={path}
       toolbarControls={
         <SettingsButton widgetId={
-            widgets[count - 1] && widgets[count - 1].id
-          }
+          widgets[count - 1] && widgets[count - 1].id
+        }
         />
       }
     >
@@ -36,7 +37,7 @@ const Dashboard = ({ widgets, tree, onChange, datasources }) => {
   return (
     <Mosaic
       renderTile={(count, path) => (
-          widgets.length > 0 ? <Window count={count} path={path} /> : null
+        widgets.length > 0 ? <Window count={count} path={path} /> : null
       )}
       zeroStateView={<div></div>}
       value={tree}
@@ -64,6 +65,12 @@ const withLifeCycle = lifecycle({
   componentDidMount() {
     this.props.getWidgets()
     this.props.getDashboards()
+  },
+
+  shouldComponentUpdate(nextProps, nextState) {
+    // Prevent ugly re-renders of the Dashboard when datasources change
+    if (!isEqual(this.props.datasources, nextProps.datasources)) return false
+    return true
   }
 })
 

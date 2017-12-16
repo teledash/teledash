@@ -1,15 +1,21 @@
+import reduce from 'lodash/reduce'
 import {
   RECEIVE_DATASOURCES,
   ASSIGN_INTERVAL_ID,
-  GET_REST_DATA,
   RECEIVE_REST_DATA
 } from '../constants'
 
 export const dataReducer = (state = {}, action = {}) => {
-  console.log(action)
   switch (action.type) {
     case RECEIVE_DATASOURCES:
-      return { ...state, ...action.datasources }
+      // Add a data property to each datasource so that widgets can subscribe
+      // to them.
+      const datasources = reduce(action.datasources, (acc, datasource) => {
+        const datasourceCopy = { ...datasource, data: {} }
+        acc[datasource.id] = datasourceCopy
+        return acc
+      }, {})
+      return { ...state, ...datasources }
     case RECEIVE_REST_DATA:
       return {
         ...state,
