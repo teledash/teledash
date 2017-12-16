@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { Map } from '../../widgets'
 import {
+  Map,
   Video,
   LineGraph
-} from '../../components'
+} from '../../widgets'
 
 import { DatasourceMapper } from '../../containers'
 
