@@ -68,7 +68,7 @@ const withLifeCycle = lifecycle({
   },
 
   shouldComponentUpdate(nextProps, nextState) {
-    // Prevent ugly re-renders of the Dashboard when datasources change
+    // Prevent ugly re-renders of widgets when datasources change
     if (!isEqual(this.props.datasources, nextProps.datasources)) return false
     return true
   }

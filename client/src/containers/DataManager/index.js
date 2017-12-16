@@ -41,16 +41,15 @@ const enhance = compose(
   }),
   connect(mapStateToProps, mapDispatchToProps),
   lifecycle({
-    // 1. Iterate through props.datasources.
-    // 2. Make intervalCreators based on dataSource type.
     componentWillReceiveProps(nextProps) {
       const { getData, setIntervalId } = this.props
       if (this.props.datasources.length !== nextProps.datasources.length) {
-        // Clear old intervalIds
+        // Clear old intervals that might be running
         this.props.datasources.forEach(({ intervalId }) => {
           clearInterval(intervalId)
         })
-        // Assign new intervalIds
+        // 1. Iterate through props.datasources.
+        // 2. Make intervalCreators based on dataSource type.
         nextProps.datasources.forEach((source) => {
           if (source.type === 'rest' && source.name !== 'Temperature') {
             const intervalId = intervalCreator(
