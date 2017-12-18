@@ -27,6 +27,7 @@ const App = () => (
         component={WidgetFormModal}
       />
       <Route
+        exact
         path="/dashboard/:dashboardId/widget/:widgetId"
         component={WidgetFormModal}
       />

@@ -14,9 +14,7 @@ import './style.css'
 
 const Dashboard = ({ widgets, tree, onChange, datasources }) => {
 
-  const widgetsJSX = widgets.map(widget =>
-    widgetFactory(widget.type, widget.name, widget.datasourceId)
-  )
+  const widgetsJSX = widgets.map(widgetFactory)
 
   const Window = ({ count, path }) => (
     <MosaicWindow
@@ -69,7 +67,17 @@ const withLifeCycle = lifecycle({
 
   shouldComponentUpdate(nextProps, nextState) {
     // Prevent ugly re-renders of widgets when datasources change
-    if (!isEqual(this.props.datasources, nextProps.datasources)) return false
+    if (!isEqual(this.props.datasources, nextProps.datasources) ||
+      // If create new widget form is active
+      (nextProps.location.pathname.includes('/widget/') &&
+      // and starting app on edit or new widget form page
+      !this.props.location.pathname.includes('/widget/')) ||
+      // If navigating away from new widget or edit form
+      (!nextProps.location.pathname.includes('/widget/') &&
+      // and currently on new widget form
+      this.props.location.pathname.includes('/widget/'))
+    )
+      return false
     return true
   }
 })

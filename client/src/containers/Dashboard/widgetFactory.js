@@ -8,12 +8,15 @@ import {
 
 import { DatasourceMapper } from '../../containers'
 
-export default function widgetFactory(type, name, datasourceId) {
+export default function widgetFactory({ type, name, datasourceId }) {
   const mapper = {
     map: Map,
     line_graph: LineGraph,
     video: Video
   }
 
-  return <DatasourceMapper widget={mapper[type]} datasourceId={datasourceId} />
+  return <DatasourceMapper
+    widget={mapper[type]}
+    datasourceId={datasourceId}
+  />
 }
