@@ -6,7 +6,7 @@
   "author": "danielbh <danielhollcraft@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "setup": "yarn install & cd server && yarn install & cd client && yarn install",
+    "setup": "yarn install && cd services && yarn install && cd ../client && yarn install",
     "start:server": "babel-watch services/config_persistence_psql/index.js",
     "start:client": "cd client && yarn start",
     "start": "concurrently 'yarn start:server' 'yarn start:client'",

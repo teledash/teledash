@@ -8,21 +8,13 @@ import {
 
 const dashboards = [
   {
-    name: 'Dashboard 1',
+    name: 'ISS Tracker',
     tree: {
-      first: {
-        first: 2,
-        second: 4,
-        direction: 'row'
-      },
-      second: {
-        first: 1,
-        second: 3,
-        direction: 'row'
-      },
-      direction: 'row'
+      direction: 'row',
+      first: 1,
+      second: 2
     },
-    windowCount: 4
+    windowCount: 2,
   },
   {
     name: 'Dashboard 2',
@@ -78,23 +70,9 @@ const widgets = [
   },
   {
     name: 'Current ISS location',
-    type: 'map',
+    type: 'video',
     position: 1,
-    datasourceId: 3,
-    dashboardId: 1
-  },
-  {
-    name: 'Current ISS location',
-    type: 'map',
-    position: 2,
-    datasourceId: 3,
-    dashboardId: 1
-  },
-  {
-    name: 'Current ISS location',
-    type: 'map',
-    position: 3,
-    datasourceId: 3,
+    datasourceId: 1,
     dashboardId: 1
   },
   {
