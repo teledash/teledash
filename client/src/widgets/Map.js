@@ -3,21 +3,25 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-map
 import { googleKey } from '../api-keys'
 import { connect } from 'react-redux'
 import map from 'lodash/map'
+import PropTypes from 'prop-types'
 
 const googleEndpoint =
   `https://maps.googleapis.com/maps/api/js?key=${googleKey}&v=3.exp&libraries=geometry,drawing,places`
 
-const MapWithAMarker = withScriptjs(withGoogleMap(({ coordinates }) => {
-  // Coerce latitude and longitude so that is can accept strings as coordinates
-  const [latitude, longitude] = map(coordinates, val => +val)
+const MapWithAMarker = withScriptjs(withGoogleMap(({
+  mapCenterLat,
+  mapCenterLong,
+  markerLat,
+  markerLong
+}) => {
   return (
     <GoogleMap
       defaultZoom={8}
-      defaultCenter={{ lat: latitude, lng: longitude }}
-      center={{ lat: latitude, lng: longitude }}
+      defaultCenter={{ lat: mapCenterLat, lng: mapCenterLong }}
+      center={{ lat: mapCenterLat, lng: mapCenterLong }}
     >
       <Marker
-        position={{ lat: latitude, lng: longitude }}
+        position={{ lat: markerLat, lng: markerLong }}
       />
     </GoogleMap>
   )
@@ -25,15 +29,31 @@ const MapWithAMarker = withScriptjs(withGoogleMap(({ coordinates }) => {
 
 export default class Map extends React.Component {
   render() {
+    const {
+      mapCenterLat,
+      mapCenterLong,
+      markerLat,
+      markerLong
+    } = this.props.data
+
+    // Coerce strings to be numbers to make the widget more flexible
     return (<MapWithAMarker
-      coordinates={this.props.data || {
-        latitude: -34.397,
-        longitude: 150.644
-      }}
+      mapCenterLat={+mapCenterLat || -34.397}
+      mapCenterLong={+mapCenterLong || 150.644}
+      markerLat={+markerLat || -34.397}
+      markerLong={+markerLong || 150.644}
       googleMapURL={googleEndpoint}
       loadingElement={<div style={{ height: `100%` }} />}
       containerElement={<div style={{ height: `400px` }} />}
       mapElement={<div style={{ height: `100%` }} />}
     />)
   }
+}
+
+Map.prototypes = {
+  data: PropTypes.object
+}
+
+Map.defaultProps = {
+  data: {}
 }

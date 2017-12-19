@@ -3,7 +3,9 @@ import {
   db,
   Dashboard,
   Datasource,
-  Widget
+  Widget,
+  MapWidget,
+  LineGraphWidget
 } from './db'
 
 const dashboards = [
@@ -69,7 +71,7 @@ const widgets = [
     dashboardId: 1
   },
   {
-    name: 'Current ISS location',
+    name: 'Current ISS Video Feed',
     type: 'video',
     position: 1,
     datasourceId: 1,
@@ -105,13 +107,38 @@ const widgets = [
   }
 ]
 
+const mapWidgets = [
+  {
+    mapCenterLat: 'iss_position.latitude',
+    mapCenterLong: 'iss_position.longitude',
+    markerLat: 'iss_position.latitude',
+    markerLong: 'iss_position.longitude',
+    widgetId: 1
+  }
+]
+
+const lineGraphWidgets = [
+  {
+    x: 'timestamp',
+    y: 'temperature',
+    xLabel: 'Time',
+    yLabel: 'Temperature C°',
+    widgetId: 3
+  }
+]
+
 const seed = () =>
   Promise.all(
     dashboards.map(dashboard => Dashboard.create(dashboard))).then(() => (
       Promise.all(
         datasources.map(datasource => Datasource.create(datasource)))
-    )).then(() => Promise.all(
+    ))
+    .then(() => Promise.all(
       widgets.map(widget => Widget.create(widget))))
+    .then(() => Promise.all(
+      mapWidgets.map(widget => MapWidget.create(widget))))
+    .then(() => Promise.all(
+      lineGraphWidgets.map(widget => LineGraphWidget.create(widget))))
 
 const main = () => {
   console.log(chalk.blue('Syncing db...'))

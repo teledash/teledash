@@ -1,11 +1,51 @@
 import express from 'express'
-import { Widget } from '../db/models'
+import { Widget, MapWidget, LineGraphWidget } from '../db/models'
 
 const router = express.Router();
 
 // GET api/widgets
 router.get('/', (req, res, next) => {
-  Widget.findAll().then( widgets => res.json(widgets))
+  Widget.findAll({
+    include: [
+      {
+        model: MapWidget, attributes: [
+          'mapCenterLat',
+          'mapCenterLong',
+          'markerLat',
+          'markerLong'
+        ]
+      },
+      {
+        model: LineGraphWidget, attributes: [
+          'x',
+          'y',
+          'xLabel',
+          'yLabel'
+        ]
+      }
+    ]
+  }).then(widgets => {
+    // Reshape widgets response to be more ideal to for the client app to
+    // work with.
+    // FIXME: Figured out how to do this with Sequelize instead!
+    const mappedWidgets = widgets.map(widget => {
+      // JSON hack needed to 'decycle' circular reference
+      // FIXME: Find better way!
+      const {
+        mapWidget,
+        lineGraphWidget,
+        ...rest
+      } = JSON.parse(JSON.stringify(widget))
+
+      if (widget.mapWidget) return { ...rest, extraFields: mapWidget }
+      if (widget.lineGraphWidget)
+        return { ...rest, extraFields: lineGraphWidget }
+
+      return rest
+    })
+
+    res.json(mappedWidgets)
+  })
 })
 
 // POST api/widgets

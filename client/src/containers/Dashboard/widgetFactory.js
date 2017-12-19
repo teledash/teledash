@@ -8,7 +8,12 @@ import {
 
 import { DatasourceMapper } from '../../containers'
 
-export default function widgetFactory({ type, name, datasourceId }) {
+export default function widgetFactory({
+  type,
+  name,
+  datasourceId,
+  extraFields
+}) {
   const mapper = {
     map: Map,
     line_graph: LineGraph,
@@ -16,7 +21,8 @@ export default function widgetFactory({ type, name, datasourceId }) {
   }
 
   return <DatasourceMapper
-    widget={mapper[type]}
+    widgetType={mapper[type]}
     datasourceId={datasourceId}
+    extraFields={extraFields}
   />
 }
