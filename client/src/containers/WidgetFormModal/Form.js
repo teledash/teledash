@@ -9,7 +9,8 @@ import {
 import config from '../../dashboard.config'
 
 import {
-  Select
+  Select,
+  TextInput
 } from '../../components'
 
 import './style.css'
@@ -28,23 +29,18 @@ const Form = ({
 }) => (
     <div className={`${Classes.DIALOG_BODY}`}>
       <form onSubmit={handleSubmit}>
-        <FormGroup
-          className={touched.name && errors.name ? Classes.INTENT_DANGER : ''}
+        <TextInput
+          touched={touched.name}
+          errors={errors.name}
+          handleChange={handleChange}
+          handleBlur={handleBlur}
+          value={values.name}
           label="Name"
           labelFor="name"
-          required
-        >
-          <InputGroup
-            className={touched.name && errors.name ? Classes.INTENT_DANGER : ''}
-            onChange={handleChange}
-            value={values.name}
-            id="name"
-            name="name"
-            onBlur={handleBlur}
-            placeholder="Enter name..."
-          />
-          {touched.name && errors.name ? <div className={Classes.FORM_HELPER_TEXT}>{errors.name}</div> : ''}
-        </FormGroup>
+          name="name"
+          placeholder="Enter name..."
+        />
+
         <Select
           touched={touched.type}
           error={errors.type}
