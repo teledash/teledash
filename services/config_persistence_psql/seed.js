@@ -10,7 +10,6 @@ import {
 
 const dashboards = [
   {
-    id: 1,
     name: 'ISS Tracker',
     tree: {
       direction: 'row',
@@ -20,7 +19,6 @@ const dashboards = [
     windowCount: 2,
   },
   {
-    id: 2,
     name: 'Dashboard 2',
     tree: {
       direction: 'row',
@@ -30,7 +28,6 @@ const dashboards = [
     windowCount: 2,
   },
   {
-    id: 3,
     name: '',
     tree: {},
     windowCount: 0
@@ -39,20 +36,17 @@ const dashboards = [
 
 const datasources = [
   {
-    id: 1,
     name: 'ISS Feed',
     type: 'video',
     url: 'https://www.youtube.com/watch?v=ddFvjfvPnqk'
   },
   {
-    id: 2,
     name: 'Temperature',
     type: 'rest',
     url: '/sim/linegraph/imperfect',
     refresh: 5000
   },
   {
-    id: 3,
     name: 'Current ISS location',
     type: 'rest',
     url: 'http://api.open-notify.org/iss-now.json',
@@ -62,7 +56,6 @@ const datasources = [
 
 const widgets = [
   {
-    id: 1,
     name: 'Current ISS location',
     type: 'map',
     position: 0,
@@ -70,7 +63,6 @@ const widgets = [
     dashboardId: 1
   },
   {
-    id: 2,
     name: 'Current ISS Video Feed',
     type: 'video',
     position: 1,
@@ -78,7 +70,6 @@ const widgets = [
     dashboardId: 1
   },
   {
-    id: 3,
     name: 'Temperature',
     type: 'line_graph',
     position: 0,
@@ -86,7 +77,6 @@ const widgets = [
     dashboardId: 2
   },
   {
-    id: 4,
     name: 'Temperature2',
     type: 'line_graph',
     position: 1,

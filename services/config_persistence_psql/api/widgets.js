@@ -56,10 +56,11 @@ router.post('/', (req, res, next) => {
   //   .then(({ windowCount }) => {
       // We want the array index for position field.
       // positions are used as non-zero index values in the dashboard.
-      Widget
-        .create({ ...req.body })
-        .then(widget => res.json(widget))
-        .catch(next)
+
+  Widget
+    .create(req.body)
+    .then(widget => res.json(widget))
+    .catch(next)
     // })
 
 })
