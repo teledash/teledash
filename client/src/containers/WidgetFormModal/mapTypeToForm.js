@@ -1,7 +1,13 @@
-import LineGraphFormFields from '../../widgets/LineGraph/formFields'
-import validateLineGraph from '../../widgets/LineGraph/formFieldValidation'
-import MapFormFields from '../../widgets/Map/formFields'
-import validateMap from '../../widgets/Map/formFieldValidation'
+import {
+  MapFormFields,
+  validateMapFormFields
+} from '../../widgets/Map'
+
+import {
+  LineGraphFormFields,
+  validateLineGraphFormFields
+} from '../../widgets/LineGraph'
+
 import React from 'react'
 
 export function mapTypeToFormFields(
@@ -28,10 +34,10 @@ export function mapTypeToFormFields(
 export function mapTypeToFormErrors(values) {
   const { type } = values
   const mapper = {
-    line_graph: () => validateLineGraph(
+    line_graph: () => validateLineGraphFormFields(
       values.xLabel
     ),
-    map: () => validateMap(
+    map: () => validateMapFormFields(
       values.mapCenterLat
     )
   }
