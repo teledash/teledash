@@ -16,26 +16,22 @@ const Dashboard = ({ widgets, tree, onChange, datasources }) => {
 
   const widgetsJSX = widgets.map(widgetFactory)
 
-  const Window = ({ count, path }) => (
-    <MosaicWindow
-      path={path}
-      toolbarControls={
-        <SettingsButton widgetId={
-          widgets[count - 1] && widgets[count - 1].id
-        }
-        />
-      }
-    >
-      <div className='window'>
-        {widgetsJSX[count - 1]}
-      </div>
-    </MosaicWindow>
-  )
-
   return (
     <Mosaic
       renderTile={(count, path) => (
-        widgets.length > 0 ? <Window count={count} path={path} /> : null
+        <MosaicWindow
+          path={path}
+          toolbarControls={
+            <SettingsButton widgetId={
+              widgets[count - 1] && widgets[count - 1].id
+            }
+            />
+          }
+        >
+          <div className='window'>
+            {widgetsJSX[count - 1]}
+          </div>
+        </MosaicWindow>
       )}
       zeroStateView={<div></div>}
       value={tree}
