@@ -48,6 +48,7 @@ const EnhancedForm = ({
     handleBlur,
     handleSubmit,
     isSubmitting,
+    resetForm
   }) => (
     <Form
       handleBlur={handleBlur}
@@ -59,6 +60,7 @@ const EnhancedForm = ({
       handleChange={handleChange}
       cancel={cancel}
       mapTypeToFormFields={mapTypeToFormFields}
+      resetForm={resetForm}
     />)
   }
 />

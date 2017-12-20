@@ -1,9 +1,7 @@
 import React from 'react'
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
-import { googleKey } from './api-keys'
-import { connect } from 'react-redux'
-import map from 'lodash/map'
 import PropTypes from 'prop-types'
+import { googleKey } from './api-keys'
 
 const googleEndpoint =
   `https://maps.googleapis.com/maps/api/js?key=${googleKey}&v=3.exp&libraries=geometry,drawing,places`

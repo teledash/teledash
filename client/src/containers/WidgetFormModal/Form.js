@@ -23,29 +23,23 @@ const Form = ({
   errors,
   dirty,
   datasources,
-  mapTypeToFormFields
+  mapTypeToFormFields,
+  resetForm
 }) => {
 
   return (
     <div className={`${Classes.DIALOG_BODY}`}>
       <form onSubmit={handleSubmit}>
-        <TextInput
-          touched={touched.name}
-          errors={errors.name}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          value={values.name}
-          label="Name"
-          labelFor="name"
-          name="name"
-          placeholder="Enter name..."
-        />
-
         <Select
           touched={touched.type}
           error={errors.type}
           value={values.type}
-          onChange={handleChange}
+          onChange={(evt) => {
+            // Reset the form on each change so that
+            // inactive fields will be ignored
+            resetForm()
+            handleChange(evt)
+          }}
           onBlur={handleBlur}
           options={config.widgetTypes}
           label="Type"
@@ -55,29 +49,44 @@ const Form = ({
         />
 
         {
-          // Add type specific form fields that need to be defined in `widgets` directory
-          mapTypeToFormFields(
-            values.type,
-            handleChange,
-            handleBlur,
-            values,
-            errors
-          )
+          values.type ?
+            <div>
+              <TextInput
+                touched={touched.name}
+                errors={errors.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.name}
+                label="Name"
+                labelFor="name"
+                name="name"
+                placeholder="Enter name..."
+              />
+              {
+                // Add type specific form fields that need to be defined in `widgets` directory
+                mapTypeToFormFields(
+                  values.type,
+                  handleChange,
+                  handleBlur,
+                  values,
+                  errors
+                )
+              }
+
+              <Select
+                touched={touched.datasource}
+                error={errors.datasource}
+                value={values.datasource}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                options={datasources}
+                label="Datasource"
+                labelFor="datasource"
+                name="datasource"
+                placeholder="Enter a datasource..."
+              />
+            </div> : null
         }
-
-        <Select
-          touched={touched.datasource}
-          error={errors.datasource}
-          value={values.datasource}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          options={datasources}
-          label="Datasource"
-          labelFor="datasource"
-          name="datasource"
-          placeholder="Enter a datasource..."
-        />
-
         <div className={`${Classes.DIALOG_FOOTER} ${Classes.DARK}`}>
           <div className={`${Classes.DIALOG_FOOTER_ACTIONS} ${Classes.DARK}`}>
             <Button
