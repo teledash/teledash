@@ -1,13 +1,10 @@
 import React from 'react'
 import {
-  FormGroup,
   Classes,
-  InputGroup,
   Button,
   Intent
 } from '@blueprintjs/core'
 import config from '../../dashboard.config'
-
 import {
   Select,
   TextInput
@@ -25,15 +22,18 @@ const Form = ({
   touched,
   errors,
   dirty,
-  datasources
-}) => (
+  datasources,
+  mapTypeToFormFields
+}) => {
+
+  return (
     <div className={`${Classes.DIALOG_BODY}`}>
       <form onSubmit={handleSubmit}>
         <TextInput
           touched={touched.name}
           errors={errors.name}
-          handleChange={handleChange}
-          handleBlur={handleBlur}
+          onChange={handleChange}
+          onBlur={handleBlur}
           value={values.name}
           label="Name"
           labelFor="name"
@@ -53,6 +53,17 @@ const Form = ({
           name="type"
           placeholder="Enter a type..."
         />
+
+        {
+          // Add type specific form fields that need to be defined in `widgets` directory
+          mapTypeToFormFields(
+            values.type,
+            handleChange,
+            handleBlur,
+            values,
+            errors
+          )
+        }
 
         <Select
           touched={touched.datasource}
@@ -83,5 +94,6 @@ const Form = ({
       </form>
     </div >
   )
+}
 
 export default Form

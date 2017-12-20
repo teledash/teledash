@@ -7,6 +7,11 @@ import { compose } from 'recompose'
 import { addWidget, editWidget } from './actions'
 import Form from './Form'
 import { mapValuesToProps } from './selectors'
+import {
+  mapTypeToFormFields,
+  mapTypeToFormErrors
+} from './mapTypeToForm'
+
 
 const EnhancedForm = ({
   datasources,
@@ -23,7 +28,7 @@ const EnhancedForm = ({
     if (!values.name) errors.name = 'Please enter a name'
     if (!values.type) errors.type = 'Please enter a type'
     if (!values.datasource) errors.datasource = 'Please enter a datasource'
-    return errors
+    return { ...errors, ...mapTypeToFormErrors(values) }
   }}
   onSubmit={(
     values,
@@ -53,6 +58,7 @@ const EnhancedForm = ({
       datasources={datasources}
       handleChange={handleChange}
       cancel={cancel}
+      mapTypeToFormFields={mapTypeToFormFields}
     />)
   }
 />

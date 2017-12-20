@@ -8,8 +8,8 @@ import {
 const TextInput = ({
   touched,
   errors,
-  handleChange,
-  handleBlur,
+  onChange,
+  onBlur,
   value,
   label,
   labelFor,
@@ -24,10 +24,10 @@ const TextInput = ({
   >
     <InputGroup
       className={touched && errors ? Classes.INTENT_DANGER : ''}
-      onChange={handleChange}
+      onChange={onChange}
       value={value}
       name={name}
-      onBlur={handleBlur}
+      onBlur={onBlur}
       placeholder={placeholder}
     />
     {touched && errors ? <div className={Classes.FORM_HELPER_TEXT}>{errors}</div> : ''}

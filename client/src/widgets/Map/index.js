@@ -1,6 +1,6 @@
 import React from 'react'
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
-import { googleKey } from '../api-keys'
+import { googleKey } from './api-keys'
 import { connect } from 'react-redux'
 import map from 'lodash/map'
 import PropTypes from 'prop-types'
@@ -50,7 +50,7 @@ export default class Map extends React.Component {
   }
 }
 
-Map.prototypes = {
+Map.propTypes = {
   data: PropTypes.shape({
     mapCenterLat: PropTypes.number,
     mapCenterLong: PropTypes.number,
