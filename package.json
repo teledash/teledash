@@ -7,9 +7,11 @@
   "license": "MIT",
   "scripts": {
     "setup": "yarn install && cd services && yarn install && cd ../client && yarn install",
-    "start:server": "babel-watch services/config_persistence_psql/index.js",
+    "start:config": "babel-watch services/config_persistence_psql/index.js",
     "start:client": "cd client && yarn start",
-    "start": "concurrently 'yarn start:server' 'yarn start:client'",
+    "start": "concurrently 'yarn start:config' 'yarn start:client'",
+    "start:dev": "concurrently 'yarn start:config' 'yarn start:client'",
+    "api:simulator": "babel-watch services/api-simulator/app.js",
     "service:config": "babel-watch services/config_persistence_psql/index.js",
     "seed": "babel-node services/config_persistence_psql/seed.js"
   },

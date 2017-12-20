@@ -1,4 +1,4 @@
-import { put, takeLatest, all, call } from 'redux-saga/effects'
+import { put, takeEvery, all, call } from 'redux-saga/effects'
 import {
   GET_REST_DATA,
   RECEIVE_REST_DATA
@@ -12,6 +12,6 @@ export function* getRestData({ url, id }) {
 
 export default function* dataManagerSaga() {
   yield all([
-    takeLatest(GET_REST_DATA, getRestData),
+    takeEvery(GET_REST_DATA, getRestData),
   ])
 }

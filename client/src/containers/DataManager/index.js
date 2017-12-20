@@ -51,7 +51,7 @@ const enhance = compose(
         // 1. Iterate through props.datasources.
         // 2. Make intervalCreators based on dataSource type.
         nextProps.datasources.forEach((source) => {
-          if (source.type === 'rest' && source.name !== 'Temperature') {
+          if (source.type === 'rest') {
             const intervalId = intervalCreator(
               GET_REST_DATA,
               source,

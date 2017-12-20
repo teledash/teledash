@@ -6,20 +6,15 @@ import chalk from 'chalk'
 
 const app = express()
 
-// TODO: Current location
-// TODO: local time
-// TODO: Orbital speed
-// TODO: What else?
-
 app.use(volleyball)
 // body parsing middleware
 app.use(bodyParser.urlencoded({ extended: true })) // for HTML form submits
 app.use(bodyParser.json()) // would be for AJAX requests
 
 // start the server
-const PORT = 2000
+const PORT = 2001
 const server = app.listen(PORT, function () {
   console.log(chalk.green('Test server is running on port ' + PORT))
 })
 
-app.use('/api/', router)
+app.use('/sim', router)

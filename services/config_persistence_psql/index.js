@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true })) // for HTML form submits
 app.use(bodyParser.json()) // would be for AJAX requests
 
 // start the server
-const PORT = 2001
+const PORT = 2000
 const server = app.listen(PORT, function () {
   console.log(chalk.green('Test server is running on port ' + PORT))
 })

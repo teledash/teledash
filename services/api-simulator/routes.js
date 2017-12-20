@@ -17,4 +17,13 @@ router.get('/lineGraph', (req, res) => {
   res.json(lineGraphData)
 })
 
+router.get('/lineGraph/imperfect', (req, res) => {
+  res.json({
+    data: {
+      timestamp: lineGraphData.x,
+      temperature: lineGraphData.y
+    }
+  })
+})
+
 export default router

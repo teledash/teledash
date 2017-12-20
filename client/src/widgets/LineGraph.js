@@ -15,21 +15,21 @@ class LineGraph extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: [{ x: 0, y: 8 }],
+      data: [{ x: 0, y: 8 }]
     }
   }
 
-  componentDidMount() {
-    // setInterval(() => {
-    //   const randomY = Math.random() > 0.4 ? Math.random() : -Math.random()
-    //   const coord = {
-    //     x: this.state.data[this.state.data.length - 1].x + 1,
-    //     y: this.state.data[this.state.data.length - 1].y + randomY
-    //   }
-    //   this.setState({
-    //     data: [...this.state.data, coord]
-    //   })
-    // }, 5000)
+  componentWillReceiveProps(nextProps) {
+    if (this.props.data !== nextProps.data &&
+      typeof nextProps.data.x === 'number' &&
+      typeof nextProps.data.y === 'number'
+    )
+      this.setState({
+        data: this.state.data.concat({
+          x: +nextProps.data.x,
+          y: +nextProps.data.y
+        })
+      })
   }
 
   render() {
@@ -38,15 +38,17 @@ class LineGraph extends React.Component {
         <LineSeries data={this.state.data} />
         <VerticalGridLines />
         <HorizontalGridLines />
-        <XAxis />
-        <YAxis />
+        <XAxis title={this.props.xLabel} />
+        <YAxis title={this.props.yLabel} />
       </XYPlot>
     )
   }
 }
 
 LineGraph.propTypes = {
-  title: PropTypes.string,
+  name: PropTypes.string,
+  xLabel: PropTypes.string,
+  yLabel: PropTypes.string,
   data: PropTypes.shape({
     x: PropTypes.number,
     y: PropTypes.number,

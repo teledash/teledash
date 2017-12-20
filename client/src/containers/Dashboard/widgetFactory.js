@@ -20,9 +20,10 @@ export default function widgetFactory({
     video: Video
   }
 
-  return <DatasourceMapper
+  return (<DatasourceMapper
+    name={name}
     widgetType={mapper[type]}
     datasourceId={datasourceId}
     extraFields={extraFields}
-  />
+  />)
 }

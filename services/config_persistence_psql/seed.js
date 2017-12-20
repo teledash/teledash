@@ -10,6 +10,7 @@ import {
 
 const dashboards = [
   {
+    id: 1,
     name: 'ISS Tracker',
     tree: {
       direction: 'row',
@@ -19,23 +20,17 @@ const dashboards = [
     windowCount: 2,
   },
   {
+    id: 2,
     name: 'Dashboard 2',
     tree: {
       direction: 'row',
-      first: {
-        direction: 'column',
-        first: 1,
-        second: 2
-      },
-      second: {
-        direction: 'column',
-        first: 3,
-        second: 4
-      }
+      first: 1,
+      second: 2
     },
-    windowCount: 4
+    windowCount: 2,
   },
   {
+    id: 3,
     name: '',
     tree: {},
     windowCount: 0
@@ -44,17 +39,20 @@ const dashboards = [
 
 const datasources = [
   {
+    id: 1,
     name: 'ISS Feed',
     type: 'video',
     url: 'https://www.youtube.com/watch?v=ddFvjfvPnqk'
   },
   {
+    id: 2,
     name: 'Temperature',
     type: 'rest',
-    url: '/api/linegraph',
+    url: '/sim/linegraph/imperfect',
     refresh: 5000
   },
   {
+    id: 3,
     name: 'Current ISS location',
     type: 'rest',
     url: 'http://api.open-notify.org/iss-now.json',
@@ -64,6 +62,7 @@ const datasources = [
 
 const widgets = [
   {
+    id: 1,
     name: 'Current ISS location',
     type: 'map',
     position: 0,
@@ -71,6 +70,7 @@ const widgets = [
     dashboardId: 1
   },
   {
+    id: 2,
     name: 'Current ISS Video Feed',
     type: 'video',
     position: 1,
@@ -78,6 +78,7 @@ const widgets = [
     dashboardId: 1
   },
   {
+    id: 3,
     name: 'Temperature',
     type: 'line_graph',
     position: 0,
@@ -85,30 +86,18 @@ const widgets = [
     dashboardId: 2
   },
   {
-    name: 'Temperature',
+    id: 4,
+    name: 'Temperature2',
     type: 'line_graph',
     position: 1,
     datasourceId: 2,
     dashboardId: 2
   },
-  {
-    name: 'Temperature',
-    type: 'line_graph',
-    position: 2,
-    datasourceId: 2,
-    dashboardId: 2
-  },
-  {
-    name: 'Temperature',
-    type: 'line_graph',
-    position: 3,
-    datasourceId: 2,
-    dashboardId: 2
-  }
 ]
 
 const mapWidgets = [
   {
+    id: 1,
     mapCenterLat: 'iss_position.latitude',
     mapCenterLong: 'iss_position.longitude',
     markerLat: 'iss_position.latitude',
@@ -119,11 +108,20 @@ const mapWidgets = [
 
 const lineGraphWidgets = [
   {
-    x: 'timestamp',
-    y: 'temperature',
+    id: 1,
+    x: 'data.timestamp',
+    y: 'data.temperature',
     xLabel: 'Time',
     yLabel: 'Temperature C°',
     widgetId: 3
+  },
+  {
+    id: 2,
+    x: 'data.timestamp',
+    y: 'data.temperature',
+    xLabel: 'Time',
+    yLabel: 'Temperature C°',
+    widgetId: 4
   }
 ]
 
@@ -144,7 +142,7 @@ const main = () => {
   console.log(chalk.blue('Syncing db...'))
   db.sync({ force: true })
     .then(() => {
-      console.log(chalk.blue('Seeding databse...'))
+      console.log(chalk.blue('Seeding database...'))
       return seed()
     })
     .then(() => {

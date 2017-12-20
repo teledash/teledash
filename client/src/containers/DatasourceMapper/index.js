@@ -10,19 +10,20 @@ function selectData(data, fields) {
   return keys.reduce((acc, key) => {
     const split = fields[key].split('.')
     // Map user defined properties to actual values here.
-    acc[key] = split.reduce((acc2, key2) => acc2[key2], data)
+    const value = split.reduce((acc2, key2) => acc2[key2], data)
+    if (value) acc[key] = value
     return acc
   }, {})
 }
 
-const DatasourceMapper = ({ widgetType, data, extraFields }) => (
-  React.createElement(widgetType, { data })
+const DatasourceMapper = ({ name, widgetType, data, extraFields }) => (
+  // FIXME: We add all extraFields here even if the component doesn't need all of them
+  React.createElement(widgetType, { name, data, ...extraFields })
 )
 
 
 const mapStateToProps = ({ datasources }, { datasourceId, extraFields }) => ({
   data: datasources[datasourceId] &&
-    datasources[datasourceId].data &&
     selectData(datasources[datasourceId].data, extraFields)
 })
 

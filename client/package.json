@@ -43,6 +43,10 @@
   },
   "proxy": {
     "/api": {
+      "target": "http://localhost:2000",
+      "ws": true
+    },
+    "/sim": {
       "target": "http://localhost:2001",
       "ws": true
     }
