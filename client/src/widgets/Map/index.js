@@ -48,13 +48,13 @@ export default class Map extends React.Component {
   }
 }
 
-Map.propTypes = {
-  data: PropTypes.shape({
+MapWithAMarker.propTypes = {
+  // data: PropTypes.shape({
     mapCenterLat: PropTypes.number,
     mapCenterLong: PropTypes.number,
     markerLat: PropTypes.number,
     markerLong: PropTypes.number
-  })
+  // })
 }
 
 Map.defaultProps = {
