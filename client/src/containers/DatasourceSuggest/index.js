@@ -20,8 +20,11 @@ class DatasourceSuggest extends Component {
   }
 
   filterItem(query, item, index) {
-    // return `${index + 1}. ${item.title.toLowerCase()} ${item.year}`.indexOf(query.toLowerCase()) >= 0
-    return item
+    // Remove spaces from query and make all letters lower case
+    const queryMatcher = query.replace(/\s+/g, '').toLowerCase()
+    // Remove spaces, square brackets, and quotes from item
+    const itemMatcher = item.replace(/[\[\]"\s]+/g, '').toLowerCase()
+    return itemMatcher.includes(queryMatcher)
   }
 
   handleValueChange(item) {
