@@ -15,8 +15,12 @@ class DatasourceSuggest extends Component {
     }
     this.renderItem = this.renderItem.bind(this)
     this.filterItem = this.filterItem.bind(this)
-    this.handleValueChange = this.handleValueChange.bind(this)
+    this.onItemSelect = this.onItemSelect.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
     this.renderInputValue = this.renderInputValue.bind(this)
+  }
+  onItemSelect(item) {
+    this.setState({ inputValue: item })
   }
 
   filterItem(query, item, index) {
@@ -27,8 +31,12 @@ class DatasourceSuggest extends Component {
     return itemMatcher.includes(queryMatcher)
   }
 
-  handleValueChange(item) {
-    this.setState({ inputValue: item })
+  // We need to set the local state so that it is in synch with props.
+  // Otherwise we can never make the form field empty. This is a side-effect
+  // of using the onSelect event to change the form value.
+  handleInputChange(evt) {
+    this.props.onChange(evt)
+    this.setState({ inputValue: evt.target.value })
   }
 
   renderInputValue(input) {
@@ -58,7 +66,6 @@ class DatasourceSuggest extends Component {
       label,
       name,
       onBlur,
-      onChange,
       value,
       placeholder,
       valueList
@@ -79,7 +86,7 @@ class DatasourceSuggest extends Component {
             inputValueRenderer={this.renderInputValue}
             items={valueList}
             handleBlur={onBlur}
-            onItemSelect={this.handleValueChange}
+            onItemSelect={this.onItemSelect}
             itemPredicate={this.filterItem}
             itemRenderer={this.renderItem}
             noResults={<MenuItem disabled text="No results." />}
@@ -87,7 +94,9 @@ class DatasourceSuggest extends Component {
             inputProps={{
               placeholder,
               onBlur,
-              onChange,
+              onChange: this.handleInputChange,
+              // This `||` operator is required so that selecting an item
+              // with the drop-down menu will trigge the `onChange` prop
               value: value || this.state.inputValue,
               className: touched && error ? Classes.INTENT_DANGER : '',
               name
