@@ -19,7 +19,7 @@ const TextInput = ({
   <FormGroup
     className={touched && errors ? Classes.INTENT_DANGER : ''}
     label={label}
-    labelFor={labelFor}
+    labelFor={name}
     required
   >
     <InputGroup
