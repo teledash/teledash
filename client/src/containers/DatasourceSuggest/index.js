@@ -3,17 +3,16 @@ import React, { Component } from 'react'
 import { Suggest } from '@blueprintjs/labs'
 import { Classes, MenuItem, FormGroup } from '@blueprintjs/core'
 import classnames from 'classnames'
-import { TOP_100_FILMS } from './data'
+import { connect } from 'react-redux'
+import { mapDatasourcesToValuesList } from './selectors'
 import './style.css'
 
 class DatasourceSuggest extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
-      item: TOP_100_FILMS[0]
+      inputValue: ''
     }
-
     this.renderItem = this.renderItem.bind(this)
     this.filterItem = this.filterItem.bind(this)
     this.handleValueChange = this.handleValueChange.bind(this)
@@ -21,19 +20,16 @@ class DatasourceSuggest extends Component {
   }
 
   filterItem(query, item, index) {
-    return `${index + 1}. ${item.title.toLowerCase()} ${item.year}`.indexOf(query.toLowerCase()) >= 0
+    // return `${index + 1}. ${item.title.toLowerCase()} ${item.year}`.indexOf(query.toLowerCase()) >= 0
+    return item
   }
 
-  handleValueChange(item) { return this.setState({ item }) }
-
-  handleSwitchChange(prop) {
-    return (event) => {
-      this.setState({ [prop]: event.currentTarget.checked })
-    }
+  handleValueChange(item) {
+    this.setState({ inputValue: item })
   }
 
   renderInputValue(input) {
-    return input.title
+    return input
   }
 
   renderItem({ handleClick, isActive, item }) {
@@ -45,10 +41,9 @@ class DatasourceSuggest extends Component {
     return (
       <MenuItem
         className={classes}
-        label={item.year.toString()}
-        key={item.rank}
+        key={item}
         onClick={handleClick}
-        text={`${item.rank}. ${item.title}`}
+        text={item}
       />
     )
   }
@@ -62,7 +57,8 @@ class DatasourceSuggest extends Component {
       onBlur,
       onChange,
       value,
-      placeholder
+      placeholder,
+      valueList
     } = this.props
 
     return (
@@ -73,22 +69,23 @@ class DatasourceSuggest extends Component {
           labelFor={name}
           required
         >
+
           <Suggest
             closeOnSelect
             openOnKeyDown={false}
             inputValueRenderer={this.renderInputValue}
-            items={TOP_100_FILMS}
+            items={valueList}
             handleBlur={onBlur}
+            onItemSelect={this.handleValueChange}
             itemPredicate={this.filterItem}
             itemRenderer={this.renderItem}
             noResults={<MenuItem disabled text="No results." />}
-            onItemSelect={this.handleValueChange}
             popoverProps={{ popoverClassName: Classes.MINIMAL }}
             inputProps={{
               placeholder,
               onBlur,
               onChange,
-              value,
+              value: value || this.state.inputValue,
               className: touched && error ? Classes.INTENT_DANGER : '',
               name
             }}
@@ -100,7 +97,6 @@ class DatasourceSuggest extends Component {
   }
 }
 
-
 DatasourceSuggest.propTypes = {
   touched: PropTypes.bool,
   error: PropTypes.string,
@@ -109,7 +105,12 @@ DatasourceSuggest.propTypes = {
   value: PropTypes.string,
   label: PropTypes.string,
   name: PropTypes.string,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
+  valueList: PropTypes.array
 }
 
-export default DatasourceSuggest
+const mapStateToProps = ({ datasources }) => ({
+  valueList: mapDatasourcesToValuesList(datasources)
+})
+
+export default connect(mapStateToProps)(DatasourceSuggest)

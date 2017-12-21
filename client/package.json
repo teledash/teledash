@@ -8,6 +8,7 @@
     "axios": "^0.17.1",
     "babel-watch": "^2.0.7",
     "classnames": "^2.2.5",
+    "flat": "^4.0.0",
     "formik": "^0.10.5",
     "history": "^4.7.2",
     "normalize.css": "^7.0.0",
