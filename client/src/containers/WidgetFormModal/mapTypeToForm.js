@@ -13,9 +13,12 @@ import React from 'react'
 export function mapTypeToFormFields(
   type,
   handleChange,
-  handleSubmit,
+  handleBlur,
   values,
-  errors
+  errors,
+  touched,
+  setTouched,
+  setFieldValue
 ) {
   const mapper = {
     line_graph: LineGraphFormFields,
@@ -25,9 +28,12 @@ export function mapTypeToFormFields(
   if (mapper[type])
     return React.createElement(mapper[type], {
       handleChange,
-      handleSubmit,
+      handleBlur,
       values,
-      errors
+      errors,
+      touched,
+      setTouched,
+      setFieldValue
     })
 }
 
@@ -35,7 +41,10 @@ export function mapTypeToFormErrors(values) {
   const { type } = values
   const mapper = {
     line_graph: () => validateLineGraphFormFields(
-      values.xLabel
+      values.xValue,
+      values.yValue,
+      values.xLabel,
+      values.yLabel
     ),
     map: () => validateMapFormFields(
       values.mapCenterLat

@@ -24,9 +24,10 @@ const Form = ({
   dirty,
   datasources,
   mapTypeToFormFields,
-  resetForm
+  resetForm,
+  setTouched,
+  setFieldValue
 }) => {
-
   return (
     <div className={`${Classes.DIALOG_BODY}`}>
       <form onSubmit={handleSubmit}>
@@ -69,7 +70,10 @@ const Form = ({
                   handleChange,
                   handleBlur,
                   values,
-                  errors
+                  errors,
+                  touched,
+                  setTouched,
+                  setFieldValue
                 )
               }
 
