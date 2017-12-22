@@ -12,7 +12,6 @@ import {
   mapTypeToFormErrors
 } from './mapTypeToForm'
 
-
 const EnhancedForm = ({
   datasources,
   values,
@@ -50,7 +49,8 @@ const EnhancedForm = ({
     isSubmitting,
     resetForm,
     setTouched,
-    setFieldValue
+    setFieldValue,
+    dirty,
   }) => (
     <Form
       handleBlur={handleBlur}
@@ -65,6 +65,8 @@ const EnhancedForm = ({
       resetForm={resetForm}
       setTouched={setTouched}
       setFieldValue={setFieldValue}
+      dirty={dirty}
+      isSubmitting={isSubmitting}
     />)
   }
 />

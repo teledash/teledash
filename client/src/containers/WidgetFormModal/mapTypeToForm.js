@@ -18,7 +18,8 @@ export function mapTypeToFormFields(
   errors,
   touched,
   setTouched,
-  setFieldValue
+  setFieldValue,
+  dirty,
 ) {
   const mapper = {
     line_graph: LineGraphFormFields,
@@ -33,7 +34,8 @@ export function mapTypeToFormFields(
       errors,
       touched,
       setTouched,
-      setFieldValue
+      setFieldValue,
+      dirty,
     })
 }
 

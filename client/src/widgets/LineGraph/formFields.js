@@ -4,6 +4,20 @@ import { TextInput } from '../../components'
 import { DatasourceSuggest } from '../../containers'
 
 class LineGraphFormFields extends Component {
+  componentDidMount() {
+    /* `setFieldValue` registers the form fields with the parent form.
+       This allows behavior such as, visually displaying these fields with errors
+       if there is a `form submit`, and these form fields have not been `touched`
+       and are empty. Ideally I would like to use `setValues` provided by formik.
+       However, it doesn't work for some unexplained reason.
+       https://github.com/jaredpalmer/formik#setvalues-fields--field-string-any---void
+    */
+    this.props.setFieldValue('xValue', '')
+    this.props.setFieldValue('yValue', '')
+    this.props.setFieldValue('xLabel', '')
+    this.props.setFieldValue('yLabel', '')
+  }
+
   render() {
     const {
       errors,
@@ -11,7 +25,6 @@ class LineGraphFormFields extends Component {
       handleChange,
       values,
       touched,
-      setTouched,
       setFieldValue
     } = this.props
     return (
@@ -73,5 +86,6 @@ LineGraphFormFields.propTypes = {
   handleBlur: PropTypes.func,
   values: PropTypes.object,
   errors: PropTypes.object,
-  touched: PropTypes.object
+  touched: PropTypes.object,
+  setFieldValue: PropTypes.func,
 }

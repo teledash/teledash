@@ -26,7 +26,7 @@ const Form = ({
   mapTypeToFormFields,
   resetForm,
   setTouched,
-  setFieldValue
+  setFieldValue,
 }) => {
   return (
     <div className={`${Classes.DIALOG_BODY}`}>
@@ -73,7 +73,8 @@ const Form = ({
                   errors,
                   touched,
                   setTouched,
-                  setFieldValue
+                  setFieldValue,
+                  dirty,
                 )
               }
 
