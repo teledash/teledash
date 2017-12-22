@@ -12,7 +12,6 @@ const TextInput = ({
   onBlur,
   value,
   label,
-  labelFor,
   name,
   placeholder
 }) => (

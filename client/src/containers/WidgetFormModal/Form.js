@@ -44,7 +44,6 @@ const Form = ({
           onBlur={handleBlur}
           options={config.widgetTypes}
           label="Type"
-          labelFor="type"
           name="type"
           placeholder="Enter a type..."
         />
@@ -59,7 +58,6 @@ const Form = ({
                 onBlur={handleBlur}
                 value={values.name}
                 label="Name"
-                labelFor="name"
                 name="name"
                 placeholder="Enter name..."
               />
@@ -86,7 +84,6 @@ const Form = ({
                 onBlur={handleBlur}
                 options={datasources}
                 label="Datasource"
-                labelFor="datasource"
                 name="datasource"
                 placeholder="Enter a datasource..."
               />

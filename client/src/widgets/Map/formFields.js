@@ -31,7 +31,6 @@ class MapFormFields extends Component {
         onBlur={handleBlur}
         value={values.mapCenterLat || '' /* Silence controlled/controlled component error */}
         label="Map Center Latitude"
-        labelFor="mapCenterLat"
         name="mapCenterLat"
         placeholder="Enter the mapping for map center latitude..."
       />

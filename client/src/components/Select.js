@@ -12,14 +12,13 @@ const Select = ({
   value,
   options,
   label,
-  labelFor,
   name,
   placeholder
 }) => (
   <FormGroup
     className={touched && error ? Classes.INTENT_DANGER : ''}
     label={label}
-    labelFor={labelFor}
+    labelFor={name}
   >
     <div
       className={`${Classes.FILL} ${Classes.SELECT} ${touched && error ? Classes.INTENT_DANGER : ''}`}
