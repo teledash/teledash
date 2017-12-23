@@ -11,7 +11,6 @@ import { DatasourceMapper } from '../../containers'
 export default function widgetFactory({
   type,
   name,
-  datasourceId,
   extraFields
 }) {
   const mapper = {
@@ -23,7 +22,6 @@ export default function widgetFactory({
   return (<DatasourceMapper
     name={name}
     widgetType={mapper[type]}
-    datasourceId={datasourceId}
     extraFields={extraFields}
   />)
 }

@@ -12,7 +12,7 @@ import { dashboardChange, getDashboards, getWidgets } from './actions'
 import widgetFactory from './widgetFactory'
 import './style.css'
 
-const Dashboard = ({ widgets, tree, onChange, datasources }) => {
+const Dashboard = ({ widgets, tree, onChange }) => {
 
   const widgetsJSX = widgets.map(widgetFactory)
 
@@ -42,11 +42,10 @@ const Dashboard = ({ widgets, tree, onChange, datasources }) => {
 }
 
 export const mapStateToProps =
-  ({ dashboards, widgets, datasources }, { match }) => ({
+  ({ dashboards, widgets }, { match }) => ({
     tree: dashboards[match.params.dashboardId] ?
       dashboards[match.params.dashboardId].tree : null,
     widgets: widgets.filter(widget => widget.dashboardId === +match.params.dashboardId),
-    datasources
   })
 
 export const mapDispatchToProps = (dispatch, { match }) => ({
@@ -82,7 +81,6 @@ const withPropTypes = props({
   onChange: PropTypes.func,
   tree: PropTypes.object,
   widgets: PropTypes.array,
-  datasources: PropTypes.object
 })
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps)

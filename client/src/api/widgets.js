@@ -1,11 +1,10 @@
 import axios from 'axios'
 
 function createWidget(fields) {
-  const { type, name, dashboardId, datasource } = fields
+  const { type, name, dashboardId } = fields
   return axios.post('/api/widgets', {
     type,
     name,
-    datasourceId: datasource,
     dashboardId
   }).then(res => res.data)
 }

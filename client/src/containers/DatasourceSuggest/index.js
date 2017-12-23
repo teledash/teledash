@@ -77,7 +77,6 @@ class DatasourceSuggest extends Component {
             openOnKeyDown={false}
             inputValueRenderer={this.renderInputValue}
             items={valueList}
-            handleBlur={onBlur}
             onItemSelect={this.onItemSelect}
             itemPredicate={this.filterItem}
             itemRenderer={this.renderItem}

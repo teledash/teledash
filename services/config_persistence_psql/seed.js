@@ -59,28 +59,24 @@ const widgets = [
     name: 'Current ISS location',
     type: 'map',
     position: 0,
-    datasourceId: 3,
     dashboardId: 1
   },
   {
     name: 'Current ISS Video Feed',
     type: 'video',
     position: 1,
-    datasourceId: 1,
     dashboardId: 1
   },
   {
     name: 'Temperature',
     type: 'line_graph',
     position: 0,
-    datasourceId: 2,
     dashboardId: 2
   },
   {
     name: 'Temperature2',
     type: 'line_graph',
     position: 1,
-    datasourceId: 2,
     dashboardId: 2
   },
 ]
@@ -88,10 +84,10 @@ const widgets = [
 const mapWidgets = [
   {
     id: 1,
-    mapCenterLat: 'iss_position.latitude',
-    mapCenterLong: 'iss_position.longitude',
-    markerLat: 'iss_position.latitude',
-    markerLong: 'iss_position.longitude',
+    mapCenterLat: '3.iss_position.latitude',
+    mapCenterLong: '3.iss_position.longitude',
+    markerLat: '3.iss_position.latitude',
+    markerLong: '3.iss_position.longitude',
     widgetId: 1
   }
 ]
@@ -99,16 +95,16 @@ const mapWidgets = [
 const lineGraphWidgets = [
   {
     id: 1,
-    x: 'data.timestamp',
-    y: 'data.temperature',
+    x: '2.data.timestamp',
+    y: '2.data.temperature',
     xLabel: 'Time',
     yLabel: 'Temperature C°',
     widgetId: 3
   },
   {
     id: 2,
-    x: 'data.timestamp',
-    y: 'data.temperature',
+    x: '2.data.timestamp',
+    y: '2.data.temperature',
     xLabel: 'Time',
     yLabel: 'Temperature C°',
     widgetId: 4
