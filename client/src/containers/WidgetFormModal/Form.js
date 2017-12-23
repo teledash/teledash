@@ -22,7 +22,6 @@ const Form = ({
   touched,
   errors,
   dirty,
-  datasources,
   mapTypeToFormFields,
   resetForm,
   setTouched,
@@ -75,18 +74,6 @@ const Form = ({
                   dirty,
                 )
               }
-
-              <Select
-                touched={touched.datasource}
-                error={errors.datasource}
-                value={values.datasource}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                options={datasources}
-                label="Datasource"
-                name="datasource"
-                placeholder="Enter a datasource..."
-              />
             </div> : null
         }
         <div className={`${Classes.DIALOG_FOOTER} ${Classes.DARK}`}>

@@ -13,7 +13,6 @@ import {
 } from './mapTypeToForm'
 
 const EnhancedForm = ({
-  datasources,
   values,
   createWidget,
   updateWidget,
@@ -26,7 +25,6 @@ const EnhancedForm = ({
     const errors = {}
     if (!values.name) errors.name = 'Please enter a name'
     if (!values.type) errors.type = 'Please enter a type'
-    if (!values.datasource) errors.datasource = 'Please enter a datasource'
     return { ...errors, ...mapTypeToFormErrors(values) }
   }}
   onSubmit={(
@@ -58,7 +56,6 @@ const EnhancedForm = ({
       values={values}
       errors={errors}
       touched={touched}
-      datasources={datasources}
       handleChange={handleChange}
       cancel={cancel}
       mapTypeToFormFields={mapTypeToFormFields}
@@ -85,11 +82,9 @@ const mapDispatchToProps = (dispatch, { match }) => {
   }
 }
 
-const mapStateToProps = ({ datasources, widgets }, { match }) => ({
+const mapStateToProps = ({ widgets }, { match }) => ({
   values: mapValuesToProps(widgets, match.params.widgetId),
-  editMode: !!match.params.widgetId,
-  datasources: Object.keys(datasources)
-    .map(key => ({ value: key, name: datasources[key].name }))
+  editMode: !!match.params.widgetId
 })
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps)
