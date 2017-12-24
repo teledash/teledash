@@ -1,21 +1,31 @@
 import find from 'lodash/find'
+import flow from 'lodash/flow'
 
 /* Switch submited x and y values from "by name" to "by id" */
+// REFACTOR ME: PLEASE!
 export default function beforeSubmit(values, datasources) {
-  const getName = value => value
-    .match(/\[[^\]]+\]/)[0] // Get the first appearance of a value in square brackets
-    .replace(/[\[\]"]+/g, '') // Remove all strings and square brackets
-
-  const replaceNameWithId = (value, id) =>
+  const replaceNameWithId = id => value =>
     value.replace(/\[[^\]]+\]/, `[${id}]`)
 
   const removeQuotes = value => value.replace(/["]+/g, '')
 
-  const xId = find(datasources, ds => ds.name === getName(values.xValue)).id
-  const yId = find(datasources, ds => ds.name === getName(values.yValue)).id
+  const convertToDotNotation = value =>
+    value.split(/[[\]]/).filter(Boolean).join('.')
 
-  const xValue = removeQuotes(replaceNameWithId(values.xValue, xId))
-  const yValue = removeQuotes(replaceNameWithId(values.yValue, yId))
+  const getName = value => value
+    .match(/\[[^\]]+\]/)[0] // Get the first appearance of a value in square brackets
+    .replace(/[[\]"]+/g, '') // Remove all strings and square brackets
+
+  const getIdByValue = value =>
+    find(datasources, ds => ds.name === getName(value)).id
+  const mapValueToSubmit = value => flow(
+    replaceNameWithId(getIdByValue(value)),
+    convertToDotNotation,
+    removeQuotes,
+  )(value)
+
+  const xValue = mapValueToSubmit(values.xValue)
+  const yValue = mapValueToSubmit(values.yValue)
 
   // If no x or yValue return values as the same as they were passed in
   if (xValue && yValue) {
