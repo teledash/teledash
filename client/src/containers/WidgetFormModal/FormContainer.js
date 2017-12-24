@@ -9,7 +9,8 @@ import Form from './Form'
 import { mapValuesToProps } from './selectors'
 import {
   mapTypeToFormFields,
-  mapTypeToFormErrors
+  mapTypeToFormErrors,
+  beforeSubmit
 } from './mapTypeToForm'
 
 const EnhancedForm = ({
@@ -17,7 +18,8 @@ const EnhancedForm = ({
   createWidget,
   updateWidget,
   cancel,
-  editMode
+  editMode,
+  datasources
 }) => (<Formik
   enableReinitialize
   initialValues={values}
@@ -34,8 +36,9 @@ const EnhancedForm = ({
       setErrors
     }
   ) => {
-    if (editMode) updateWidget(values)
-    else createWidget(values)
+    const valuesToSubmit = beforeSubmit(values, datasources)
+    if (editMode) updateWidget(valuesToSubmit)
+    else createWidget(valuesToSubmit)
   }}
   render={({
     values,
@@ -82,9 +85,10 @@ const mapDispatchToProps = (dispatch, { match }) => {
   }
 }
 
-const mapStateToProps = ({ widgets }, { match }) => ({
+const mapStateToProps = ({ widgets, datasources }, { match }) => ({
   values: mapValuesToProps(widgets, match.params.widgetId),
-  editMode: !!match.params.widgetId
+  editMode: !!match.params.widgetId,
+  datasources
 })
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps)

@@ -5,7 +5,8 @@ import {
 
 import {
   LineGraphFormFields,
-  validateLineGraphFormFields
+  validateLineGraphFormFields,
+  beforeSubmitLineGraph
 } from '../../widgets/LineGraph'
 
 import React from 'react'
@@ -53,4 +54,14 @@ export function mapTypeToFormErrors(values) {
     )
   }
   if (typeof mapper[type] === 'function') return mapper[type]()
+}
+
+export function beforeSubmit(values, datasources) {
+  const { type } = values
+  const mapper = {
+    line_graph: () => beforeSubmitLineGraph(values, datasources),
+    map: null
+  }
+  if (typeof mapper[type] === 'function') return mapper[type]()
+  return values
 }

@@ -1,4 +1,4 @@
-export default function formFieldValidation(
+export default function validateFormFields(
   xValue,
   yValue,
   xLabel,
