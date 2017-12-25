@@ -14,7 +14,7 @@ export default function beforeSubmit(values, datasources) {
 
   const getName = value => value
     .match(/\[[^\]]+\]/)[0] // Get the first appearance of a value in square brackets
-    .replace(/[[\]"]+/g, '') // Remove all strings and square brackets
+    .replace(/[[\]"]+/g, '') // Remove all double quotes and square brackets
 
   const getIdByValue = value =>
     find(datasources, ds => ds.name === getName(value)).id
