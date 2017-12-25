@@ -18,7 +18,7 @@ export default function beforeSubmit(values, datasources) {
 
   const getIdByValue = value =>
     find(datasources, ds => ds.name === getName(value)).id
-  
+
   const mapValueToSubmit = value => flow(
     replaceNameWithId(getIdByValue(value)),
     convertToDotNotation,

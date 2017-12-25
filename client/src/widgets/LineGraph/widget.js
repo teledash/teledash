@@ -21,13 +21,13 @@ class LineGraph extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.data !== nextProps.data &&
-      typeof nextProps.data.x === 'number' &&
-      typeof nextProps.data.y === 'number'
+      typeof nextProps.data.xValue === 'number' &&
+      typeof nextProps.data.yValue === 'number'
     )
       this.setState({
         data: this.state.data.concat({
-          x: +nextProps.data.x,
-          y: +nextProps.data.y
+          x: +nextProps.data.xValue,
+          y: +nextProps.data.yValue
         })
       })
   }
@@ -50,8 +50,8 @@ LineGraph.propTypes = {
   xLabel: PropTypes.string,
   yLabel: PropTypes.string,
   data: PropTypes.shape({
-    x: PropTypes.number,
-    y: PropTypes.number,
+    xValue: PropTypes.number,
+    yValue: PropTypes.number,
   }),
 }
 

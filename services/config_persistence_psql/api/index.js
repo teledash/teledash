@@ -8,7 +8,8 @@ router.use('/widgets', widgets)
 router.use('/datasources', datasources)
 router.use('/dashboards', dashboards)
 
-router.use((req, res, next) => {
+router.use((err, req, res, next) => {
+  console.log(err.stack)
   res.status(404).send('Not found')
 })
 

@@ -1,5 +1,6 @@
 import express from 'express'
-import { Widget, MapWidget, LineGraphWidget } from '../db/models'
+import { Widget, MapWidget, LineGraphWidget } from '../../db/models'
+import createWidget from './createWidget'
 
 const router = express.Router();
 
@@ -17,8 +18,8 @@ router.get('/', (req, res, next) => {
       },
       {
         model: LineGraphWidget, attributes: [
-          'x',
-          'y',
+          'xValue',
+          'yValue',
           'xLabel',
           'yLabel'
         ]
@@ -54,14 +55,12 @@ router.post('/', (req, res, next) => {
   // const widget = Widget.build(req.body)
   // widget.getDashboard({ attributes: ['windowCount'] })
   //   .then(({ windowCount }) => {
-      // We want the array index for position field.
-      // positions are used as non-zero index values in the dashboard.
-
-  Widget
-    .create(req.body)
+  // We want the array index for position field.
+  // positions are used as non-zero index values in the dashboard.
+  createWidget(req.body)
     .then(widget => res.json(widget))
     .catch(next)
-    // })
+  // })
 
 })
 
