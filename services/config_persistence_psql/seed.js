@@ -1,4 +1,5 @@
 import chalk from 'chalk'
+import Promise from 'bluebird'
 import {
   db,
   Dashboard,
@@ -109,17 +110,11 @@ const lineGraphWidgets = [
 ]
 
 const seed = () =>
-  Promise.all(
-    dashboards.map(dashboard => Dashboard.create(dashboard))).then(() => (
-      Promise.all(
-        datasources.map(datasource => Datasource.create(datasource)))
-    ))
-    .then(() => Promise.all(
-      widgets.map(widget => Widget.create(widget))))
-    .then(() => Promise.all(
-      mapWidgets.map(widget => MapWidget.create(widget))))
-    .then(() => Promise.all(
-      lineGraphWidgets.map(widget => LineGraphWidget.create(widget))))
+  Promise.each(dashboards, dashboard => Dashboard.create(dashboard))
+    .then(() => Promise.each(datasources, ds => Datasource.create(ds)))
+    .then(() => Promise.each(widgets, w => Widget.create(w)))
+    .then(() => Promise.each(mapWidgets, w => MapWidget.create(w)))
+    .then(() => Promise.each(lineGraphWidgets, w => LineGraphWidget.create(w)))
 
 const main = () => {
   console.log(chalk.blue('Syncing db...'))

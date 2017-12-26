@@ -15,7 +15,7 @@ function selectData(datasources, fields) {
          FIXME: Warning this check has an edge case... There are some extra
          fields that are not dynamic. This could cause some unexpected behavior...
          For example, a user could unintentionally type an existing datasource path.
-      */
+         */
       const data = datasources[split[0]] ? datasources[split[0]].data : null
       if (data) {
         // If the datasource.data is not empty proceed
@@ -25,7 +25,10 @@ function selectData(datasources, fields) {
           // 1: data[iss]
           // 2: data[iss][position]
           // 3: data[iss][position][latitude]
-          const value = split.slice(1).reduce((acc2, key2) => acc2[key2], data)
+          // We slice to remove the datasourceId from the
+          const value = split.slice(1).reduce((acc2, key2) => {
+            if (acc2) return acc2[key2]
+          }, data)
           // If there is a value, add it to the accumulator
           if (value) acc[key] = value
         }
