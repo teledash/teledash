@@ -26,7 +26,7 @@ class DatasourceSuggest extends Component {
     // Remove spaces from query and make all letters lower case
     const queryMatcher = query.replace(/\s+/g, '').toLowerCase()
     // Remove spaces, square brackets, and quotes from item
-    const itemMatcher = item.replace(/[\[\]"\s]+/g, '').toLowerCase()
+    const itemMatcher = item.replace(/[[\]"\s]+/g, '').toLowerCase()
     return itemMatcher.includes(queryMatcher)
   }
 

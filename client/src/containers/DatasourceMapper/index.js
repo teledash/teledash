@@ -26,9 +26,7 @@ function selectData(datasources, fields) {
           // 2: data[iss][position]
           // 3: data[iss][position][latitude]
           // We slice to remove the datasourceId from the
-          const value = split.slice(1).reduce((acc2, key2) => {
-            if (acc2) return acc2[key2]
-          }, data)
+          const value = split.slice(1).reduce((acc2, key2) => acc2[key2], data)
           // If there is a value, add it to the accumulator
           if (value) acc[key] = value
         }
