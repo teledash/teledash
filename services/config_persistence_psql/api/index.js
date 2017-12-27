@@ -10,7 +10,7 @@ router.use('/dashboards', dashboards)
 
 router.use((err, req, res, next) => {
   console.log(err.stack)
-  res.status(404).send('Not found')
+  res.status(500).send('Internal Server Error')
 })
 
 export default router

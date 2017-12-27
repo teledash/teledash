@@ -10,8 +10,10 @@ export default function createWidget(body) {
     switch (body.type) {
       case 'line_graph':
         return LineGraphWidget.createWidget(widget, fields)
+      case 'map':
+        return MapWidget.createWidget(widget, fields)
       default:
-        return Promise.reject('Not a valid type')
+        throw Error('Attempted to create widget of invalid `type`.')
     }
-  }).catch(error => console.log(error))
+  })
 }

@@ -50,7 +50,8 @@ export function mapTypeToFormErrors(values) {
       values.yLabel
     ),
     map: () => validateMapFormFields(
-      values.mapCenterLat
+      values.markerLat,
+      values.markerLong
     )
   }
   if (typeof mapper[type] === 'function') return mapper[type]()
