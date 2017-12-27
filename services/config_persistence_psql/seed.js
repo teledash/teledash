@@ -84,8 +84,6 @@ const widgets = [
 
 const mapWidgets = [
   {
-    mapCenterLat: '3.iss_position.latitude',
-    mapCenterLong: '3.iss_position.longitude',
     markerLat: '3.iss_position.latitude',
     markerLong: '3.iss_position.longitude',
     widgetId: 1

@@ -10,8 +10,6 @@ router.get('/', (req, res, next) => {
     include: [
       {
         model: MapWidget, attributes: [
-          'mapCenterLat',
-          'mapCenterLong',
           'markerLat',
           'markerLong'
         ]
