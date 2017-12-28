@@ -1,6 +1,7 @@
 import {
   MapFormFields,
-  validateMapFormFields
+  validateMapFormFields,
+  beforeSubmitMap
 } from '../../widgets/Map'
 
 import {
@@ -61,7 +62,7 @@ export function beforeSubmit(values, datasources) {
   const { type } = values
   const mapper = {
     line_graph: () => beforeSubmitLineGraph(values, datasources),
-    map: null
+    map: () => beforeSubmitMap(values, datasources)
   }
   if (typeof mapper[type] === 'function') return mapper[type]()
   return values

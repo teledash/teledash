@@ -84,23 +84,23 @@ const widgets = [
 
 const mapWidgets = [
   {
-    markerLat: '3.iss_position.latitude',
-    markerLong: '3.iss_position.longitude',
+    markerLat: '[3][iss_position][latitude]',
+    markerLong: '[3][iss_position][longitude]',
     widgetId: 1
   }
 ]
 
 const lineGraphWidgets = [
   {
-    xValue: '2.data.timestamp',
-    yValue: '2.data.temperature',
+    xValue: '[2][data][timestamp]',
+    yValue: '[2][data][temperature]',
     xLabel: 'Time',
     yLabel: 'Temperature C°',
     widgetId: 3
   },
   {
-    xValue: '2.data.timestamp',
-    yValue: '2.data.temperature',
+    xValue: '[2][data][timestamp]',
+    yValue: '[2][data][temperature]',
     xLabel: 'Time',
     yLabel: 'Temperature C°',
     widgetId: 4

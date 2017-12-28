@@ -16,5 +16,5 @@ export function mapDatasourcesToValuesList(datasources) {
   // They look like this: `datasourceName.prop1.prop2` etc...
   const keys = Object.keys(flatten(datasourceByName))
   // Convert object paths from `dot` notation to `bracket` notation
-  return keys.map(key => key.split('.').map(prop => `["${prop}"]`).join(''))
+  return keys.map(key => key.split('.').map(prop => `[${prop}]`).join(''))
 }

@@ -10,7 +10,13 @@ function selectData(datasources, fields) {
   if (Object.keys(datasources).length > 0 && fields) {
     // Map each store value to each field `path`
     return Object.keys(fields).reduce((acc, key) => {
-      const split = fields[key].split('.')
+      // Map value from square braket notation to dot notation for easier
+      // manipulation.
+
+      const dotNotation =
+        fields[key].split(/[[\]]/).filter(Boolean).join('.')
+
+      const split = dotNotation.split('.')
       /* Check if field `path` contains an applicable datasource.
          FIXME: Warning this check has an edge case... There are some extra
          fields that are not dynamic. This could cause some unexpected behavior...
