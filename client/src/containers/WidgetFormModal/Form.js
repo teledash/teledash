@@ -26,6 +26,7 @@ const Form = ({
   resetForm,
   setTouched,
   setFieldValue,
+  editMode
 }) => {
   return (
     <div className={`${Classes.DIALOG_BODY}`}>
@@ -72,6 +73,7 @@ const Form = ({
                   setTouched,
                   setFieldValue,
                   dirty,
+                  editMode
                 )
               }
             </div> : null

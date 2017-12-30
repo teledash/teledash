@@ -28,6 +28,7 @@ export function mapTypeToFormFields(
   setTouched,
   setFieldValue,
   dirty,
+  editMode
 ) {
   const mapper = {
     line_graph: LineGraphFormFields,
@@ -45,6 +46,7 @@ export function mapTypeToFormFields(
       setTouched,
       setFieldValue,
       dirty,
+      editMode
     })
 }
 

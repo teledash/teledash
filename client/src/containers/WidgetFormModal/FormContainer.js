@@ -51,9 +51,10 @@ const EnhancedForm = ({
     resetForm,
     setTouched,
     setFieldValue,
-    dirty,
+    dirty
   }) => (
     <Form
+      editMode={editMode}
       handleBlur={handleBlur}
       handleSubmit={handleSubmit}
       values={values}

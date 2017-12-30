@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { DatasourceSuggest } from '../../containers'
+import mapValuesToEditable from './mapValuesToEditable'
 
 class MapFormFields extends Component {
   componentDidMount() {
@@ -11,8 +13,11 @@ class MapFormFields extends Component {
        However, it doesn't work for some unexplained reason.
        https://github.com/jaredpalmer/formik#setvalues-fields--field-string-any---void
     */
-    this.props.setFieldValue('markerLat', '')
-    this.props.setFieldValue('markerLong', '')
+    const { setFieldValue, editMode } = this.props
+    if (!editMode) {
+      setFieldValue('markerLong', '')
+      setFieldValue('markerLat', '')
+    }
   }
 
   render() {
@@ -54,9 +59,8 @@ class MapFormFields extends Component {
   }
 }
 
-export default MapFormFields
-
 MapFormFields.propTypes = {
+  editMode: PropTypes.bool,
   handleChange: PropTypes.func,
   handleBlur: PropTypes.func,
   values: PropTypes.object,
@@ -64,3 +68,9 @@ MapFormFields.propTypes = {
   touched: PropTypes.object,
   setFieldValue: PropTypes.func,
 }
+
+const mapStateToProps = ({ datasources }, { editMode, values }) => ({
+  values: editMode ? mapValuesToEditable(values, datasources) : values
+})
+
+export default connect(mapStateToProps)(MapFormFields)

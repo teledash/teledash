@@ -11,7 +11,10 @@ class VideoFormFields extends Component {
        However, it doesn't work for some unexplained reason.
        https://github.com/jaredpalmer/formik#setvalues-fields--field-string-any---void
     */
-    this.props.setFieldValue('datasourceId', '')
+    const { setFieldValue, editMode } = this.props
+    if (!editMode) {
+      setFieldValue('datasourceId', '')
+    }
   }
 
   render() {
@@ -42,9 +45,11 @@ class VideoFormFields extends Component {
 export default VideoFormFields
 
 VideoFormFields.propTypes = {
+  editMode: PropTypes.bool,
   handleChange: PropTypes.func,
   handleBlur: PropTypes.func,
   values: PropTypes.object,
   errors: PropTypes.object,
   touched: PropTypes.object,
+  setFieldValue: PropTypes.func
 }

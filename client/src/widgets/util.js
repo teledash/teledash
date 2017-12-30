@@ -17,3 +17,6 @@ export function mapValueToSubmitWithId(oldValue, datasources) {
 
   return mapValueToSubmit(oldValue)
 }
+
+export const replaceIdWithName = (value, name) =>
+  value.replace(/\[[^\]]+\]/, `[${name}]`)

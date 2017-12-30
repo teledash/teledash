@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { TextInput } from '../../components'
 import { DatasourceSuggest } from '../../containers'
+import mapValuesToEditable from './mapValuesToEditable'
 
 class LineGraphFormFields extends Component {
   componentDidMount() {
@@ -12,10 +14,13 @@ class LineGraphFormFields extends Component {
        However, it doesn't work for some unexplained reason.
        https://github.com/jaredpalmer/formik#setvalues-fields--field-string-any---void
     */
-    this.props.setFieldValue('xValue', '')
-    this.props.setFieldValue('yValue', '')
-    this.props.setFieldValue('xLabel', '')
-    this.props.setFieldValue('yLabel', '')
+    const { setFieldValue, editMode } = this.props
+    if (!editMode) {
+      setFieldValue('xValue', '')
+      setFieldValue('yValue', '')
+      setFieldValue('xLabel', '')
+      setFieldValue('yLabel', '')
+    }
   }
 
   render() {
@@ -79,9 +84,8 @@ class LineGraphFormFields extends Component {
   }
 }
 
-export default LineGraphFormFields
-
 LineGraphFormFields.propTypes = {
+  editMode: PropTypes.bool,
   handleChange: PropTypes.func,
   handleBlur: PropTypes.func,
   values: PropTypes.object,
@@ -89,3 +93,9 @@ LineGraphFormFields.propTypes = {
   touched: PropTypes.object,
   setFieldValue: PropTypes.func,
 }
+
+const mapStateToProps = ({ datasources }, { editMode, values }) => ({
+  values: editMode ? mapValuesToEditable(values, datasources) : values
+})
+
+export default connect(mapStateToProps)(LineGraphFormFields)

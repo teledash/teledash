@@ -43,11 +43,6 @@ const datasources = [
     url: 'https://www.youtube.com/watch?v=ddFvjfvPnqk'
   },
   {
-    name: 'Eagle Nest Cam',
-    type: 'video',
-    url: 'https://www.youtube.com/watch?v=ka3S94yaWeg'
-  },
-  {
     name: 'Temperature',
     type: 'rest',
     url: '/sim/linegraph/imperfect',
@@ -58,6 +53,11 @@ const datasources = [
     type: 'rest',
     url: 'http://api.open-notify.org/iss-now.json',
     refresh: 5000
+  },
+  {
+    name: 'Eagle Nest Cam',
+    type: 'video',
+    url: 'https://www.youtube.com/watch?v=ka3S94yaWeg'
   }
 ]
 
