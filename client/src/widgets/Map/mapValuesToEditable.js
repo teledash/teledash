@@ -1,20 +1,17 @@
 import { replaceIdWithName } from '../util'
 
 export default function mapValuesToEditable(values, datasources) {
-  if (Object.keys(datasources).length > 0) {
-    const { markerLong, markerLat } = values
-    const longId = markerLong.split(/[[\]]/).filter(Boolean)[0]
-    const latId = markerLat.split(/[[\]]/).filter(Boolean)[0]
+  const { markerLong, markerLat } = values
 
-    const longName = datasources[longId].name
-    const latName = datasources[latId].name
+  const longId = markerLong.split(/[[\]]/).filter(Boolean)[0]
+  const latId = markerLat.split(/[[\]]/).filter(Boolean)[0]
 
-    return {
-      ...values,
-      markerLong: replaceIdWithName(markerLong, longName),
-      markerLat: replaceIdWithName(markerLat, latName),
-    }
+  const longName = datasources[longId] ? datasources[longId].name : null
+  const latName = datasources[latId] ? datasources[latId].name : null
+
+  return {
+    ...values,
+    markerLong: longName ? replaceIdWithName(markerLong, longName) : markerLong,
+    markerLat: latName ? replaceIdWithName(markerLat, latName) : markerLat
   }
-
-  return values
 }
