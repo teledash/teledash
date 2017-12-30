@@ -3,7 +3,8 @@ import {
   Datasource,
   Widget,
   MapWidget,
-  LineGraphWidget
+  LineGraphWidget,
+  VideoWidget
 } from './models' // register models
 import db from './db'
 
@@ -13,5 +14,6 @@ export {
   Widget,
   MapWidget,
   LineGraphWidget,
+  VideoWidget,
   db
 }

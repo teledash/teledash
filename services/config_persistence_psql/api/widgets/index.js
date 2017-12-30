@@ -1,5 +1,11 @@
 import express from 'express'
-import { Widget, MapWidget, LineGraphWidget } from '../../db/models'
+import {
+  Widget,
+  MapWidget,
+  LineGraphWidget,
+  VideoWidget,
+  Datasource
+} from '../../db/models'
 import createWidget from './createWidget'
 
 const router = express.Router();
@@ -21,6 +27,9 @@ router.get('/', (req, res, next) => {
           'xLabel',
           'yLabel'
         ]
+      },
+      {
+        model: VideoWidget, include: [{ model: Datasource }]
       }
     ]
   }).then(widgets => {
@@ -33,12 +42,18 @@ router.get('/', (req, res, next) => {
       const {
         mapWidget,
         lineGraphWidget,
+        videoWidget,
         ...rest
       } = JSON.parse(JSON.stringify(widget))
 
-      if (widget.mapWidget) return { ...rest, extraFields: mapWidget }
+      if (widget.mapWidget)
+        return { ...rest, extraFields: mapWidget }
       if (widget.lineGraphWidget)
         return { ...rest, extraFields: lineGraphWidget }
+      if (widget.videoWidget)
+        return {
+          ...rest, extraFields: { url: widget.videoWidget.datasource.url }
+        }
 
       return rest
     })

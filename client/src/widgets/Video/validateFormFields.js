@@ -1,5 +1,5 @@
-export default function validateFormFields(datasource) {
+export default function validateFormFields(datasourceId) {
   const errors = {}
-  if (!datasource) errors.datasource = 'Please enter a datasource'
+  if (!datasourceId) errors.datasourceId = 'Please enter a datasource'
   return errors
 }

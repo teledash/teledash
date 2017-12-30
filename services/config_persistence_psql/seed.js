@@ -6,7 +6,8 @@ import {
   Datasource,
   Widget,
   MapWidget,
-  LineGraphWidget
+  LineGraphWidget,
+  VideoWidget
 } from './db'
 
 const dashboards = [
@@ -40,6 +41,11 @@ const datasources = [
     name: 'ISS Feed',
     type: 'video',
     url: 'https://www.youtube.com/watch?v=ddFvjfvPnqk'
+  },
+  {
+    name: 'Eagle Nest Cam',
+    type: 'video',
+    url: 'https://www.youtube.com/watch?v=ka3S94yaWeg'
   },
   {
     name: 'Temperature',
@@ -82,6 +88,13 @@ const widgets = [
   },
 ]
 
+const videoWidgets = [
+  {
+    datasourceId: 1,
+    widgetId: 2
+  }
+]
+
 const mapWidgets = [
   {
     markerLat: '[3][iss_position][latitude]',
@@ -113,6 +126,7 @@ const seed = () =>
     .then(() => Promise.each(widgets, w => Widget.create(w)))
     .then(() => Promise.each(mapWidgets, w => MapWidget.create(w)))
     .then(() => Promise.each(lineGraphWidgets, w => LineGraphWidget.create(w)))
+    .then(() => Promise.each(videoWidgets, w => VideoWidget.create(w)))
 
 const main = () => {
   console.log(chalk.blue('Syncing db...'))

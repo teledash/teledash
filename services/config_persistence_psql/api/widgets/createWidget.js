@@ -1,4 +1,9 @@
-import { Widget, MapWidget, LineGraphWidget } from '../../db/models'
+import {
+  Widget,
+  MapWidget,
+  LineGraphWidget,
+  VideoWidget
+} from '../../db/models'
 
 export default function createWidget(body) {
   const { name, type, dashboardId, ...fields } = body
@@ -12,6 +17,8 @@ export default function createWidget(body) {
         return LineGraphWidget.createWidget(widget, fields)
       case 'map':
         return MapWidget.createWidget(widget, fields)
+      case 'video':
+        return VideoWidget.createWidget(widget, fields)
       default:
         throw Error('Attempted to create widget of invalid `type`.')
     }

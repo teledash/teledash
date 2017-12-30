@@ -61,7 +61,7 @@ export function mapTypeToFormErrors(values) {
       values.markerLat,
       values.markerLong
     ),
-    video: () => validateVideoFormFields(values.datasource)
+    video: () => validateVideoFormFields(values.datasourceId)
   }
   if (typeof mapper[type] === 'function') return mapper[type]()
 }

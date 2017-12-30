@@ -11,7 +11,7 @@ class VideoFormFields extends Component {
        However, it doesn't work for some unexplained reason.
        https://github.com/jaredpalmer/formik#setvalues-fields--field-string-any---void
     */
-    this.props.setFieldValue('datasource', '')
+    this.props.setFieldValue('datasourceId', '')
   }
 
   render() {
@@ -26,13 +26,13 @@ class VideoFormFields extends Component {
     return (
       <DatasourceNameSelect
         type="video"
-        touched={touched.datasource}
-        error={errors.datasource}
+        touched={touched.datasourceId}
+        error={errors.datasourceId}
         onChange={handleChange}
         onBlur={handleBlur}
-        value={values.datasource || '' /* Silence controlled/controlled component error */}
+        value={values.datasourceId || '' /* Silence controlled/controlled component error */}
         label="Video Datasource"
-        name="datasource"
+        name="datasourceId"
         placeholder="Select a video datasource..."
       />
     )
