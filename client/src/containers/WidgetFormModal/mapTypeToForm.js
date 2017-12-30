@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
   MapFormFields,
   validateMapFormFields,
@@ -10,7 +12,11 @@ import {
   beforeSubmitLineGraph
 } from '../../widgets/LineGraph'
 
-import React from 'react'
+import {
+  VideoFormFields,
+  validateVideoFormFields,
+} from '../../widgets/Video'
+
 
 export function mapTypeToFormFields(
   type,
@@ -25,7 +31,8 @@ export function mapTypeToFormFields(
 ) {
   const mapper = {
     line_graph: LineGraphFormFields,
-    map: MapFormFields
+    map: MapFormFields,
+    video: VideoFormFields
   }
 
   if (mapper[type])
@@ -53,7 +60,8 @@ export function mapTypeToFormErrors(values) {
     map: () => validateMapFormFields(
       values.markerLat,
       values.markerLong
-    )
+    ),
+    video: () => validateVideoFormFields(values.datasource)
   }
   if (typeof mapper[type] === 'function') return mapper[type]()
 }
