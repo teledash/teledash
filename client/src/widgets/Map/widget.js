@@ -1,7 +1,7 @@
 import React from 'react'
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
 import PropTypes from 'prop-types'
-import { googleKey } from './api-keys'
+import { googleKey } from '../../api-keys'
 
 const googleEndpoint =
   `https://maps.googleapis.com/maps/api/js?key=${googleKey}&v=3.exp&libraries=geometry,drawing,places`
@@ -23,6 +23,11 @@ const MapWithAMarker = withScriptjs(withGoogleMap(({
   )
 }))
 
+MapWithAMarker.propTypes = {
+  markerLat: PropTypes.number,
+  markerLong: PropTypes.number
+}
+
 export default class Map extends React.Component {
   render() {
     const {
@@ -42,11 +47,8 @@ export default class Map extends React.Component {
   }
 }
 
-MapWithAMarker.propTypes = {
-  // data: PropTypes.shape({
-  markerLat: PropTypes.number,
-  markerLong: PropTypes.number
-  // })
+Map.propTypes = {
+  data: PropTypes.object
 }
 
 Map.defaultProps = {
