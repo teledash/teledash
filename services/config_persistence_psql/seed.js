@@ -63,7 +63,7 @@ const datasources = [
 
 const widgets = [
   {
-    name: 'Current ISS location',
+    name: 'ISS location',
     type: 'map',
     position: 0,
     dashboardId: 1

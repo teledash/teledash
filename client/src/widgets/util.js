@@ -1,8 +1,8 @@
 import find from 'lodash/find'
 
 /* Switch submited from "by name" to "by id" */
-export function mapValueToSubmitWithId(oldValue, datasources) {
-  const replaceNameWithId = id => value =>
+export function mapValueToSubmitWithId(originalValue, datasources) {
+  const replaceNameWithId = (id, value) =>
     value.replace(/\[[^\]]+\]/, `[${id}]`)
 
   const getName = value => value
@@ -13,9 +13,9 @@ export function mapValueToSubmitWithId(oldValue, datasources) {
     find(datasources, ds => ds.name === getName(value)).id
 
   const mapValueToSubmit = value =>
-    replaceNameWithId(getIdByValue(value))(value)
+    replaceNameWithId(getIdByValue(value), value)
 
-  return mapValueToSubmit(oldValue)
+  return mapValueToSubmit(originalValue)
 }
 
 export const replaceIdWithName = (value, name) =>

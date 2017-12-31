@@ -13,8 +13,12 @@ class MapFormFields extends Component {
        However, it doesn't work for some unexplained reason.
        https://github.com/jaredpalmer/formik#setvalues-fields--field-string-any---void
     */
-    const { setFieldValue, editMode } = this.props
-    if (!editMode) {
+    const { setFieldValue, editMode, values } = this.props
+    // Values will get set by props. In our case using connect.
+    if (editMode) {
+      setFieldValue('markerLong', values.markerLong)
+      setFieldValue('markerLat', values.markerLat)
+    } else {
       setFieldValue('markerLong', '')
       setFieldValue('markerLat', '')
     }
@@ -29,7 +33,6 @@ class MapFormFields extends Component {
       touched,
       setFieldValue
     } = this.props
-
     return (
       <div>
         <DatasourceSuggest
