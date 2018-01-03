@@ -10,25 +10,35 @@ MapWidget.createWidget = function (widget, fields) {
   return this.create(fields)
     .then(mapWidget => {
       mapWidget.setWidget(widget)
-
-      const { id, dashboardId, name, type } = widget
-
-      const {
-        markerLat,
-        markerLong
-      } = mapWidget
-
-      return {
-        id,
-        name,
-        type,
-        dashboardId,
-        extraFields: {
-          markerLat,
-          markerLong
-        }
-      }
+      return this.project(widget, fields)
     })
+}
+
+MapWidget.updateWidget = function (widget, fields) {
+  return this.update(fields, {
+    where: {
+      widgetId: widget.id
+    },
+    returning: true,
+    plain: true
+  })
+  .spread((numOfAffectedWidgets, mapWidget) => this.project(widget, fields))
+}
+
+MapWidget.project = function (widget, fields) {
+  const { id, dashboardId, name, type } = widget
+  const { markerLat, markerLong } = fields
+
+  return {
+    id,
+    name,
+    type,
+    dashboardId,
+    extraFields: {
+      markerLat,
+      markerLong
+    }
+  }
 }
 
 export default MapWidget

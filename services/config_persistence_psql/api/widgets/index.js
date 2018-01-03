@@ -6,7 +6,7 @@ import {
   VideoWidget,
   Datasource
 } from '../../db/models'
-import { createWidget } from './controller'
+import { createWidget, updateWidget } from './controller'
 
 const router = express.Router();
 
@@ -79,8 +79,8 @@ router.post('/', (req, res, next) => {
 
 // PUT api/widgets
 router.put('/:id', ({ body, params }, res, next) => {
-  updateWidget(req.body, params.id)
-    .spread((numberOfAffectedRows, affectedRows) => res.send(affectedRows))
+  updateWidget(body, params.id)
+    .then(widget => res.status(202).send(widget))
     .catch(next)
 })
 

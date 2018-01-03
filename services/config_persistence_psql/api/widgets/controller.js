@@ -30,10 +30,12 @@ export function createWidget(body) {
 
 export function updateWidget(body, id) {
   const { name, type, dashboardId, ...fields } = body
-  Widget.update(body, {
+  return Widget.update(body, {
     where: { id },
     returning: true, // needed for affectedRows to be populated
     plain: true // makes sure that the returned instances are just plain objects
-  }).then(widget => widgetAction('update', type, widget, fields))
+  })
+    .spread((numOfAffectedWidgets, widget) =>
+      widgetAction('update', type, widget, fields))
 }
 
