@@ -31,22 +31,29 @@ const Form = ({
   return (
     <div className={`${Classes.DIALOG_BODY}`}>
       <form onSubmit={handleSubmit}>
-        <Select
-          touched={touched.type}
-          error={errors.type}
-          value={values.type}
-          onChange={(evt) => {
-            // Reset the form on each change so that
-            // inactive fields will be ignored
-            resetForm()
-            handleChange(evt)
-          }}
-          onBlur={handleBlur}
-          options={config.widgetTypes}
-          label="Type"
-          name="type"
-          placeholder="Enter a type..."
-        />
+        {
+          // Only show `Select` to change widget type when in `widget creation mode`.
+          !editMode ?
+            <Select
+              touched={touched.type}
+              error={errors.type}
+              value={values.type}
+              onChange={(evt) => {
+                // Reset the form on each change so that
+                // inactive fields will be ignored
+                resetForm()
+                handleChange(evt)
+              }}
+              onBlur={handleBlur}
+              options={config.widgetTypes}
+              label="Type"
+              name="type"
+              placeholder="Enter a type..."
+            />
+            :
+            null
+        }
+
 
         {
           values.type ?
