@@ -12,29 +12,43 @@ LineGraphWidget.createWidget = function (widget, fields) {
   return this.create(fields)
     .then(lineGraphWidget => {
       lineGraphWidget.setWidget(widget)
-
-      const { id, dashboardId, name, type} = widget
-
-      const {
-        xValue,
-        yValue,
-        xLabel,
-        yLabel
-      } = lineGraphWidget
-
-      return {
-        id,
-        name,
-        type,
-        dashboardId,
-        extraFields: {
-          xValue,
-          yValue,
-          xLabel,
-          yLabel
-        }
-      }
+      return this.project(widget, lineGraphWidget)
     })
+}
+
+LineGraphWidget.updateWidget = function (widget, fields) {
+  return this.update(fields, {
+    where: {
+      widgetId: widget.id
+    },
+    returning: true,
+    plain: true
+  })
+    .spread((numOfAffectedWidgets, lineGraphWidget) => this.project(widget, lineGraphWidget))
+}
+
+LineGraphWidget.project = function (widget, fields) {
+  const { id, dashboardId, name, type } = widget
+
+  const {
+    xValue,
+    yValue,
+    xLabel,
+    yLabel
+  } = fields
+
+  return {
+    id,
+    name,
+    type,
+    dashboardId,
+    extraFields: {
+      xValue,
+      yValue,
+      xLabel,
+      yLabel
+    }
+  }
 }
 
 export default LineGraphWidget;

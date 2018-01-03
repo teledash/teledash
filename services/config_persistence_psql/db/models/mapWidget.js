@@ -10,7 +10,7 @@ MapWidget.createWidget = function (widget, fields) {
   return this.create(fields)
     .then(mapWidget => {
       mapWidget.setWidget(widget)
-      return this.project(widget, fields)
+      return this.project(widget, mapWidget)
     })
 }
 
@@ -22,7 +22,7 @@ MapWidget.updateWidget = function (widget, fields) {
     returning: true,
     plain: true
   })
-  .spread((numOfAffectedWidgets, mapWidget) => this.project(widget, fields))
+  .spread((numOfAffectedWidgets, mapWidget) => this.project(widget, mapWidget))
 }
 
 MapWidget.project = function (widget, fields) {
