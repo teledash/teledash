@@ -10,26 +10,30 @@ function selectData(datasources, fields) {
   if (Object.keys(datasources).length > 0 && fields) {
     // Map each store value to each field `path`
     return Object.keys(fields).reduce((acc, key) => {
-      // Split property `path` using square brackets as dileanators
-      const split = fields[key].split(/[[\]]/).filter(Boolean)
-      /* Check if field `path` contains an applicable datasource.
-         FIXME: Warning this check has an edge case... There are some extra
-         fields that are not dynamic. This could cause some unexpected behavior...
-         For example, a user could unintentionally type an existing datasource path.
-         */
-      const data = datasources[split[0]] ? datasources[split[0]].data : null
-      if (data) {
-        // If the datasource.data is not empty proceed
-        if (Object.keys(data).length > 0) {
-          // Get the data value by adding a square bracket to each iteration.
-          // Example:
-          // 1: data[iss]
-          // 2: data[iss][position]
-          // 3: data[iss][position][latitude]
-          // We slice to remove the datasourceId from the
-          const value = split.slice(1).reduce((acc2, key2) => acc2[key2], data)
-          // If there is a value, add it to the accumulator
-          if (value) acc[key] = value
+      // Check first if the field `path` is a string that can be split.
+      // Sometimes it is not of type string. For example: in the case of a datasourceId
+      if (typeof fields[key].split === 'function') {
+        // Split property `path` using square brackets as dileanators
+        const split = fields[key].split(/[[\]]/).filter(Boolean)
+        /* Check if field `path` contains an applicable datasource.
+           FIXME: Warning this check has an edge case... There are some extra
+           fields that are not dynamic. This could cause some unexpected behavior...
+           For example, a user could unintentionally type an existing datasource path.
+           */
+        const data = datasources[split[0]] ? datasources[split[0]].data : null
+        if (data) {
+          // If the datasource.data is not empty proceed
+          if (Object.keys(data).length > 0) {
+            // Get the data value by adding a square bracket to each iteration.
+            // Example:
+            // 1: data[iss]
+            // 2: data[iss][position]
+            // 3: data[iss][position][latitude]
+            // We slice to remove the datasourceId from the
+            const value = split.slice(1).reduce((acc2, key2) => acc2[key2], data)
+            // If there is a value, add it to the accumulator
+            if (value) acc[key] = value
+          }
         }
       }
       return acc

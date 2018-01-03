@@ -8,7 +8,7 @@ import {
 } from '../../db/models'
 import { createWidget, updateWidget } from './controller'
 
-const router = express.Router();
+const router = express.Router()
 
 // GET api/widgets
 router.get('/', (req, res, next) => {
@@ -47,12 +47,15 @@ router.get('/', (req, res, next) => {
       } = JSON.parse(JSON.stringify(widget))
 
       if (widget.mapWidget)
-        return { ...rest, extraFields: mapWidget }
+      return { ...rest, extraFields: mapWidget }
       if (widget.lineGraphWidget)
-        return { ...rest, extraFields: lineGraphWidget }
+      return { ...rest, extraFields: lineGraphWidget }
       if (widget.videoWidget)
         return {
-          ...rest, extraFields: { url: widget.videoWidget.datasource.url }
+          ...rest, extraFields: {
+            url: widget.videoWidget.datasource.url,
+            datasourceId: widget.videoWidget.datasource.id
+          }
         }
 
       return rest
