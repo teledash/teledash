@@ -11,10 +11,9 @@ MapWidget.createWidget = function (widget, fields) {
     .then(mapWidget => {
       mapWidget.setWidget(widget)
 
-      const { dashboardId, name, type } = widget
+      const { id, dashboardId, name, type } = widget
 
       const {
-        id,
         markerLat,
         markerLong
       } = mapWidget

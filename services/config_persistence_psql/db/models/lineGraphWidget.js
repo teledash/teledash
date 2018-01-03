@@ -13,9 +13,9 @@ LineGraphWidget.createWidget = function (widget, fields) {
     .then(lineGraphWidget => {
       lineGraphWidget.setWidget(widget)
 
-      const { dashboardId, name, type} = widget
+      const { id, dashboardId, name, type} = widget
+
       const {
-        id,
         xValue,
         yValue,
         xLabel,

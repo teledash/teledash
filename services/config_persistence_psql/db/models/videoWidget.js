@@ -9,12 +9,12 @@ VideoWidget.createWidget = function (widget, { datasourceId }) {
       videoWidget.setWidget(widget)
       videoWidget.setDatasource(datasourceId)
 
-      const { dashboardId, name, type } = widget
+      const { id, dashboardId, name, type } = widget
 
       return videoWidget.getDatasource()
         .then(({ url }) => {
         return {
-          id: videoWidget.id,
+          id,
           name,
           type,
           dashboardId,
