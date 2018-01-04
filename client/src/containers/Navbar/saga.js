@@ -9,14 +9,22 @@ import {
 import api from '../../api/dashboards'
 
 export function* getNewDashboard() {
-  const dashboard = yield call(api.createDashboard)
-  yield put({ type: RECEIVE_DASHBOARD, dashboard })
-  yield put(push((`/dashboard/${dashboard.id}`)))
+  try {
+    const dashboard = yield call(api.createDashboard)
+    yield put({ type: RECEIVE_DASHBOARD, dashboard })
+    yield put(push((`/dashboard/${dashboard.id}`)))
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export function* updateDashboardName({ name, id }) {
-  const dashboard = yield call(api.updateDashboard, { name }, id)
-  yield put({ type: RECEIVE_DASHBOARD, dashboard })
+  try {
+    const dashboard = yield call(api.updateDashboard, { name }, id)
+    yield put({ type: RECEIVE_DASHBOARD, dashboard })
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export default function* navbarSaga() {

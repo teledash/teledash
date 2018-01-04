@@ -6,8 +6,12 @@ import {
 import { fetchData } from '../../api/dataManager'
 
 export function* getRestData({ url, id }) {
-  const data = yield call(fetchData, url)
-  yield put({ type: RECEIVE_REST_DATA, data, datasourceId: id })
+  try {
+    const data = yield call(fetchData, url)
+    yield put({ type: RECEIVE_REST_DATA, data, datasourceId: id })
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export default function* dataManagerSaga() {

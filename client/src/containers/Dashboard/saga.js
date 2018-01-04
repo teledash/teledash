@@ -12,18 +12,30 @@ import dashboardAPI from '../../api/dashboards'
 import widgetAPI from '../../api/widgets'
 
 function* getDashboards() {
-  const dashboards = yield call(dashboardAPI.getDashboards)
-  yield put({ type: RECEIVE_DASHBOARDS, dashboards })
+  try {
+    const dashboards = yield call(dashboardAPI.getDashboards)
+    yield put({ type: RECEIVE_DASHBOARDS, dashboards })
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 function* updateDashboardTree({ tree, id }) {
-  const dashboard = yield call(dashboardAPI.updateDashboard, { tree }, id)
-  yield put({ type: RECEIVE_DASHBOARD, dashboard })
+  try {
+    const dashboard = yield call(dashboardAPI.updateDashboard, { tree }, id)
+    yield put({ type: RECEIVE_DASHBOARD, dashboard })
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 function* getWidgets() {
-  const widgets = yield call(widgetAPI.getWidgets)
-  yield put({ type: RECEIVE_WIDGETS, widgets })
+  try {
+    const widgets = yield call(widgetAPI.getWidgets)
+    yield put({ type: RECEIVE_WIDGETS, widgets })
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export default function* dashboardSaga() {
