@@ -7,28 +7,28 @@ import { connect } from 'react-redux'
 import { createDashboard } from './actions'
 import EntityMenu from './EntityMenu'
 
-const mapStateToProps = ({ dashboards }) => ({
-  items: Object.keys(dashboards)
-    .map(id => ({ id, name: dashboards[id].name }))
+const mapStateToProps = ({ datasources }) => ({
+  items: Object.keys(datasources)
+    .map(id => ({ id, name: datasources[id].name }))
 })
 
 const mapDispatchToProps = dispatch => ({
   create: () => dispatch(createDashboard())
 })
 
-const DashboardMenuContainer =
+const DatasourceMenuContainer =
   connect(mapStateToProps, mapDispatchToProps)(EntityMenu)
 
-const DashboardsButton = () => (
+const DatasourcesButton = () => (
   <Popover
-    content={<DashboardMenuContainer path="dashboard" />}
+    content={<DatasourceMenuContainer path="datasource" />}
     position={Position.BOTTOM_RIGHT}
   >
     <button
-      className="pt-button pt-minimal pt-icon-dashboard"
-    >Dashboards
+      className="pt-button pt-minimal pt-icon-database"
+    >Datasources
     </button>
   </Popover>
 )
 
-export default DashboardsButton
+export default DatasourcesButton
