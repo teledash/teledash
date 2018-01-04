@@ -1,4 +1,6 @@
 import { put, takeLatest, all, call } from 'redux-saga/effects'
+import { delay } from 'redux-saga'
+
 import {
   GET_DASHBOARDS,
   RECEIVE_DASHBOARDS,
@@ -22,6 +24,8 @@ function* getDashboards() {
 
 function* updateDashboardTree({ tree, id }) {
   try {
+    // This needs to be debounced because the action can be triggered many times at once
+    yield call(delay, 500)
     const dashboard = yield call(dashboardAPI.updateDashboard, { tree }, id)
     yield put({ type: RECEIVE_DASHBOARD, dashboard })
   } catch (error) {
