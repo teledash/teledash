@@ -15,10 +15,14 @@ const dashboards = [
     name: 'ISS Tracker',
     tree: {
       direction: 'row',
-      first: 1,
-      second: 2
+      first: {
+        first: 1,
+        second: 2,
+        direction: 'column'
+      },
+      second: 3
     },
-    windowCount: 2,
+    windowCount: 3
   },
   {
     name: 'Dashboard 2',
@@ -65,26 +69,32 @@ const widgets = [
   {
     name: 'ISS location',
     type: 'map',
-    position: 0,
+    position: 1,
     dashboardId: 1
   },
   {
     name: 'Current ISS Video Feed',
     type: 'video',
-    position: 1,
+    position: 2,
     dashboardId: 1
   },
   {
     name: 'Temperature',
     type: 'line_graph',
-    position: 0,
+    position: 1,
     dashboardId: 2
   },
   {
     name: 'Temperature2',
     type: 'line_graph',
-    position: 1,
+    position: 2,
     dashboardId: 2
+  },
+  {
+    name: 'Temperature3',
+    type: 'line_graph',
+    position: 3,
+    dashboardId: 1
   },
 ]
 
@@ -117,6 +127,13 @@ const lineGraphWidgets = [
     xLabel: 'Time',
     yLabel: 'Temperature C°',
     widgetId: 4
+  },
+  {
+    xValue: '[2][data][timestamp]',
+    yValue: '[2][data][temperature]',
+    xLabel: 'Time',
+    yLabel: 'Temperature C°',
+    widgetId: 5
   }
 ]
 

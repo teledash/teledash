@@ -20,11 +20,12 @@ function widgetAction(actionType, widgetType, widget, fields) {
 }
 
 export function createWidget(body) {
-  const { name, type, dashboardId, ...fields } = body
+  const { name, type, dashboardId, position, ...fields } = body
   return Widget.create({
     name,
     type,
-    dashboardId
+    dashboardId,
+    position
   }).then(widget => widgetAction('create', type, widget, fields))
 }
 

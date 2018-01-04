@@ -22,7 +22,13 @@ export function* addWidget(action) {
     yield call(dashboardAPI.updateDashboard, { windowCount, tree }, dashboardId)
   yield put({ type: RECEIVE_DASHBOARD, dashboard })
   const widget =
-    yield call(widgetAPI.createWidget, { ...formData, dashboardId })
+    yield call(widgetAPI.createWidget, {
+      ...formData,
+      dashboardId,
+      // The windowCount will be tied to this position. If I reposition this widget
+      // on the dashboard, that `window ID` will remain the same as this position.
+      position: windowCount
+    })
   yield put({ type: GET_WIDGET, widget })
 }
 

@@ -26,7 +26,7 @@ MapWidget.updateWidget = function (widget, fields) {
 }
 
 MapWidget.project = function (widget, fields) {
-  const { id, dashboardId, name, type } = widget
+  const { id, dashboardId, name, type, position } = widget
   const { markerLat, markerLong } = fields
 
   return {
@@ -34,6 +34,7 @@ MapWidget.project = function (widget, fields) {
     name,
     type,
     dashboardId,
+    position,
     extraFields: {
       markerLat,
       markerLong

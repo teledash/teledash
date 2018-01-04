@@ -28,7 +28,7 @@ LineGraphWidget.updateWidget = function (widget, fields) {
 }
 
 LineGraphWidget.project = function (widget, fields) {
-  const { id, dashboardId, name, type } = widget
+  const { id, dashboardId, name, type, position } = widget
 
   const {
     xValue,
@@ -42,6 +42,7 @@ LineGraphWidget.project = function (widget, fields) {
     name,
     type,
     dashboardId,
+    position,
     extraFields: {
       xValue,
       yValue,

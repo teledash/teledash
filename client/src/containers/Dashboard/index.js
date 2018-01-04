@@ -13,8 +13,11 @@ import widgetFactory from './widgetFactory'
 import './style.css'
 
 const Dashboard = ({ widgets, tree, onChange }) => {
-
-  const widgetsJSX = widgets.map(widgetFactory)
+  const widgetsJSX = widgets
+    // We sort the widgets to the order that the `dashboard tree` expects
+    .sort((w1, w2) => w1.position - w2.position)
+    // We convert each `widget object` to a `widget component` with the correct props passed in
+    .map(widgetFactory)
 
   return (
     <Mosaic
@@ -23,6 +26,7 @@ const Dashboard = ({ widgets, tree, onChange }) => {
           path={path}
           toolbarControls={
             <SettingsButton widgetId={
+              // Arrays are zero-based, but windowCount is one-based
               widgets[count - 1] && widgets[count - 1].id
             }
             />

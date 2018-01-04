@@ -28,12 +28,13 @@ VideoWidget.updateWidget = function (widget, { datasourceId }) {
 }
 
 VideoWidget.project = function (widget, { datasourceId, url }) {
-  const { id, dashboardId, name, type } = widget
+  const { id, dashboardId, name, type, position } = widget
   return {
     id,
     name,
     type,
     dashboardId,
+    position,
     extraFields: {
       url,
       datasourceId
