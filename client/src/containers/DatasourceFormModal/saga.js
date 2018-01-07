@@ -22,9 +22,9 @@ export function* addDatasource(action) {
 
 export function* editDatasource(action) {
   try {
-    const { dashboardId, widgetId, formData } = action.payload
+    const { dashboardId, datasourceId, formData } = action.payload
     const datasource =
-    yield call(api.updateDatasource, formData, widgetId)
+      yield call(api.updateDatasource, formData, datasourceId)
     yield put({ type: GET_UPDATED_DATASOURCE, datasource })
     yield put(push(`/dashboard/${dashboardId}`))
   } catch (error) {

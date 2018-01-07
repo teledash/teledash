@@ -82,7 +82,7 @@ const mapDispatchToProps = (dispatch, { match }) => {
 
 const mapStateToProps = ({ datasources }, { match }) => ({
   values: mapValuesToProps(datasources, match.params.datasourceId),
-  editMode: !!match.params.widgetId,
+  editMode: !!match.params.datasourceId,
   datasources
 })
 

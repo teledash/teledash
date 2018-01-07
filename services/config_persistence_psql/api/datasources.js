@@ -26,8 +26,14 @@ router.post('/', (req, res, next) => {
 })
 
 // PUT api/datasources
-router.put('/:id', (req, res, next) => {
-  res.send('TODO')
+router.put('/:id', ({ body, params }, res, next) => {
+  Datasource.update(body, {
+      where: { id: params.id },
+      returning: true,
+      plain: true
+  }).spread((numberOfAffected, updatedDatasource) => {
+    res.json(updatedDatasource)
+  })
 })
 
 // DELETE api/datasources

@@ -39,6 +39,11 @@ const App = () => (
         path="/dashboard/:dashboardId/datasource/new"
         component={DatasourceFormModal}
       />
+      <Route
+        exact
+        path="/dashboard/:dashboardId/datasource/:datasourceId"
+        component={DatasourceFormModal}
+      />
     </Switch>
 
   </div>

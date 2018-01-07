@@ -4,6 +4,7 @@ import {
   Position
 } from '@blueprintjs/core'
 import { push } from 'react-router-redux'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import EntityMenu from './EntityMenu'
 
@@ -19,9 +20,13 @@ const mapDispatchToProps = dispatch => ({
 const DatasourceMenuContainer =
   connect(mapStateToProps, mapDispatchToProps)(EntityMenu)
 
-const DatasourcesButton = () => (
+const DatasourcesButton = ({ match }) => (
   <Popover
-    content={<DatasourceMenuContainer path="datasource" />}
+    content={
+      <DatasourceMenuContainer
+        path={`dashboard/${match.params.dashboardId}/datasource`}
+      />
+    }
     position={Position.BOTTOM_RIGHT}
   >
     <button
@@ -31,4 +36,4 @@ const DatasourcesButton = () => (
   </Popover>
 )
 
-export default DatasourcesButton
+export default withRouter(DatasourcesButton)

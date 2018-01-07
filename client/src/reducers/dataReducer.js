@@ -8,6 +8,8 @@ import {
 } from '../constants'
 
 export const dataReducer = (state = {}, action = {}) => {
+  const datasourceFactory = () => ({ ...action.datasource, data: {} })
+
   switch (action.type) {
     case RECEIVE_DATASOURCES:
       // Add a data property to each datasource so that widgets can subscribe
@@ -19,9 +21,14 @@ export const dataReducer = (state = {}, action = {}) => {
       }, {})
       return { ...state, ...datasources }
     case GET_DATASOURCE:
-      const datasourceCopy = { ...action.datasource, data: {} }
       return {
-        ...state, [action.datasource.id]: datasourceCopy
+        ...state,
+        [action.datasource.id]: datasourceFactory()
+      }
+    case GET_UPDATED_DATASOURCE:
+      return {
+        ...state,
+        [action.datasource.id]: datasourceFactory()
       }
     case RECEIVE_REST_DATA:
       return {
