@@ -1,13 +1,14 @@
 import React from 'react'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import './style.css'
 import { compose, lifecycle } from 'recompose'
+import './style.css'
 import {
   Dashboard,
   Navbar,
   DataManager,
-  WidgetFormModal
+  WidgetFormModal,
+  DatasourceFormModal
 } from '../'
 
 import { getDatasources } from './actions'
@@ -30,6 +31,13 @@ const App = () => (
         exact
         path="/dashboard/:dashboardId/widget/:widgetId"
         component={WidgetFormModal}
+      />
+    </Switch>
+    <Switch>
+      <Route
+        exact
+        path="/dashboard/:dashboardId/datasource/new"
+        component={DatasourceFormModal}
       />
     </Switch>
 

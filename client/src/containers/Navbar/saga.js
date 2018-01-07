@@ -8,7 +8,7 @@ import {
 
 import api from '../../api/dashboards'
 
-export function* getNewDashboard() {
+export function* createDashboard() {
   try {
     const dashboard = yield call(api.createDashboard)
     yield put({ type: RECEIVE_DASHBOARD, dashboard })
@@ -29,7 +29,7 @@ export function* updateDashboardName({ name, id }) {
 
 export default function* navbarSaga() {
   yield all([
-    takeLatest(CREATE_DASHBOARD, getNewDashboard),
+    takeLatest(CREATE_DASHBOARD, createDashboard),
     takeLatest(UPDATE_DASHBOARD_NAME, updateDashboardName),
   ])
 }

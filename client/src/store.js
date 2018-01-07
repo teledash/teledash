@@ -9,7 +9,9 @@ import navbarSaga from './containers/Navbar/saga'
 import dashboardSaga from './containers/Dashboard/saga'
 import widgetFormSaga from './containers/WidgetFormModal/saga'
 import appSaga from './containers/App/saga'
+import datasourceFormSaga from './containers/DatasourceFormModal/saga'
 import reducers from './reducers'
+
 const sagaMiddleware = createSagaMiddleware()
 
 export default function configureStore(initialState, history) {
@@ -31,7 +33,8 @@ export default function configureStore(initialState, history) {
         call(dataManagerSaga),
         call(navbarSaga),
         call(dashboardSaga),
-        call(widgetFormSaga)
+        call(widgetFormSaga),
+        call(datasourceFormSaga)
       ])
     })
   return store

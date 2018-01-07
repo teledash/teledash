@@ -2,7 +2,9 @@ import reduce from 'lodash/reduce'
 import {
   RECEIVE_DATASOURCES,
   ASSIGN_INTERVAL_ID,
-  RECEIVE_REST_DATA
+  RECEIVE_REST_DATA,
+  GET_DATASOURCE,
+  GET_UPDATED_DATASOURCE
 } from '../constants'
 
 export const dataReducer = (state = {}, action = {}) => {
@@ -16,6 +18,11 @@ export const dataReducer = (state = {}, action = {}) => {
         return acc
       }, {})
       return { ...state, ...datasources }
+    case GET_DATASOURCE:
+      const datasourceCopy = { ...action.datasource, data: {} }
+      return {
+        ...state, [action.datasource.id]: datasourceCopy
+      }
     case RECEIVE_REST_DATA:
       return {
         ...state,

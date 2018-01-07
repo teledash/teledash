@@ -3,8 +3,8 @@ import {
   Popover,
   Position
 } from '@blueprintjs/core'
+import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
-import { createDashboard } from './actions'
 import EntityMenu from './EntityMenu'
 
 const mapStateToProps = ({ datasources }) => ({
@@ -13,7 +13,7 @@ const mapStateToProps = ({ datasources }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  create: () => dispatch(createDashboard())
+  create: () => dispatch(push('/dashboard/1/datasource/new'))
 })
 
 const DatasourceMenuContainer =

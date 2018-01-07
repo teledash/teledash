@@ -18,7 +18,11 @@ router.get('/', (req, res, next) => {
 
 // POST api/datasources
 router.post('/', (req, res, next) => {
-  res.send('TODO')
+  Datasource.create({
+    ...req.body,
+    // FIXME: Make refresh customizable
+    refresh: req.body.type === 'video'  ? null : 5000
+  }).then(datasource => res.json(datasource))
 })
 
 // PUT api/datasources
