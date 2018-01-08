@@ -2,7 +2,7 @@ import find from 'lodash/find'
 
 export function mapValuesToProps(datasources, datasourceId) {
   // datasource is in edit mode
-  if (datasourceId && Object.keys(datasources)) {
+  if (datasourceId && Object.keys(datasources).length > 0) {
     // coerce datasource to string and keep strictly equal sign!
     const datasource =
       find(datasources, ds => +datasourceId === ds.id)
