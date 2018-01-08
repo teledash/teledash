@@ -1,5 +1,5 @@
 import {
-  XYPlot,
+  FlexibleXYPlot,
   LineSeries,
   VerticalGridLines,
   HorizontalGridLines,
@@ -9,7 +9,7 @@ import {
 import React from 'react'
 import PropTypes from 'prop-types'
 import '../../../node_modules/react-vis/dist/style.css'
-
+import './style.css'
 
 class LineGraph extends React.Component {
   constructor(props) {
@@ -34,13 +34,15 @@ class LineGraph extends React.Component {
 
   render() {
     return (
-      <XYPlot height={200} width={425}>
+      <div className="plot-wrapper">
+        <FlexibleXYPlot>
         <LineSeries data={this.state.data} />
         <VerticalGridLines />
         <HorizontalGridLines />
         <XAxis title={this.props.xLabel} />
         <YAxis title={this.props.yLabel} />
-      </XYPlot>
+      </FlexibleXYPlot>
+      </div>
     )
   }
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
 import PropTypes from 'prop-types'
 import { googleKey } from '../../api-keys'
+import './style.css'
 
 const googleEndpoint =
   `https://maps.googleapis.com/maps/api/js?key=${googleKey}&v=3.exp&libraries=geometry,drawing,places`
@@ -39,10 +40,22 @@ export default class Map extends React.Component {
     return (<MapWithAMarker
       markerLat={+markerLat || -34.397}
       markerLong={+markerLong || 150.644}
+      loadingElement={<div style={{ width: '100%', height: `100%` }} />}
+      containerElement={<div style={{
+        position: "relative",
+        paddingTop: "100%"/* Player ratio: 100 / (1280 / 720) */
+      }}
+      />}
+      mapElement={<div style={{
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%',
+      }}
+      />
+      }
       googleMapURL={googleEndpoint}
-      loadingElement={<div style={{ height: `100%` }} />}
-      containerElement={<div style={{ height: `400px` }} />}
-      mapElement={<div style={{ height: `100%` }} />}
     />)
   }
 }
