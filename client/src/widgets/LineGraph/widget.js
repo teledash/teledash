@@ -20,6 +20,7 @@ class LineGraph extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // console.log(nextProps.data.xValue)
     if (this.props.data !== nextProps.data &&
       typeof nextProps.data.xValue === 'number' &&
       typeof nextProps.data.yValue === 'number'
@@ -51,10 +52,10 @@ LineGraph.propTypes = {
   name: PropTypes.string,
   xLabel: PropTypes.string,
   yLabel: PropTypes.string,
-  data: PropTypes.shape({
-    xValue: PropTypes.number,
-    yValue: PropTypes.number,
-  }),
+  // data: PropTypes.shape({
+  //   xValue: PropTypes.number,
+  //   yValue: PropTypes.number,
+  // }),
 }
 
 export default LineGraph
